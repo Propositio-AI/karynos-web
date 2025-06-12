@@ -3,7 +3,7 @@ import { AuthSend } from "@/components/ui/templates/Auth"
 
 const Send = () => {
     return(
-        <CenterContainer className="h-[100vh]">
+        <CenterContainer className="h-scren">
             <AuthSend className="text-center" email="example@domain.com" type="login"/>
         </CenterContainer>
     )

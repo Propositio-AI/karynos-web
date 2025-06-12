@@ -3,7 +3,7 @@ import { AuthForm } from "@/components/ui/templates/Auth"
 
 const Signup = () => {
     return(
-        <CenterContainer className="w-full h-[100vh]">
+        <CenterContainer className="w-full h-screen">
             <AuthForm type="signup"/>
         </CenterContainer>
    )

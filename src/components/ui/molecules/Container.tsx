@@ -1,4 +1,4 @@
-import { BaseContainerProps, StackContainerProps } from "@/types/ui/Molecules";
+import { BaseContainerProps, StackContainerProps, GridContainerType } from "@/types/ui/Molecules";
 
 export const CenterContainer = (props: BaseContainerProps) => {
     return(
@@ -51,3 +51,15 @@ export const HorizontalStackContainer = (props: StackContainerProps) => {
         </div>
     )
 }
+
+export const GridContainer = (props: GridContainerType) => {
+    const gridStyle = {
+        gridTemplateColumns: `repeat(auto-fit, minmax(${props.minWidth}px, 1fr))`,
+    };
+
+    return (
+        <div className={`grid gap-4 p-4 ${props.className}`} style={gridStyle}>
+            {props.children}
+        </div>
+    );
+};

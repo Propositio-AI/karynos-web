@@ -7,3 +7,18 @@ export type AuthSendType = {
 export type AuthFormType = {
     type: "login" | "signup"
 }
+
+export type SideBarFooterType = {
+    className?: string
+}
+
+export type AnimatedSidebarProps = {
+  isOpen: boolean
+  onClose: () => void
+}
+
+
+
+export type StudyActivityType = {
+    activity: number[][]
+}

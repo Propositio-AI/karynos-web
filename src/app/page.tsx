@@ -1,5 +1,10 @@
-
+"use client"
+import { SideBar } from "@/components/ui/templates/SideBar"
 
 export default function Home() {
-    return <h1>aa</h1>
+    return(
+        <>
+            <SideBar isOpen={true} onClose={() => {}}/>
+        </>
+    )
 }
