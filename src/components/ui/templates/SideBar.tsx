@@ -6,15 +6,14 @@ import { IoMdHome, IoMdSearch, IoMdBook } from "react-icons/io";
 import { VerticalStackContainer } from "../molecules/Container";
 import { SideBarFooter } from "../molecules/SideBarFooter";
 import { BaseButton, IconButton } from "../atoms/Button"
-import { AnimatedSidebarProps } from "@/types/ui/Templates";
 
 import { FaXmark } from "react-icons/fa6";
 import { useState } from "react";
 
 const menuItems = [
-    {icon: IoMdHome, label: "ホーム", href: "#"},
-    {icon: IoMdSearch, label: "アーカイブ", href: "#"},
-    {icon: IoMdBook, label: "ダッシュボード", href: "#"},
+    {icon: IoMdHome, label: "ホーム", href: "/"},
+    {icon: IoMdSearch, label: "アーカイブ", href: "/archive"},
+    {icon: IoMdBook, label: "ダッシュボード", href: "/dashboard"},
 ]
 
 const sideBarVariants = {

@@ -155,9 +155,6 @@ const Dashboard = () => {
                         <h2>こんにちは、小林さん</h2>
                         <h3>今日も学習を続けましょう。今週のストロークは7日間です。</h3>
                     </VerticalStackContainer>
-                    <IconButton color="white" icon={<FaBook />}>
-                        <h4>教科書を生成する</h4>
-                    </IconButton>
                 </HorizontalStackContainer>
             </PageContainer>    
             

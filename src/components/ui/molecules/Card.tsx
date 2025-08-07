@@ -2,7 +2,7 @@ import { DashboardCardType, TextBookCardType } from "@/types/ui/Molecules"
 import { HorizontalStackContainer, VerticalStackContainer } from "./Container"
 import { FavoriteButton } from "@/components/ui/atoms/Button";
 import { BaseColumnCardType } from "@/types/ui/Molecules";
-import { FaBook, FaMedal, FaFile, FaNewspaper} from "react-icons/fa";
+import { FaBook, FaMedal, FaFile, FaNewspaper, FaPen} from "react-icons/fa";
 
 
 export const DashboardCard  = (props: DashboardCardType) =>{
@@ -38,7 +38,8 @@ export const BaseColumnCard = (props: BaseColumnCardType) => {
         "definition": "定義", 
         "theorem": "定理", 
         "example": "例題",
-        "column": "コラム" 
+        "column": "コラム", 
+        "furmula": "公式"
     }
 
     const styleMap: Record<string, Record<string, string | React.ReactNode>> = {
@@ -62,7 +63,12 @@ export const BaseColumnCard = (props: BaseColumnCardType) => {
             "root": "border-4 border-green-800",
             "text": "text-green-800",
             "icon": <FaNewspaper />
-       }
+       },
+        "formula": {
+            "root": "border-4 border-pink-300",
+            "text": "text-pink-300",
+            "icon": <FaPen />
+       },
     }
     return(
         <VerticalStackContainer space="4" className={`my-2 p-4 bg-gray-50 shadow-md rounded  ${props.className} ${styleMap[props.type].root}`}>

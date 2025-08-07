@@ -7,32 +7,38 @@ import {motion} from "framer-motion"
 import { FiHeart } from "react-icons/fi";
 
 export const BaseButton = (props: BaseButtonType) => {
-    const colorMap: Record<string, string> = {
-        "black": "bg-black",
-        "white": "bg-white",
-        "transparent": "",
-        "None": "",
-    }
-    const hoverColorMap: Record<string, string> = {
-        "black": "hover:bg-gray-900",
-        "white": "hover:bg-gray-500",
-        "transparent": "hover:bg-gray-100",
-        "None": ""
-    }
-    const textColorMap: Record<string, string> = {
-        "black": "text-white",
-        "white": "text-blue-500",
-        "transparent": "text-black",
-        "None": ""
+    const variants = {
+        black: "bg-black text-white hover:bg-gray-900",
+        white: "bg-white text-blue-500 hover:bg-gray-500",
+        transparent: "text-black hover:bg-gray-100",
+        None: "",
     }
 
-    const color = colorMap[props.color] ?? colorMap["black"]
-    const hoverColor = hoverColorMap[props.color] ?? hoverColorMap["black"]
-    const textColor = textColorMap[props.color] ?? textColorMap["black"]
+    const loading_variants = {
+        black: "border-white",
+        white: "border-black",
+        transparent: "border-black",
+        None: "border-black",
+    }
+
+    const color = variants[props.color] ?? variants["black"]
+    const loading_color = loading_variants[props.color] ?? loading_variants["black"]
 
     return(
-        <button className={`p-2 ${color} ${textColor} rounded-lg ${hoverColor} hover:cursor-pointer ${props.className}`} onClick={props.onClick}>
-            {props.children}
+        <button className={`p-2 ${color} rounded-lg hover:cursor-pointer ${props.className ?? ""}`} onClick={props.onClick} disabled={props.isLoading}>
+            <HorizontalStackContainer space="8">
+                {props.isLoading ? (
+                    <motion.div
+                        className={`mx-auto h-4 w-4 border-2 border-t-transparent ${loading_color}  rounded-full`}
+                        animate={{ rotate: 360 }}
+                        transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
+                    />
+                ) : (
+                    <span className={`w-full text-center ${props.isLoading ? "opacity-50" : "opacity-100"}`}>
+                        {props.children}
+                    </span>
+                )}
+            </HorizontalStackContainer>
         </button>
     )
 }

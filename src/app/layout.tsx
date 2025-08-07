@@ -1,5 +1,5 @@
 "use client"
-
+import 'katex/dist/katex.min.css';
 import { SideBar } from '@/components/ui/templates/SideBar';
 // import type { Metadata } from 'next';
 import './globals.css';

@@ -3,24 +3,19 @@ export type BaseButtonType = {
     children?: React.ReactNode
     className?: string
     variant?: string
+    isLoading?: boolean
     onClick?: () => void
-
 }
 
-export type IconButtonType = {
-    color: "black" | "white" | "transparent"
+export type IconButtonType = BaseButtonType & {
     icon: any
-    children?: React.ReactNode
-    className?: string
-    variant?: string
-    onClick?: () => void
-
 }
 
 export type BaseInputTextType = {
     value?: string
     placeholder?: string
     className?: string
+    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 export type FavoriteButtonType = {

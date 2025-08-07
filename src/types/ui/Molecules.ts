@@ -32,7 +32,7 @@ export type TextBookCardType = {
 }
 
 export type BaseColumnCardType = {
-    type: "definition" | "theorem" | "example" | "column"
+    type: "definition" | "theorem" | "example" | "column" | "formula"
     title?: string
     children?: React.ReactNode
     className?: string
