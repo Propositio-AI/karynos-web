@@ -1,40 +1,49 @@
-import { BaseContainerProps, StackContainerProps, GridContainerType } from "@/types/ui/Molecules";
-
-export const CenterContainer = (props: BaseContainerProps) => {
+type BaseContainerProps = {
+    children?: React.ReactNode
+    className?: string
+}
+export const CenterContainer = ({children, className=""}: BaseContainerProps) => {
     return(
-        <div className={`flex justify-center items-center ${props.className}`}>
-            {props.children}
+        <div className={`flex justify-center items-center ${className}`}>
+            {children}
         </div>
     )
 }
 
-export const PageContainer = (props: BaseContainerProps) => {
+
+export const PageContainer = ({children, className=""}: BaseContainerProps) => {
     return(
-        <div className={`m-2 text-center ${props.className}`}>
-            {props.children}
+        <div className={`m-2 text-center ${className}`}>
+            {children}
         </div>
     )
 }
 
-export const VerticalStackContainer = (props: StackContainerProps) => {    
-    const spaceMap: Record<number, string> = {
-        0: 'space-y-0',
-        1: 'space-y-1',
-        2: 'space-y-2',
-        4: 'space-y-4',
-        8: 'space-y-8',
-    }
+type spaceNumberType = 0 | 1 | 2 | 4 | 8
+const spaceMap: Record<spaceNumberType, string> = {
+    0: 'space-y-0',
+    1: 'space-y-1',
+    2: 'space-y-2',
+    4: 'space-y-4',
+    8: 'space-y-8',
+}
+type StackContainerProps = {
+    children?: React.ReactNode
+    className?: string
+    space?: spaceNumberType
+    onClick?: () => void
+}
+export const VerticalStackContainer = ({children, className="", space=2}: StackContainerProps) => {    
 
-    const space = spaceMap[props.space] ?? ""
 
     return(
-        <div className={`${space} ${props.className}`}>
-            {props.children}
+        <div className={`${spaceMap[space]} ${className}`}>
+            {children}
         </div>
     )
 }
 
-export const HorizontalStackContainer = (props: StackContainerProps) => {    
+export const HorizontalStackContainer = ({children, className="", space=2, onClick}: StackContainerProps) => {    
     const spaceMap: Record<number, string> = {
         0: 'space-x-0',
         1: 'space-x-1',
@@ -43,23 +52,27 @@ export const HorizontalStackContainer = (props: StackContainerProps) => {
         8: 'space-x-8',
     }
 
-    const space = spaceMap[props.space] ?? ""
-
     return(
-        <div className={`flex items-center ${space} ${props.className}`}>
-            {props.children}
+        <div className={`flex items-center ${spaceMap[space]} ${className}`} onClick={onClick}>
+            {children}
         </div>
     )
 }
 
-export const GridContainer = (props: GridContainerType) => {
+type GridContainerType = {
+    children?: React.ReactNode
+    minWidth?: number
+    className?: string
+}
+
+export const GridContainer = ({children, minWidth=300, className=""}: GridContainerType) => {
     const gridStyle = {
-        gridTemplateColumns: `repeat(auto-fit, minmax(${props.minWidth}px, 1fr))`,
+        gridTemplateColumns: `repeat(auto-fit, minmax(${minWidth}px, 1fr))`,
     };
 
     return (
-        <div className={`grid gap-4 p-4 ${props.className}`} style={gridStyle}>
-            {props.children}
+        <div className={`grid gap-4 p-4 ${className}`} style={gridStyle}>
+            {children}
         </div>
     );
 };

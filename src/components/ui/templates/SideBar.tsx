@@ -2,12 +2,11 @@
 
 import { motion, AnimatePresence } from "framer-motion"
 
-import { IoMdHome, IoMdSearch, IoMdBook } from "react-icons/io";
+import { IoMdHome, IoMdSearch, IoMdBook, IoIosClose } from "react-icons/io";
 import { VerticalStackContainer } from "../molecules/Container";
 import { SideBarFooter } from "../molecules/SideBarFooter";
-import { BaseButton, IconButton } from "../atoms/Button"
+import { IconButton } from "../atoms/Button"
 
-import { FaXmark } from "react-icons/fa6";
 import { useState } from "react";
 
 const menuItems = [
@@ -106,12 +105,10 @@ export const SideBar = () => {
                             >
                                 <h1 className="m-2">Karynos</h1>
                                 
-                                <BaseButton variant="ghost" color="transparent" className="rounded-full" onClick={() => setIsOpen(false)}>
-                                    <FaXmark />
-                                </BaseButton>
+                                <IconButton variant="ghost" icon={<IoIosClose />} color="transparent" className="rounded-full" onClick={() => setIsOpen(false)}></IconButton>                                    
                             </motion.div>
                         
-                            <VerticalStackContainer space="1">
+                            <VerticalStackContainer space={1}>
                                 {menuItems.map((item, index) => (
                                     <motion.a
                                         key={index}

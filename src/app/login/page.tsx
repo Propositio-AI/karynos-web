@@ -3,7 +3,7 @@ import { useState } from "react"
 
 import { BaseButton } from "@/components/ui/atoms/Button"
 import { BaseInputText } from "@/components/ui/atoms/Input"
-import { sendMail } from "@/lib/api-client/auth"
+// import { sendMail } from "@/lib/api-client/auth"
 import { VerticalStackContainer, CenterContainer } from "@/components/ui/molecules/Container"
 
 const Login = () => {
@@ -11,20 +11,21 @@ const Login = () => {
     const [message, setMessage] = useState<string>("")
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
-    const sendMailBtn = async () => {
-        setIsLoading((prev) => !prev)
+    // TOOD: 再実装
+    const sendMailBtn = async () => {   
+        // setIsLoading((prev) => !prev)
 
-        const {status, data} = await sendMail({"email": email})
+        // const {status, data} = await sendMail({"email": email})
 
-        if(status == 200){
-            setMessage(`${email}に認証リンクを送信しました。`)
-            setIsLoading((prev) => !prev)   
-        }
+        // if(status == 200){
+        //     setMessage(`${email}に認証リンクを送信しました。`)
+        //     setIsLoading((prev) => !prev)   
+        // }
     }
 
     return( 
         <CenterContainer className="w-full h-screen">    
-            <VerticalStackContainer space="4" className="text-center lg:w-1/4">
+            <VerticalStackContainer space={4} className="text-center lg:w-1/4">
                 <div>
                     <h2>ログイン</h2>
                     <p>メールアドレスを入力してください</p>

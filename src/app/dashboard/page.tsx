@@ -150,8 +150,8 @@ const Dashboard = () => {
     return(
         <div className="mx-32">
             <PageContainer className="p-16 text-start bg-gray-900 text-white rounded-lg">
-                <HorizontalStackContainer space="1">
-                    <VerticalStackContainer className="w-full" space="8">
+                <HorizontalStackContainer space={1}>
+                    <VerticalStackContainer className="w-full" space={8}>
                         <h2>こんにちは、小林さん</h2>
                         <h3>今日も学習を続けましょう。今週のストロークは7日間です。</h3>
                     </VerticalStackContainer>
@@ -165,7 +165,7 @@ const Dashboard = () => {
             </GridContainer>
 
             <GridContainer minWidth={500}>
-                <VerticalStackContainer space="8" className="p-8 shadow-xl rounded-xl h-128 w-full">
+                <VerticalStackContainer space={8} className="p-8 shadow-xl rounded-xl h-128 w-full">
                     <h3>学習時間の推移</h3>
                     <ResponsiveContainer height={"90%"}>
                         <AreaChart
@@ -179,7 +179,7 @@ const Dashboard = () => {
                         </AreaChart>
                     </ResponsiveContainer>
                 </VerticalStackContainer>
-                <VerticalStackContainer space="8" className="w-full p-8 shadow-xl rounded-xl h-128">
+                <VerticalStackContainer space={8} className="w-full p-8 shadow-xl rounded-xl h-128">
                     <h3>学習時間</h3>
                     <GridContainer minWidth={200} className="w-full h-3/4 items-center">
                         <ResponsiveContainer>
@@ -207,7 +207,7 @@ const Dashboard = () => {
                         <GridContainer minWidth={60} className="h-20">
                         {
                             samplePieData.map((subject, index) => (
-                                    <HorizontalStackContainer space="2">
+                                    <HorizontalStackContainer space={2}>
                                         <div className="w-4 h-2" style={{backgroundColor: subject.color}}></div>
                                         <h4>{subject.name}</h4>
                                     </HorizontalStackContainer>
@@ -218,7 +218,7 @@ const Dashboard = () => {
                 </VerticalStackContainer>
 
                 <div className="p-8 shadow-xl rounded-xl">
-                    <VerticalStackContainer space="4">
+                    <VerticalStackContainer space={4}>
                         <div>
                             <h3>学習アクティビティ</h3>
                             <small className="text-gray-400">過去30日間の学習アクティビティ</small>

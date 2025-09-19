@@ -1,41 +1,37 @@
-"use client"
-
-import { BaseButtonType, FavoriteButtonType, IconButtonType } from "@/types/ui/Atoms"
 import { HorizontalStackContainer } from "../molecules/Container"
 import { useState } from "react"
-import {motion} from "framer-motion"
+import { motion } from "framer-motion"
 import { FiHeart } from "react-icons/fi";
 
-export const BaseButton = (props: BaseButtonType) => {
-    const variants = {
-        black: "bg-black text-white hover:bg-gray-900",
-        white: "bg-white text-blue-500 hover:bg-gray-500",
-        transparent: "text-black hover:bg-gray-100",
-        None: "",
-    }
+import { VariantKey, variants, loading_variants } from "@/components/color";
 
-    const loading_variants = {
-        black: "border-white",
-        white: "border-black",
-        transparent: "border-black",
-        None: "border-black",
-    }
-
-    const color = variants[props.color] ?? variants["black"]
-    const loading_color = loading_variants[props.color] ?? loading_variants["black"]
-
+// BaseButton
+type BaseButtonType = {  
+    color?: VariantKey
+    children?: React.ReactNode
+    className?: string
+    isLoading?: boolean
+    onClick?: () => void
+}
+export const BaseButton =  ({
+    color = 'transparent',
+    children,
+    className = '',
+    isLoading, 
+    onClick 
+}: BaseButtonType) => {
     return(
-        <button className={`p-2 ${color} rounded-lg hover:cursor-pointer ${props.className ?? ""}`} onClick={props.onClick} disabled={props.isLoading}>
-            <HorizontalStackContainer space="8">
-                {props.isLoading ? (
+        <button className={`p-2 ${variants[color]} rounded-lg hover:cursor-pointer ${className}`} onClick={onClick} disabled={isLoading}>
+            <HorizontalStackContainer space={8}>
+                {isLoading ? (
                     <motion.div
-                        className={`mx-auto h-4 w-4 border-2 border-t-transparent ${loading_color}  rounded-full`}
+                        className={`mx-auto h-4 w-4 border-2 border-t-transparent ${loading_variants[color]} rounded-full`}
                         animate={{ rotate: 360 }}
                         transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
                     />
                 ) : (
-                    <span className={`w-full text-center ${props.isLoading ? "opacity-50" : "opacity-100"}`}>
-                        {props.children}
+                    <span className={`w-full text-center ${isLoading ? "opacity-50" : "opacity-100"}`}>
+                        {children}
                     </span>
                 )}
             </HorizontalStackContainer>
@@ -43,32 +39,46 @@ export const BaseButton = (props: BaseButtonType) => {
     )
 }
 
-export const IconButton = (props: IconButtonType) => {
+
+// IconButton
+export const IconButton = ({
+    color = 'transparent',
+    children,
+    className = '',
+    isLoading, 
+    onClick, 
+    icon,
+}: BaseButtonType & {icon: React.ReactNode}) => {
     return(
-        <BaseButton {...props}>
-            <HorizontalStackContainer space="2">
+        <BaseButton color={color} className={className} isLoading={isLoading} onClick={onClick}>
+            <HorizontalStackContainer space={2}>
                 <span className="h-8 aspect-square flex justify-center items-center">
-                    {props.icon}
+                    {icon}
                 </span>
-                {props.children}
+                {children}
             </HorizontalStackContainer>
         </BaseButton>
     )
 }
 
-export const FavoriteButton = (props: FavoriteButtonType) => {
+// FavoriteButton
+type FavoriteButtonType = {
+    className?: string
+    onToggle?: (isFavorite: boolean) => void
+}
+export const FavoriteButton = ({className = "", onToggle}: FavoriteButtonType) => {
     const [isFavorite, setIsFavorite] = useState(false)
 
     const handleClick = () => {
         const newState = !isFavorite
         setIsFavorite(newState)
-        props.onToggle?.(newState)
+        onToggle?.(newState)
     }
 
     return(
         <motion.button
             onClick={handleClick}
-            className={`relative w-5 h-5 rounded-full transition-colors ${props.className}`}
+            className={`relative w-5 h-5 rounded-full transition-colors ${className}`}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
         >

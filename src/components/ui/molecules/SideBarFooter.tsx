@@ -6,7 +6,7 @@ import { SideBarFooterType } from "@/types/ui/Templates";
 
 export const SideBarFooter = (props: SideBarFooterType) => {
     return(
-        <HorizontalStackContainer space="2" className={props.className}>
+        <HorizontalStackContainer space={2} className={props.className}>
             <IconButton className="w-full" color="transparent" icon={<IoPersonSharp size={"100%"}/>}>
                 <span className="text-start">
                     <h4>小林 蓮</h4>

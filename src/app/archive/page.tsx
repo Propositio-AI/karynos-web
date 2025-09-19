@@ -49,8 +49,8 @@ const sampleTextBookData = [
 
 const Archive = () => {
     return(
-        <VerticalStackContainer space="2" className="mx-16 my-8">
-            <HorizontalStackContainer space="2" className="mx-auto w-1/2">
+        <VerticalStackContainer space={2} className="mx-16 my-8">
+            <HorizontalStackContainer space={2} className="mx-auto w-1/2">
                 <SearchInputText className="mx-auto w-1/2" placeholder="教科書を検索"/>
             </HorizontalStackContainer>
             <GridContainer minWidth={350}>

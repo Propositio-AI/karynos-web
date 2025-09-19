@@ -70,14 +70,6 @@ api.interceptors.request.use(
             })
         }
 
-        if (error.response?.status >= 400) {
-            console.error("API Error:", {
-                url: error.config?.url,
-                status: error.response.status,
-                message: error.response.data?.message || error.message,
-            });
-        }
-
         return Promise.reject(error)
     }
 )

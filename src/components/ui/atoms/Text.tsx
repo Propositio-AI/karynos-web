@@ -1,29 +1,37 @@
-import { PagaeTitleType, SectionTitleType, TextContentsType } from "@/types/ui/Atoms"
 import { HorizontalStackContainer } from "../molecules/Container"
 
-export const PageTitle = (props: PagaeTitleType) => {
+// TextBook
+type TitleType = {
+    number: number
+    title: string
+    className?: string
+}
+
+// Page Title
+export const PageTitle = ({number, title, className}: TitleType) => {
     return(
-        <HorizontalStackContainer space="2" className={`my-6 ${props.className}`}>
+        <HorizontalStackContainer space={2} className={`my-6 ${className}`}>
             <div className="w-6 h-6 bg-black text-white flex items-center justify-center w-fu">
-                {props.number}
+                {number}
             </div>
-            <h3>{props.title}</h3>
+            <h3>{title}</h3>
         </HorizontalStackContainer>
     )
 }
 
-export const SectionTitle = (props: SectionTitleType) => {
+// Section Title
+export const SectionTitle = ({number, title, className = ""}: TitleType) => {
     return(
-        <HorizontalStackContainer space="2" className={`my-4 ${props.className}`}>
+        <HorizontalStackContainer space={2} className={`my-4 ${className}`}>
             <div className="w-7 h-7 bg-blue-700 text-white flex items-center justify-center rounded-full">
-                {props.number}
+                {number}
             </div>
-            <h4>{props.title}</h4>
+            <h4>{title}</h4>
         </HorizontalStackContainer>
     )
 }
 
-// TOOD: LaTexをコンパイルして貼り付けるようにする
+/// Text
 export const TextContents: React.FC<{ children: React.ReactNode }> = ({ children }: { children: React.ReactNode }) => (
     <span className="font-semibold">
         {children}
@@ -34,7 +42,6 @@ export const Bold: React.FC<{ children: React.ReactNode }> = ({ children }: { ch
     <span className="font-bold">{children}</span>
 );
 
-// 下線
 export const Underline: React.FC<{ children: React.ReactNode }> = ({ children }) => (
     <span className="underline">{children}</span>
 );
