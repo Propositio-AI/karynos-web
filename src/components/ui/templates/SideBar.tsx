@@ -74,8 +74,8 @@ const overlayVariants = {
     },
 }
 
-export const SideBar = () => {
-    const[isOpen, setIsOpen] = useState(true)
+export const SideBar = ({open}: {open: boolean}) => {
+    const[isOpen, setIsOpen] = useState(open)
 
     return(
         <>

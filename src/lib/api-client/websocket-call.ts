@@ -1,3 +1,5 @@
+import { ErrorType } from "@/types/error"
+
 type WsData<T> = {
     success: boolean
     data?: T
@@ -16,7 +18,7 @@ export class WebSocket_CALL<TSend, TStartReceive, TStreamReceive, TEndReceive> {
         private onStart: (msg: TStartReceive) => void,
         private onStream: (msg: TStreamReceive) => void,
         private onEnd: (msg: TEndReceive, last_index: number) => void,
-        private onError: (err: Event) => void,
+        private onError: (code: string, message: string) => void,
         private onOpen?: () => void,
         private onClose?: () => void
     ) {
@@ -32,18 +34,21 @@ export class WebSocket_CALL<TSend, TStartReceive, TStreamReceive, TEndReceive> {
 
         this.ws.onmessage = (event) => {
             try {
-                const msg = JSON.parse(event.data) as WsData<TStartReceive | TStreamReceive | TEndReceive>;
-                if(msg.index == 0) this.onStart(msg.data as TStartReceive)
-                else if(msg.index == -1) this.onEnd(msg.data as TEndReceive, msg.last_index as number)
-                else this.onStream(msg.data as TStreamReceive)
+                const msg = JSON.parse(event.data) as WsData<TStartReceive | TStreamReceive | TEndReceive | ErrorType>;
+                if(!msg.success){
+                    this.onError(msg.data.code, msg.data.message)
+                }else{
+                    if(msg.index == 0) this.onStart(msg.data as TStartReceive)
+                    else if(msg.index == -1) this.onEnd(msg.data as TEndReceive, msg.last_index as number)
+                    else this.onStream(msg.data as TStreamReceive)
+                }
             } catch (e) {
-                console.error("Failed to parse WebSocket message:", e);
+                console.error(e);
             }
         };
 
         this.ws.onerror = (err) => {
             console.error("WebSocket error:", err);
-            this.onError?.(err);
         };
 
         this.ws.onclose = () => {

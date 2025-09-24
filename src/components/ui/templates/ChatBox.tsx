@@ -10,50 +10,14 @@ import { IoIosArrowRoundUp  } from "react-icons/io"
 import { ArchiveTableType } from "@/types/table/archive"
 
 
+
 export const ChatBox = ({query_id}: {query_id: string}) => {
     const [chatMessages, setChatMessages] = useState<[QueryTableType, ArchiveTableType | null][]>([])
     const [message, setMessage] = useState<string>("")
     const [isLoading, setIsLoading] = useState(false)
-    const wsRef = useRef<WebSocket_CALL<QueryTableType, {id: string}, {contents: {message: string}}, {id: string}> | null>(null)
+    const wsRef = useRef<WebSocket_CALL<QueryTableType, undefined, {contents: {message: string}}, null> | null>(null)
     const chatContainer = useRef<HTMLDivElement>(null)
     
-    const sendMessage = async() => {
-        setIsLoading(true)    
-
-        // クエリーを作成
-        await API_CALL<{query: string, parent_id: string, query_type: string}, QueryTableType>(
-            "GET",
-            ":8060/api/v1/query",
-            {
-                data:{
-                    query: message,
-                    parent_id: query_id,
-                    query_type: "CHAT",
-                }
-            },
-
-            // Success
-            async (data: QueryTableType) => {
-                // クエリーを表示
-                setChatMessages(prev => [...prev, [data as QueryTableType, null]])
-                
-                // 推論をリクエスト
-                wsRef.current?.send(data)
-            },
-
-            // Error
-            async (code: string, message: string) => {
-                console.log(code, message)
-            }
-        )
-    }
-
-    const keepBottom = () => {
-        const container = chatContainer.current;
-        if (!container) return;
-        container.scrollTop = container.scrollHeight;
-    }
-
     useEffect(() => {
         (async () => {
             // 過去のチャット履歴を取得
@@ -80,37 +44,11 @@ export const ChatBox = ({query_id}: {query_id: string}) => {
         })()
         
         // 推論用WebSocketを定義
-        wsRef.current = new WebSocket_CALL<QueryTableType, {id: string}, {contents: {message: string}}, {id: string}>(
+        wsRef.current = new WebSocket_CALL<QueryTableType, undefined, {contents: {message: string}}, null>(
             "ws://localhost:8060/ws/v1/query/chat",
             
             // Start
-            async ({id}: {id: string}) => {
-                await API_CALL<undefined, ArchiveTableType>(
-                    "GET",
-                    `:8010/api/v1/archive/${id}`,
-                    undefined,
-                    
-                    // Success
-                    async (data: ArchiveTableType) => {
-                        setChatMessages(prev => {
-                            const lastIndex = prev.length - 1
-                            const last = prev[lastIndex]
-                            if(!last) return prev
-
-                            const [query, _]: [QueryTableType, ArchiveTableType | null] = last;
-                            return [
-                                ...prev.slice(0, lastIndex),
-                                [query, data]
-                            ]
-                        })
-                    },
-
-                    // Error
-                    async (code: string, message: string) => {
-
-                    }
-                )
-            },
+            async () => {},
             
             // Stream
             (data: {contents: {message: string}}) => {                
@@ -133,7 +71,7 @@ export const ChatBox = ({query_id}: {query_id: string}) => {
             },
 
             // End
-            () => {
+            async () => {
                 setIsLoading(false)
                 setMessage("")
             },
@@ -147,13 +85,50 @@ export const ChatBox = ({query_id}: {query_id: string}) => {
         keepBottom()
     }, [])
 
+    const sendMessage = async() => {
+        setIsLoading(true)    
+
+        // クエリーを作成
+        await API_CALL<{query: string, parent_id: string, query_type: string}, QueryTableType>(
+            "POST",
+            ":8060/api/v1/query",
+            {
+                data:{
+                    query: message,
+                    parent_id: query_id,
+                    query_type: "CHAT",
+                }
+            },
+
+            // Success
+            async (query: QueryTableType) => {
+                // クエリーと仮アーカイブを設定
+                setChatMessages(prev => [...prev, [query, {contents: {message: ""}} as ArchiveTableType]])
+                
+                // 推論をリクエスト
+                wsRef.current?.send(query)
+            },
+
+            // Error
+            async (code: string, message: string) => {
+                console.log(code, message)
+            }
+        )
+    }
+
+    const keepBottom = () => {
+        const container = chatContainer.current;
+        if (!container) return;
+        container.scrollTop = container.scrollHeight;
+    }
+
     useEffect(() => { 
         keepBottom()
     },[chatMessages])
 
     return(
         <>
-            <div className="h-11/12 p-2 overflow-y-auto" ref={chatContainer}>
+            <div className="h-[90%] p-2 overflow-y-auto" ref={chatContainer}>
                 {chatMessages.map((messages: [QueryTableType, ArchiveTableType | null], index) => (
                     <ChatMessageCard key={index} query={messages[0]} archive={messages[1]}/>
                 ))}

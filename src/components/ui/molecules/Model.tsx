@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 import { IoIosClose } from "react-icons/io";
@@ -18,12 +17,12 @@ type SimpleMpdalType = {
 
 export const SimpleModal = (props: SimpleMpdalType) =>  {
   return (
-    <div className="flex h-screen items-center justify-center bg-gray-100">
+    <div className="absolute flex h-screen items-center justify-center">
       <AnimatePresence>
         {props.isOpen && (
           <>
             <motion.div
-              className="fixed inset-0 bg-black/50"
+              className="fixed inset-0 bg-black/50 z-50"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -37,7 +36,7 @@ export const SimpleModal = (props: SimpleMpdalType) =>  {
               exit={{ opacity: 0, scale: 0.8, y: 50 }}
               transition={{ duration: 0.25 }}
             >
-              <div className={`rounded-2xl bg-white p-6 shadow-xl ${props.className}`}>
+              <div className={`rounded-2xl bg-white p-6 shadow-xl overflow-y-auto max-h-[90vh] ${props.className}`}>
                 <HorizontalStackContainer space={2}>
                     <h3 className="w-11/12">{props.title}</h3>
                     <IconButton icon={<IoIosClose size={"90%"}/>} color="transparent" className="rounded-full" onClick={() => props.setIsOpen(false)}></IconButton>                                    

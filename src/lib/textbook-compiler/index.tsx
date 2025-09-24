@@ -9,7 +9,7 @@ type Token =
 
 type Node = 
     | {type: "Element", name: string, children: Node[]}
-    | {type: "Text", value: string};
+    | {type: "Text", value: string, children: Node[]};
 
 const tokenize = (input: string): Token[] => {
     const regex = /<\/?[a-z_]+>|[^<>]+/gi;
@@ -23,11 +23,11 @@ const tokenize = (input: string): Token[] => {
 
         
         if (trimmed.startsWith("</")) {
-        tokens.push({ type: "TAG_CLOSE", name: trimmed.slice(2, -1) });
+            tokens.push({ type: "TAG_CLOSE", name: trimmed.slice(2, -1) });
         } else if (trimmed.startsWith("<")) {
-        tokens.push({ type: "TAG_OPEN", name: trimmed.slice(1, -1) });
+            tokens.push({ type: "TAG_OPEN", name: trimmed.slice(1, -1) });
         } else {
-        tokens.push({ type: "TEXT", value: token }); // 空白も含めてそのまま
+            tokens.push({ type: "TEXT", value: token }); 
         }
     }
 
@@ -48,7 +48,7 @@ const parse = (tokens: Token[]):Node => {
         } else if (token.type === "TAG_CLOSE") {
             stack.pop();
         } else if (token.type === "TEXT") {
-            const node: Node = { type: "Text", value: token.value };
+            const node: Node = { type: "Text", value: token.value, children: [] };
             (current as any).children.push(node);
         }
     }
@@ -129,6 +129,8 @@ const renderAst = (node: Node, key: number = 0): React.ReactNode => {
 const renderTextBook = (contents: string, key: number = 0) => {
     const tokens = tokenize(contents)
     const node = parse(tokens)
+    console.log(node)
+
 
     return renderAst(node, key)
 }

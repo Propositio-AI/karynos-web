@@ -4,7 +4,7 @@ import { SideBar } from "@/components/ui/templates/SideBar"
 export default function Home() {
     return(
         <>
-            <SideBar isOpen={true} onClose={() => {}}/>
+            <SideBar open={false} onClose={() => {}}/>
         </>
     )
 }

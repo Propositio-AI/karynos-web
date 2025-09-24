@@ -16,13 +16,11 @@ import { QueryTableType, QueryType } from "@/types/table/query";
 import { ArchiveTableType, ArchiveType } from "@/types/table/archive";
 
 export const TextBook = () => {
-    const [query, setQuery] = useState<string>("")
+    const [query, setQuery] = useState<string>("三角関数")
     const [currentQuery, setCurrentQuery] = useState("")
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [plan, setPlan] = useState<string[]>([]) // TODO: 今は実験のために[]にしてるが、本来はArchive
     
-    const [archiveID, setArchiveID] = useState("")
-
     const wsRef = useRef<WebSocket_CALL<{query: string}, undefined, {"notions": string[]}, undefined> | null>(null)
 
     const router = useRouter();
@@ -53,8 +51,11 @@ export const TextBook = () => {
                 const query_id = data.id
 
                 if(await savePlanArchive(query_id)){
+                    console.log(query_id)
+
                     const result = await createTextBookArchive(query_id, index)
-                    if(result) router.push(`./textbook/${query_id}/?archive_id=${archiveID}`)
+                    console.log(result)
+                    if(result) router.push(`./textbook/${query_id}`)
                     else{
                         // 教科書レコードの生成に失敗
                     }
@@ -65,7 +66,7 @@ export const TextBook = () => {
 
             // Error
             async(code: string, message: string) => {
-
+                console.log(message)
             }
         )
     }
@@ -82,6 +83,12 @@ export const TextBook = () => {
                         notions: plan
                     }
                 }
+            },
+            async (data: ArchiveTableType) => {
+                console.log(data)
+            },
+            async () => {
+
             }
         )
     } 
@@ -91,7 +98,7 @@ export const TextBook = () => {
 
         // 学習プランに基づいて教科書レコードを作成
         plan.map(async (notion, i) => {
-            const result = await API_CALL<{query_id: string, archive_type: ArchiveType, contents: {notion: string, page: string[]}}, ArchiveTableType>(
+            const result = await API_CALL<{query_id: string, archive_type: ArchiveType, contents: {notion: string, structures: string[], elements: string[]}}, ArchiveTableType>(
                 "POST",
                 ":8010/api/v1/archive",
                 {
@@ -100,14 +107,15 @@ export const TextBook = () => {
                         archive_type: "TEXTBOOK",
                         contents: {
                             notion: notion,
-                            page: []
+                            structures: [],
+                            elements: []
                         }
                     }
                 },
 
                 // Success
                 async (data: ArchiveTableType) => {
-                    if(index == i) setArchiveID(data.id)
+
                 }, 
 
                 // Error

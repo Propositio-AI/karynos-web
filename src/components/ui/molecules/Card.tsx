@@ -3,7 +3,7 @@ import { FavoriteButton } from "@/components/ui/atoms/Button";
 import { FaBook, FaMedal, FaFile, FaNewspaper, FaPen} from "react-icons/fa";
 import renderTextBook from "@/lib/textbook-compiler";
 import { useEffect, useState } from "react";
-import { ArchiveTypeTable } from "@/types/table/archive";
+import { ArchiveTableType } from "@/types/table/archive";
 import { QueryTableType } from "@/types/table/query";
 import { API_CALL } from "@/lib/api-client/api-call";
 
@@ -111,7 +111,7 @@ export const BaseColumnCard = ({type, title,  children, className}: BaseColumnCa
 }
 
 // Chat Message
-export const ChatMessageCard = ({ query, archive }: {query: QueryTableType, archive: ArchiveTypeTable | null}) => {
+export const ChatMessageCard = ({ query, archive }: {query: QueryTableType, archive: ArchiveTableType | null}) => {
     const [userMessage, setUserMessage] = useState("")
     const [aiMessage, setAiMessage] = useState("")
 
@@ -122,7 +122,7 @@ export const ChatMessageCard = ({ query, archive }: {query: QueryTableType, arch
         if(archive == null){
             // archiveを取得
             (async () => {
-                await API_CALL<{query_id: string, archive_type: string}, ArchiveTypeTable[]>(
+                await API_CALL<{query_id: string, archive_type: string}, ArchiveTableType[]>(
                     "GET",
                     ":8010/api/v1/archive",
                     {
@@ -133,7 +133,7 @@ export const ChatMessageCard = ({ query, archive }: {query: QueryTableType, arch
                     },
 
                     // Success
-                    async (data: ArchiveTypeTable[]) => {
+                    async (data: ArchiveTableType[]) => {
                         setAiMessage(data[0]?.contents.message ?? "")
                     },
 
@@ -178,13 +178,13 @@ export const TextBookPlanCard = ({archive_id, index, current}: TextBookPlanCardT
 
     useEffect(() => {
         (async () => {
-            await API_CALL<undefined, ArchiveTypeTable>(
+            await API_CALL<undefined, ArchiveTableType>(
                 "GET",
-                `:8010/archive/${archive_id}`,
+                `:8010/api/v1/archive/${archive_id}`,
                 undefined,
 
                 // Success
-                async (data: ArchiveTypeTable) => {
+                async (data: ArchiveTableType) => {
                     setNotion(data.contents.notion)
                 },
 
@@ -197,8 +197,7 @@ export const TextBookPlanCard = ({archive_id, index, current}: TextBookPlanCardT
     }, []);
     
     return(
-        <div className="shadow-lg p-2 h-48 text-center cursor-pointer">
-
+        <div className="shadow-lg p-2 text-center cursor-pointer">
             <div className={`flex mx-auto my-6 rounded-full w-8 h-8 items-center justify-center ${bg}`}>
                 <p className="text-lg font-bold p-2">{index}</p>
             </div>
