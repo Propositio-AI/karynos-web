@@ -1,16 +1,23 @@
-// BaseInputText
+import { BaseInputTextType } from "@/types/ui/atoms/Input"
 
-type BaseInputTextType = {
-    value?: string
-    placeholder?: string
-    className?: string
-    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
-}
+/**
+
+BaseInputText コンポーネント
+
+共通のテキスト入力コンポーネント
+
+props:
+- value: 入力値
+- placeholder: プレースホルダー
+- className: 追加のCSSクラス
+- onChange: 入力値変更時のコールバック関数
+
+**/
 export const BaseInputText = ({value, placeholder, className, onChange}: BaseInputTextType) => {
     return(
         <input
             type="text"
-            className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 focus:outline-none p-2.5 ${className}`}
+            className={`bg-zin-50 border border-zinc-200 text-slate-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 focus:outline-none p-2.5 ${className}`}
             value={value}
             placeholder={placeholder}
             onChange={onChange}
@@ -18,7 +25,19 @@ export const BaseInputText = ({value, placeholder, className, onChange}: BaseInp
     )
 }
 
+/**
 
+SearchInputText コンポーネント
+
+検索用テキスト入力コンポーネント        
+
+props:
+- value: 入力値
+- placeholder: プレースホルダー
+- className: 追加のCSSクラス
+- onChange: 入力値変更時のコールバック関数
+
+**/
 export const SearchInputText = ({value, placeholder, className = "", onChange}: BaseInputTextType) => {
     return(
         <input

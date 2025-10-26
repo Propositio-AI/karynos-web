@@ -1,8 +1,21 @@
-type BaseContainerProps = {
-    children?: React.ReactNode
-    className?: string
-}
-export const CenterContainer = ({children, className=""}: BaseContainerProps) => {
+import { BaseContainerType, StackContainerType, spaceNumberType, GridContainerType } from "@/types/ui/molecules/Container"
+
+/**
+
+CenterContainer コンポーネント 
+
+Props:
+- children: コンテナ子要素
+- className: 追加のCSS
+
+|-----------------------|
+|                       |
+|    CenterContainer    |
+|                       |
+|-----------------------|
+
+**/
+export const CenterContainer = ({children, className=""}: BaseContainerType) => {
     return(
         <div className={`flex justify-center items-center ${className}`}>
             {children}
@@ -10,32 +23,25 @@ export const CenterContainer = ({children, className=""}: BaseContainerProps) =>
     )
 }
 
+/**
 
-export const PageContainer = ({children, className=""}: BaseContainerProps) => {
-    return(
-        <div className={`m-2 text-center ${className}`}>
-            {children}
-        </div>
-    )
-}
+VerticalStackContainer コンポーネント
 
-type spaceNumberType = 0 | 1 | 2 | 4 | 8
-const spaceMap: Record<spaceNumberType, string> = {
-    0: 'space-y-0',
-    1: 'space-y-1',
-    2: 'space-y-2',
-    4: 'space-y-4',
-    8: 'space-y-8',
-}
-type StackContainerProps = {
-    children?: React.ReactNode
-    className?: string
-    space?: spaceNumberType
-    onClick?: () => void
-}
-export const VerticalStackContainer = ({children, className="", space=2}: StackContainerProps) => {    
+Props:
+- children: コンテナ子要素
+- className: 追加のCSS
+- space: 子要素間のスペース (デフォルト: 2)
 
-
+**/
+export const VerticalStackContainer = ({children, className="", space=2}: StackContainerType) => {    
+    const spaceMap: Record<spaceNumberType, string> = {
+        0: 'space-y-0',
+        1: 'space-y-1',
+        2: 'space-y-2',
+        4: 'space-y-4',
+        8: 'space-y-8',
+    }
+    
     return(
         <div className={`${spaceMap[space]} ${className}`}>
             {children}
@@ -43,7 +49,18 @@ export const VerticalStackContainer = ({children, className="", space=2}: StackC
     )
 }
 
-export const HorizontalStackContainer = ({children, className="", space=2, onClick}: StackContainerProps) => {    
+/**
+
+HorizontalStackContainer コンポーネント
+
+props:
+- children: コンテナ子要素
+- className: 追加のCSS
+- space: 子要素間のスペース (デフォルト: 2)
+- onClick: クリック時のコールバック関数
+
+**/
+export const HorizontalStackContainer = ({children, className="", space=2, onClick}: StackContainerType) => {    
     const spaceMap: Record<number, string> = {
         0: 'space-x-0',
         1: 'space-x-1',
@@ -59,12 +76,16 @@ export const HorizontalStackContainer = ({children, className="", space=2, onCli
     )
 }
 
-type GridContainerType = {
-    children?: React.ReactNode
-    minWidth?: number
-    className?: string
-}
+/**
 
+GridContainer コンポーネント
+
+Props:
+- children: コンテナ子要素
+- minWidth: 各グリッドアイテムの最小幅 (デフォルト: 300)
+- className: 追加のCSS
+
+**/
 export const GridContainer = ({children, minWidth=300, className=""}: GridContainerType) => {
     const gridStyle = {
         gridTemplateColumns: `repeat(auto-fit, minmax(${minWidth}px, 1fr))`,

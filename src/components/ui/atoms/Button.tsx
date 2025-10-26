@@ -3,29 +3,36 @@ import { useState } from "react"
 import { motion } from "framer-motion"
 import { FiHeart } from "react-icons/fi";
 
-import { VariantKey, variants, loading_variants } from "@/components/color";
+import { BaseButtonType } from "@/types/ui/atoms/Button";
+import { ColorVariants, LoadingColorVariants } from "@/types/ui/color";
 
-// BaseButton
-type BaseButtonType = {  
-    color?: VariantKey
-    children?: React.ReactNode
-    className?: string
-    isLoading?: boolean
-    onClick?: () => void
-}
+/**
+
+BaseButton コンポーネント
+
+共通のボタンコンポーネント
+
+props:
+- color: ボタンのカラーバリアント
+- children: ボタン内に表示するコンテンツ
+- className: 追加のCSSクラス
+- isLoading: ローディング状態かどうか
+- onClick: クリック時のコールバック関数
+ 
+**/
 export const BaseButton =  ({
-    color = 'transparent',
+    color = 'white',
     children,
     className = '',
     isLoading, 
     onClick 
 }: BaseButtonType) => {
     return(
-        <button className={`p-2 ${variants[color]} rounded-lg hover:cursor-pointer ${className}`} onClick={onClick} disabled={isLoading}>
+        <button className={`p-2 ${ColorVariants[color]} rounded-lg hover:cursor-pointer ${className}`} onClick={onClick} disabled={isLoading}>
             <HorizontalStackContainer space={8}>
                 {isLoading ? (
                     <motion.div
-                        className={`mx-auto h-4 w-4 border-2 border-t-transparent ${loading_variants[color]} rounded-full`}
+                        className={`mx-auto h-4 w-4 border-2 border-t-transparent ${LoadingColorVariants[color]} rounded-full`}
                         animate={{ rotate: 360 }}
                         transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
                     />
@@ -40,9 +47,23 @@ export const BaseButton =  ({
 }
 
 
-// IconButton
+/** 
+
+IconButton コンポーネント
+
+アイコン付きのボタンコンポーネント
+
+props
+- color: ボタンのカラーバリアント
+- children: ボタン内に表示するコンテンツ
+- className: 追加のCSSクラス
+- isLoading: ローディング状態かどうか
+- onClick: クリック時のコールバック関数
+- icon: ボタンに表示するアイコンコンポーネント
+
+**/
 export const IconButton = ({
-    color = 'transparent',
+    color = 'white',
     children,
     className = '',
     isLoading, 
@@ -61,7 +82,15 @@ export const IconButton = ({
     )
 }
 
-// FavoriteButton
+/**
+
+FabButton コンポーネント
+
+props:
+- className: 追加のCSSクラス
+- onClick: クリック時のコールバック関数 
+
+**/
 type FavoriteButtonType = {
     className?: string
     onToggle?: (isFavorite: boolean) => void

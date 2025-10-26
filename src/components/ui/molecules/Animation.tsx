@@ -1,3 +1,8 @@
+/**
+
+SimpleAnimatePing コンポーネント
+
+**/
 export const SimpleAnimatePing = () => {
     return(
         <div className="flex justify-center" aria-label="読み込み中">
@@ -8,10 +13,15 @@ export const SimpleAnimatePing = () => {
     )
 }
 
+/**
+
+GeneratingPing コンポーネント
+
+**/
 export const GeneratingPing = () => {
     return(
         <div className="flex items-center">
-            <div className="animate-ping h-2 w-2 bg-green-600 rounded-full"></div>
+            <div className="animate-ping h-2 w-2 bg-emerald-500 rounded-full"></div>
         </div>
     )
 }
