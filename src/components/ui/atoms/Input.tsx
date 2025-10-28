@@ -13,11 +13,11 @@ props:
 - onChange: 入力値変更時のコールバック関数
 
 **/
-export const BaseInputText = ({value, placeholder, className, onChange}: BaseInputTextType) => {
+export const BaseInputText = ({value, placeholder, className = "", onChange}: BaseInputTextType) => {
     return(
         <input
             type="text"
-            className={`bg-zin-50 border border-zinc-200 text-slate-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 focus:outline-none p-2.5 ${className}`}
+            className={`bg-zinc-50 border border-zinc-200 text-slate-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 focus:outline-none p-2.5 ${className}`}
             value={value}
             placeholder={placeholder}
             onChange={onChange}

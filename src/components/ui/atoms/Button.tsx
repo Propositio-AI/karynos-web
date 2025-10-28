@@ -5,11 +5,8 @@ import { FiHeart } from "react-icons/fi";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 
-import { faFireFlameSimple, faMagnifyingGlass, faHouse, faMap, faUser } from "@fortawesome/free-solid-svg-icons";
-
 import { BaseButtonType } from "@/types/ui/atoms/Button";
 import { ColorVariants, LoadingColorVariants } from "@/types/ui/color";
-import { NavType } from "@/types/ui/atoms/Button";
 
 /**
 
@@ -29,24 +26,22 @@ export const BaseButton =  ({
     color = 'white',
     children,
     className = '',
-    isLoading, 
+    isLoading = false, 
     onClick 
 }: BaseButtonType) => {
     return(
-        <button className={`p-2 ${ColorVariants[color]} rounded-lg hover:cursor-pointer ${className}`} onClick={onClick} disabled={isLoading}>
-            <HorizontalStackContainer space={8}>
-                {isLoading ? (
-                    <motion.div
-                        className={`mx-auto h-4 w-4 border-2 border-t-transparent ${LoadingColorVariants[color]} rounded-full`}
-                        animate={{ rotate: 360 }}
-                        transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
-                    />
-                ) : (
-                    <span className={`w-full text-center ${isLoading ? "opacity-50" : "opacity-100"}`}>
-                        {children}
-                    </span>
-                )}
-            </HorizontalStackContainer>
+        <button className={`p-2 ${ColorVariants[color]} rounded-lg cursor-pointer ${className}`} onClick={onClick} disabled={isLoading}>
+            {isLoading ? (
+                <motion.div
+                    className={`mx-auto h-4 w-4 border-2 border-t-transparent ${LoadingColorVariants[color]} rounded-full`}
+                    animate={{ rotate: 360 }}
+                    transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
+                />
+            ) : (
+                <span className={`w-full text-center ${isLoading ? "opacity-50" : "opacity-100"}`}>
+                    {children}
+                </span>
+            )}
         </button>
     )
 }
@@ -74,13 +69,11 @@ export const IconButton = ({
     isLoading, 
     onClick, 
     icon,
-}: BaseButtonType & {icon: React.ReactNode}) => {
+}: BaseButtonType & {icon: IconDefinition}) => {
     return(
         <BaseButton color={color} className={className} isLoading={isLoading} onClick={onClick}>
             <HorizontalStackContainer space={2}>
-                <span className="h-8 aspect-square flex justify-center items-center">
-                    {icon}
-                </span>
+                <FontAwesomeIcon icon={icon} className="h-8 aspect-square mr-2 flex justify-center items-center"/>
                 {children}
             </HorizontalStackContainer>
         </BaseButton>
@@ -167,28 +160,41 @@ export const FavoriteButton = ({className = "", onToggle}: FavoriteButtonType) =
     )
 }
 
-export const NavIcon = ({type, active}: {type: NavType, active: boolean}) => {
-    const map: Record<NavType, {icon: IconDefinition, label: string}> = {
-        match: {icon: faFireFlameSimple, label: "マッチ"},
-        explore: {icon: faMagnifyingGlass, label: "探検"},
-        home: {icon: faHouse, label: "ホーム"},
-        map: {icon: faMap, label: "地図"},
-        setting: {icon: faUser, label: "設定"},
-    };
+/**
 
-    const {icon, label} = map[type];
+NavIcon コンポーネント
 
+props:
+- type: ナビゲーションの種類
+- active: アクティブ状態かどうか    
+
+**/
+export const NavIcon = ({icon, label, active}: {icon: IconDefinition, label: string, active: boolean}) => {
     return (
             (active) ? (
-            <VerticalStackContainer space={0} className="w-16 h-16 text-center">
-                <FontAwesomeIcon icon={icon} className="p-2 bg-emerald-500 text-white rounded-lg"/>
+            <VerticalStackContainer space={0} className="w-16 h-16 text-center mx-auto">
+                <FontAwesomeIcon icon={icon} className="p-2 bg-emerald-500 text-white rounded-lg mx-auto cursor-pointer"/>
                 <p className="font-semibold text-sm text-emerald-500">{label}</p>
             </VerticalStackContainer>
         ) : (
-            <VerticalStackContainer space={0} className="w-16 h-16 text-center">
-                <FontAwesomeIcon icon={icon} className="p-2 hover:bg-zinc-200 text-zinc-500 rounded-lg"/>
+            <VerticalStackContainer space={0} className="w-16 h-16 text-center mx-auto">
+                <FontAwesomeIcon icon={icon} className="p-2 hover:bg-zinc-200 text-zinc-500 rounded-lg mx-auto cursor-pointer"/>
                 <p className="font-semibold text-sm text-zinc-500">{label}</p>
             </VerticalStackContainer>
         )
+    )
+}
+
+export const SideBarButton = ({
+    color = 'white',
+    children,
+    className = '',
+    isLoading, 
+    onClick, 
+    icon,
+    active = false
+}: BaseButtonType & {icon: IconDefinition, active: boolean}) => {
+    return(
+        <IconButton color={color} children={children} icon={icon} onClick={onClick} className={`w-full hover:text-blue-500 !border-none text-md font-medium ${className} ${active ? '!bg-blue-500 !text-white' : ''}`}/>
     )
 }

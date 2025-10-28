@@ -1,5 +1,7 @@
 import { BaseContainerType, StackContainerType, spaceNumberType, GridContainerType } from "@/types/ui/molecules/Container"
 
+import { ChatMessage } from "../atoms/Text"
+
 /**
 
 CenterContainer コンポーネント 
@@ -32,6 +34,12 @@ Props:
 - className: 追加のCSS
 - space: 子要素間のスペース (デフォルト: 2)
 
+|-----------------------|
+|        Stack1         |
+|        Stack2         |
+|        Stack3         |
+|-----------------------|
+
 **/
 export const VerticalStackContainer = ({children, className="", space=2}: StackContainerType) => {    
     const spaceMap: Record<spaceNumberType, string> = {
@@ -43,7 +51,7 @@ export const VerticalStackContainer = ({children, className="", space=2}: StackC
     }
     
     return(
-        <div className={`${spaceMap[space]} ${className}`}>
+        <div className={`flex flex-col ${spaceMap[space]} ${className}`}>
             {children}
         </div>
     )
@@ -58,6 +66,15 @@ props:
 - className: 追加のCSS
 - space: 子要素間のスペース (デフォルト: 2)
 - onClick: クリック時のコールバック関数
+
+|-------------------|
+|    s    s    s    |
+|    t    t    t    |
+|    a    a    a    |
+|    c    c    c    |
+|    k    k    k    |
+|    1    2    3    |
+|-------------------|
 
 **/
 export const HorizontalStackContainer = ({children, className="", space=2, onClick}: StackContainerType) => {    
@@ -97,3 +114,13 @@ export const GridContainer = ({children, minWidth=300, className=""}: GridContai
         </div>
     );
 };
+
+export const ChatContainer = ({className=""}: {className?: string}) => {
+    return(
+        <VerticalStackContainer space={4} className={`p-4 bg-zinc-100 w-full ${className}`}>
+            <ChatMessage message="Hello, how can I help you?" isUser={true}/>
+            <ChatMessage message="I'm looking for information on your services."  isUser={false}/>
+            <ChatMessage message="Sure, I can help with that!" isUser={false}/>
+        </VerticalStackContainer>
+    )
+}
