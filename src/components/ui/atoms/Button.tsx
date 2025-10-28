@@ -1,10 +1,15 @@
-import { HorizontalStackContainer } from "../molecules/Container"
+import { HorizontalStackContainer, VerticalStackContainer } from "../molecules/Container"
 import { useState } from "react"
 import { motion } from "framer-motion"
 import { FiHeart } from "react-icons/fi";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
+
+import { faFireFlameSimple, faMagnifyingGlass, faHouse, faMap, faUser } from "@fortawesome/free-solid-svg-icons";
 
 import { BaseButtonType } from "@/types/ui/atoms/Button";
 import { ColorVariants, LoadingColorVariants } from "@/types/ui/color";
+import { NavType } from "@/types/ui/atoms/Button";
 
 /**
 
@@ -159,5 +164,31 @@ export const FavoriteButton = ({className = "", onToggle}: FavoriteButtonType) =
                 </>
             )}
         </motion.button>
+    )
+}
+
+export const NavIcon = ({type, active}: {type: NavType, active: boolean}) => {
+    const map: Record<NavType, {icon: IconDefinition, label: string}> = {
+        match: {icon: faFireFlameSimple, label: "マッチ"},
+        explore: {icon: faMagnifyingGlass, label: "探検"},
+        home: {icon: faHouse, label: "ホーム"},
+        map: {icon: faMap, label: "地図"},
+        setting: {icon: faUser, label: "設定"},
+    };
+
+    const {icon, label} = map[type];
+
+    return (
+            (active) ? (
+            <VerticalStackContainer space={0} className="w-16 h-16 text-center">
+                <FontAwesomeIcon icon={icon} className="p-2 bg-emerald-500 text-white rounded-lg"/>
+                <p className="font-semibold text-sm text-emerald-500">{label}</p>
+            </VerticalStackContainer>
+        ) : (
+            <VerticalStackContainer space={0} className="w-16 h-16 text-center">
+                <FontAwesomeIcon icon={icon} className="p-2 hover:bg-zinc-200 text-zinc-500 rounded-lg"/>
+                <p className="font-semibold text-sm text-zinc-500">{label}</p>
+            </VerticalStackContainer>
+        )
     )
 }

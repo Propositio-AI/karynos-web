@@ -7,3 +7,5 @@ export type BaseButtonType = {
     isLoading?: boolean
     onClick?: () => void
 }
+
+export type NavType = 'match' | 'explore' |'home' | 'map' | 'setting'
