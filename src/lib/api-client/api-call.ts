@@ -7,7 +7,7 @@ type ApiConfig<T> = {
     headers?: Record<string, string>;
 }
 
-export const API_CALL = async <TSend, TReceive>(
+export const APIcall = async <TSend, TReceive>(
         method: "GET" | "POST" | "PUT" | "DELETE",
         url: string,    
         config?: ApiConfig<TSend>,
