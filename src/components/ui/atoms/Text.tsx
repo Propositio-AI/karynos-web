@@ -18,7 +18,7 @@ export const Tag = ({text, color}: {text: string, color: TagColor}) => {
     }
 
     return (
-        <div className={`inline-flex px-2.5 py-1 rounded-full border ${ColorMap[color].bg} hover:${ColorMap[color].hover} ${ColorMap[color].text} cursor-pointer `}>
+        <div className={`inline-flex m-1 px-2.5 py-1 rounded-full border ${ColorMap[color].bg} hover:${ColorMap[color].hover} ${ColorMap[color].text} cursor-pointer `}>
             <span className="text-xs font-medium">{text}</span>
         </div>
     );
