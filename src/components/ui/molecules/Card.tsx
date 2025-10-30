@@ -1,7 +1,7 @@
-export const MentorDashboardCard = ({title, children}: {title: string, children: React.ReactNode}) => {
+export const MentorDashboardCard = ({title,children, className}: {title: string, children: React.ReactNode, className?: string}) => {
 
     return (
-        <div className="bg-white p-8">
+        <div className={`bg-white p-8 ${className}`}>
             <p className="text-zinc-500 my-2">{title}</p>
             <h1>{children}</h1>
         </div>

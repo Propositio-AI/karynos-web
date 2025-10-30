@@ -1,10 +1,51 @@
 "use client"
 
+import { SideBar } from "@/components/ui/templates/SideBar";
+import { VerticalStackContainer, GridContainer } from "@/components/ui/molecules/Container";
+import { MentorDashboardCard } from "@/components/ui/molecules/Card";
+import { IconButton } from "@/components/ui/atoms/Button";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { GroupCard } from "@/components/ui/molecules/GroupCard";
+import Link from "next/link";
+
 const DreamerGroupAdmin = () => {
 
-    return( 
-        <h1>Dreamer Group</h1>
-   )
+    const groups = [
+        { id: "1", name: "3年", memberCount: 160 },
+        { id: "2", name: "3年A組", memberCount: 40 },
+        { id: "3", name: "3年B組", memberCount: 40 },
+        { id: "4", name: "3年C組", memberCount: 40 },
+        { id: "5", name: "3年D組", memberCount: 40 },
+    ]
+
+    return (
+        <SideBar>
+            <VerticalStackContainer space={8}>
+                <h1 className="text-3xl font-bold text-slate-800">Dreamerグループ管理</h1>
+
+                <GridContainer minWidth={300} >
+                    <MentorDashboardCard title="グループ数" className="w-1/3 rounded-2xl">
+                        <h1 className="text-6xl font-bold">5</h1>
+                    </MentorDashboardCard>
+                </GridContainer>
+
+                <div className="flex justify-end">
+                    <Link href="/mentor/dreamer/group/new">
+                        <IconButton icon={faPlus} color="blue" className="font-semibold !rounded-full px-4">
+                            グループ追加
+                        </IconButton>
+                    </Link>
+                </div>
+
+                <GridContainer minWidth={300} className="gap-4">
+                    {groups.map(group => (
+                        <GroupCard key={group.id} id={group.id} name={group.name} memberCount={group.memberCount} />
+                    ))}
+                </GridContainer>
+
+            </VerticalStackContainer>
+        </SideBar>
+    )
 }
 
 export default DreamerGroupAdmin
