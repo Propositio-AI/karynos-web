@@ -2,11 +2,13 @@ import { HorizontalStackContainer, VerticalStackContainer } from "../molecules/C
 import { useState } from "react"
 import { motion } from "framer-motion"
 import { FiHeart } from "react-icons/fi";
+import React, { isValidElement } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 
 import { BaseButtonType } from "@/types/ui/atoms/Button";
 import { ColorVariants, LoadingColorVariants } from "@/types/ui/color";
+import type { ColorVariantKey } from "@/types/ui/color";
 
 /**
 
@@ -62,18 +64,29 @@ props
 - icon: ボタンに表示するアイコンコンポーネント
 
 **/
+type IconButtonProps = {
+    color?: ColorVariantKey;
+    children?: React.ReactNode;
+    className?: string;
+    isLoading?: boolean;
+    onClick?: () => void;
+    icon: IconDefinition | React.ReactElement;
+};
+
 export const IconButton = ({
+    icon,
+    className,
     color = 'white',
     children,
-    className = '',
     isLoading, 
     onClick, 
-    icon,
-}: BaseButtonType & {icon: IconDefinition}) => {
+}: IconButtonProps) => {
+    const content = isValidElement(icon) ? icon : <FontAwesomeIcon icon={icon} />;
+    
     return(
         <BaseButton color={color} className={className} isLoading={isLoading} onClick={onClick}>
             <HorizontalStackContainer space={2}>
-                <FontAwesomeIcon icon={icon} className="h-8 aspect-square mr-2 flex justify-center items-center"/>
+                <span className="h-8 aspect-square mr-2 flex justify-center items-center">{content}</span>
                 {children}
             </HorizontalStackContainer>
         </BaseButton>
