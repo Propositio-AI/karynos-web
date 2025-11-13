@@ -1,5 +1,4 @@
 import axios from "axios"
-import { getAccessToken, setAccessToken, clearToken } from "../auth/token"
 
 let isRefreshing = false
 let refreshSubscribers: ((token: string) => void)[] = []
@@ -19,7 +18,8 @@ const api = axios.create({
 })
 
 api.interceptors.request.use((config) => {
-    const token = getAccessToken()
+    // const token = getAccessToken()
+    const token = "";
 
     if(token){
         config.headers.Authorization = `Bearer ${token}`
@@ -51,10 +51,10 @@ api.interceptors.request.use(
 
                     const newAccessToken = res.data.access_token
                     
-                    setAccessToken(newAccessToken)
+                    // setAccessToken(newAccessToken)
                     onRefreshed(newAccessToken)
                 }catch (e){
-                    clearToken()
+                    // clearToken()
                     window.location.href = "/login"
                     return Promise.reject(e)
                 }finally{

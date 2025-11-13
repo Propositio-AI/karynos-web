@@ -6,7 +6,6 @@ import { SideBar } from "@/components/ui/templates/SideBar"
 export default function Home() {
     return(
         <HorizontalStackContainer>
-            <SideBar></SideBar>
         </HorizontalStackContainer>
     )
 }
