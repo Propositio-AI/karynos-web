@@ -1,4 +1,7 @@
-import { ErrorType } from "@/types/error"
+type ErrorType = {
+    code: string
+    message: string
+}
 
 type WsData<T> = {
     success: boolean
@@ -36,7 +39,7 @@ export class WebSocket_CALL<TSend, TStartReceive, TStreamReceive, TEndReceive> {
             try {
                 const msg = JSON.parse(event.data) as WsData<TStartReceive | TStreamReceive | TEndReceive | ErrorType>;
                 if(!msg.success){
-                    this.onError(msg.data.code, msg.data.message)
+                    // this.onError(msg.data.code, msg.data.message)
                 }else{
                     if(msg.index == 0) this.onStart(msg.data as TStartReceive)
                     else if(msg.index == -1) this.onEnd(msg.data as TEndReceive, msg.last_index as number)
