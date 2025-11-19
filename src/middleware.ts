@@ -14,14 +14,10 @@ const PUBLIC_PATHS = [
 
 const middleware = async (request: NextRequest) => {
   const pathname = request.nextUrl.pathname;
-
   const isPublicPath = PUBLIC_PATHS.some((path) => pathname.startsWith(path));
   const requiresAuth = !isPublicPath;
-
   const isLoginPage = pathname.startsWith("/login");
-
   const response = NextResponse.next();
-
   const authenticated = await runWithAmplifyServerContext({
     nextServerContext: { request, response },
     operation: async (contextSpec) => {
@@ -46,7 +42,6 @@ const middleware = async (request: NextRequest) => {
     return NextResponse.redirect(new URL("/job/match", request.url));
   }
 
-  // その他の場合は通過
   return response;
 };
 
