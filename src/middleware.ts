@@ -49,16 +49,9 @@ const middleware = async (request: NextRequest) => {
 export const config = {
   matcher: [
     "/",
-    "/job/detail/[job_id]/chat",
-    "/job/detail/[job_id]",
-    "/job/match",
-    "/job/search",
-    "/login/dreamer",
-    "/login/mentor",
-    "/mentor/dreamer/detail/[dreamer_id]",
-    "/mentor/dreamer/group/detail/[group_id]",
-    "/mentor/dreamer/group/new",
-    "/mentor/dreamer",
+    "/job/:path*",
+    "/login/:path*",
+    "/mentor/:path*",
     "/((?!api|_next/static|_next/image|favicon.ico|.*\\.(?:png|jpg|jpeg|gif|svg|webp|ico)).*)",
   ],
 };
