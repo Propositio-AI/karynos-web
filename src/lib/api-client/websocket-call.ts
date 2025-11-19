@@ -1,4 +1,10 @@
-import { ErrorType } from "@/types/error"
+type ErrorType = {
+    message: string;
+    code?: string | number;
+    status?: number;
+    errors?: Record<string, string[] | string> | string;
+    cause?: unknown;
+}
 
 type WsData<T> = {
     success: boolean
@@ -16,7 +22,7 @@ export class WebSocket_CALL<TSend, TStartReceive, TStreamReceive, TEndReceive> {
     constructor(
         url: string,
         private onStart: (msg: TStartReceive) => void,
-        private onStream: (msg: TStreamReceive) => void,
+        private onStream: (msg: TStreamReceive, index?: number, lastIndex?: number) => void,
         private onEnd: (msg: TEndReceive, last_index: number) => void,
         private onError: (code: string, message: string) => void,
         private onOpen?: () => void,
@@ -35,15 +41,29 @@ export class WebSocket_CALL<TSend, TStartReceive, TStreamReceive, TEndReceive> {
         this.ws.onmessage = (event) => {
             try {
                 const msg = JSON.parse(event.data) as WsData<TStartReceive | TStreamReceive | TEndReceive | ErrorType>;
-                if(!msg.success){
-                    this.onError(msg.data.code, msg.data.message)
-                }else{
-                    if(msg.index == 0) this.onStart(msg.data as TStartReceive)
-                    else if(msg.index == -1) this.onEnd(msg.data as TEndReceive, msg.last_index as number)
-                    else this.onStream(msg.data as TStreamReceive)
+                if (!msg.success) {
+                    const err = (msg as any).data as Partial<ErrorType> | undefined;
+                    const codeStr = err?.code != null ? String(err.code) : "UNKNOWN_ERROR";
+                    const messageStr = typeof err?.message === "string" ? err.message : "Unknown error";
+                    this.onError(codeStr, messageStr);
+                    return;
+                }
+
+                // success=true branch
+                if (msg.data == null) {
+                    this.onError("INVALID_PAYLOAD", "Missing data in WebSocket message");
+                    return;
+                }
+
+                if (msg.index == 0) {
+                    this.onStart(msg.data as TStartReceive);
+                } else if (msg.index == -1) {
+                    this.onEnd(msg.data as TEndReceive, msg.last_index as number);
+                } else {
+                    this.onStream?.(msg.data as TStreamReceive, msg.index as number, msg.last_index as number);
                 }
             } catch (e) {
-                console.error(e);
+                this.onError("PARSE_ERROR", e instanceof Error ? e.message : "Failed to parse WebSocket message");
             }
         };
 
