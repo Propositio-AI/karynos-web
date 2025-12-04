@@ -28,7 +28,8 @@ export const SideBar = ({children}: {children: React.ReactNode}) => {
                     <SideBarButton icon={faEnvelope} active={false}>お問い合わせ</SideBarButton>
                 </VerticalStackContainer>
             </VerticalStackContainer>
-            <div className="w-full h-screen bg-slate-100 p-8">
+
+            <div className="w-full h-screen bg-slate-100 p-8 overflow-y-scroll">
                 {children}
             </div>
         </HorizontalStackContainer>

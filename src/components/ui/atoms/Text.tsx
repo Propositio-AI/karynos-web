@@ -1,9 +1,7 @@
-import { GridContainer } from "../molecules/Container";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-
 import { TagColor } from "@/types/ui/atoms/Text";
-
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { HorizontalStackContainer } from "../molecules/Container";
+import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 export const Tag = ({text, color}: {text: string, color: TagColor}) => {
@@ -24,43 +22,26 @@ export const Tag = ({text, color}: {text: string, color: TagColor}) => {
     );
 }
 
-export const ChatMessage = ({message, isUser}: {message: string, isUser: boolean}) => {
+export const BreadCrumb = ({ links }: { links: { name: string; link: string }[] }) => {
     return (
-        <div className="w-full">
-            {isUser ? (
-                 <div className="bg-emerald-500 max-w-2/3 p-3 rounded-lg my-2 text-white ml-auto">
-                    <p>{message}</p>
-                </div>
-            ) :  (  
-                <div className="bg-white max-w-2/3 p-3 rounded-lg my-2 text-slate-900 mr-auto">
-                    <p>{message}</p>
-                </div>
-            )}
-        </div>
-    );
-}
+        <HorizontalStackContainer className="my-8">
+            {links.map((value, index) => {
+                const isLast = index === links.length - 1;
 
-export const DreamerListItem = ({name, student_num, group, login_at, created_at}: {name: string, student_num: string, group: {label: string, id: string}[], login_at: string, created_at: string}) => {
-    return (
-        <tr className="bg-white hover:bg-zinc-100 cursor-pointer">
-            <td className="p-4">
-                <FontAwesomeIcon icon={faUser} className="h-10 aspect-square mr-2 flex justify-center items-center"/>
-                {name}
-            </td>
-            <td className="p-2">{student_num}</td>
-            <td className="p-2">
-                <GridContainer minWidth={30}>
-                    {group.map((g) => (
-                        <Tag key={g.id} color="blue" text={g.label}/>
-                    ))}
-                </GridContainer>
-            </td>
-            <td className="p-2">
-                {login_at}
-            </td>
-            <td className="p-2">
-                {created_at}
-            </td>
-        </tr>
-    )
-}
+                return isLast ? (
+                        <span key={index} className="text-blue-500 font-semibold">
+                            {value.name}
+                        </span>
+                ) : (
+                    <>
+                        <span key={index} className="text-gray-500 hover:underline cursor-pointer">
+                            {value.name}
+                        </span>
+                        <FontAwesomeIcon icon={faAngleRight} className="text-gray-500"/>
+                        
+                    </>
+                );
+            })}
+        </HorizontalStackContainer>
+    );
+};

@@ -2,13 +2,7 @@ import { faUsers } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 
-type GroupCardProps = {
-    id: string;
-    name: string;
-    memberCount: number;
-}
-
-export const GroupCard = ({ id, name, memberCount }: GroupCardProps) => {
+export const GroupCard = ({ id, name, memberCount }: {id: string, name: string, memberCount: number}) => {
     return (
         <Link href={`/mentor/dreamer/group/detail/${id}`}>
             <div className="bg-zinc-50 border border-zinc-200 rounded-lg p-5 hover:bg-zinc-100 cursor-pointer">

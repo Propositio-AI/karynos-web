@@ -1,6 +1,5 @@
 import { BaseContainerType, StackContainerType, spaceNumberType, GridContainerType } from "@/types/ui/molecules/Container"
-
-import { ChatMessage } from "../atoms/Text"
+import { ChatMessage } from "@/features/chat/Text"
 
 /**
 
@@ -114,13 +113,3 @@ export const GridContainer = ({children, minWidth=300, className=""}: GridContai
         </div>
     );
 };
-
-export const ChatContainer = ({className=""}: {className?: string}) => {
-    return(
-        <VerticalStackContainer space={4} className={`p-4 bg-zinc-100 w-full ${className}`}>
-            <ChatMessage message="Hello, how can I help you?" isUser={true}/>
-            <ChatMessage message="I'm looking for information on your services."  isUser={false}/>
-            <ChatMessage message="Sure, I can help with that!" isUser={false}/>
-        </VerticalStackContainer>
-    )
-}
