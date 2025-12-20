@@ -6,16 +6,17 @@ type ApiConfig<T> = {
     params?: T
     headers?: Record<string, string>;
 }
-
+// process.env.NEXT_PUBLIC_API_BASE_URL = http://localhost:
 export const APIcall = async <TSend, TReceive>(
         method: "GET" | "POST" | "PUT" | "DELETE",
         url: string,    
         config?: ApiConfig<TSend>,
-        onSuccess?: (data: TReceive) => Promise<void> | null,
+        // onSuccess?: (data: TReceive) => Promise<void> | null,
+        onSuccess?: (data: TReceive) => void | Promise<void>,
         onError?: (code: string, message: string) => Promise<void>,
     ): Promise<boolean> => {
-    const full_url = `${process.env.NEXT_PUBLIC_API_BASE_URL}${url}`
-
+    // const full_url = `${process.env.NEXT_PUBLIC_API_BASE_URL}${url}`
+    const full_url = `http://localhost:${url}`;// 仮
     try{
         let res;
 

@@ -30,7 +30,7 @@ export const NavBar = (props: NavBarProps) => {
             <div className="h-[87%]">
                 {children} 
             </div>
-            <GridContainer minWidth={32} className="w-full max-w-180 mx-auto px-5 py-2 border border-zinc-200 rounded-full">
+            <GridContainer minWidth={32} className="fixed bottom-2 w-full max-w-180 mx-auto px-5 py-2 border border-zinc-200 bg-white rounded-full">
                 <NavIcon icon={faFireFlameSimple} label="マッチ" active={actives.match ?? false} />
                 <NavIcon icon={faMagnifyingGlass} label="探検" active={actives.explore ?? false} />
                 <NavIcon icon={faHouse} label="ホーム" active={actives.home ?? false} />
