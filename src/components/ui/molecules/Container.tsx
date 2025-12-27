@@ -48,6 +48,8 @@ export const VerticalStackContainer = ({children, className="", space=2}: StackC
         2: 'space-y-2',
         4: 'space-y-4',
         8: 'space-y-8',
+        12: 'space-y-12',
+        16: 'space-y-16',
     }
     
     return(
