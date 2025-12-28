@@ -1,4 +1,5 @@
 export type BaseInputTextType = {
+    type?: "text" | "number"
     value?: string
     placeholder?: string
     className?: string

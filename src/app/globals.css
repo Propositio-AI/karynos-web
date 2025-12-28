@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+body {
+    @apply text-slate-900
+}
+
 @layer base {
     h1 {
         @apply text-3xl font-black
@@ -21,3 +25,28 @@
         @apply text-sm 
     }
 }
+
+.border-emerald {
+    @apply border-emerald-500
+}
+
+.border-blue {
+    @apply border-blue-500
+}
+
+.bg-slate {
+    @apply bg-slate-900 text-white hover:bg-slate-800 
+}
+
+.bg-whie {
+    @apply border border-zinc-200 bg-white text-zinc-500 hover:bg-zinc-200
+}
+
+.bg-emerald {
+    @apply bg-emerald-500 text-white hover:bg-emerald-600
+}
+
+.bg-blue {
+    @apply bg-blue-500 text-white hover:bg-blue-400
+}
+ 

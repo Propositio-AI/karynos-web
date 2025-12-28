@@ -73,8 +73,8 @@ export const IconButton = ({
     return(
         <BaseButton color={color} className={className} isLoading={isLoading} onClick={onClick}>
             <HorizontalStackContainer space={2}>
-                <FontAwesomeIcon icon={icon} className="h-8 aspect-square mr-2 flex justify-center items-center"/>
-                {children}
+                <FontAwesomeIcon icon={icon} className={`h-8 aspect-square flex justify-center items-center ${children ? "mr-2" : ""}`}/>
+                {children && <>{children}</>}
             </HorizontalStackContainer>
         </BaseButton>
     )
