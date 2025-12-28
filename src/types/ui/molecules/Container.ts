@@ -3,7 +3,7 @@ export type BaseContainerType = {
     className?: string
 }
 
-export type spaceNumberType = 0 | 1 | 2 | 4 | 8
+export type spaceNumberType = 0 | 1 | 2 | 4 | 8 | 12 | 16
 
 export type StackContainerType = {
     children?: React.ReactNode
