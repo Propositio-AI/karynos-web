@@ -1,4 +1,5 @@
 import { BaseInputTextType } from "@/types/ui/atoms/Input"
+import { VerticalStackContainer } from "../molecules/Container"
 
 /**
 
@@ -13,39 +14,35 @@ props:
 - onChange: 入力値変更時のコールバック関数
 
 **/
-export const BaseInputText = ({type, value, placeholder, className = "", onChange}: BaseInputTextType) => {
+export const BaseInputText = ({value, placeholder, className = "", label = "", type = "text", onChange}: BaseInputTextType) => {
     return(
-        <input
-            type={type}
-            className={`bg-zinc-50 border border-zinc-200 text-slate-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 focus:outline-none p-2.5 ${className}`}
-            value={value}
-            placeholder={placeholder}
-            onChange={onChange}
-        />
+        <VerticalStackContainer space={2} className="flex-1">
+            { label != "" && (
+                <label className="font-medium text-sm text-slate-800">{label}</label>
+            )}
+            <input
+                type={type}
+                className={`bg-white border border-zinc-200 text-slate-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 focus:outline-none p-2.5 ${className}`}
+                value={value}
+                placeholder={placeholder}
+                onChange={onChange}
+            />
+        </VerticalStackContainer>
     )
 }
 
-/**
-
-SearchInputText コンポーネント
-
-検索用テキスト入力コンポーネント        
-
-props:
-- value: 入力値
-- placeholder: プレースホルダー
-- className: 追加のCSSクラス
-- onChange: 入力値変更時のコールバック関数
-
-**/
-export const SearchInputText = ({value, placeholder, className = "", onChange}: BaseInputTextType) => {
+export const BaseTextArea = ({value, placeholder, className = "", label = "", type = "text", onChange}: BaseInputTextType) => {
     return(
-        <input
-            type="text"
-            className={`block py-2.5 px-0 text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer ${className}`}
-            placeholder={placeholder}
-            value={value}
-            onChange={onChange}
-        />
+        <VerticalStackContainer space={2} className="flex-1">
+            { label != "" && (
+                <label className="font-medium text-sm text-slate-800">{label}</label>
+            )}
+            <textarea
+                className={`bg-white border border-zinc-200 text-slate-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 focus:outline-none p-2.5 ${className}`}
+                value={value}
+                placeholder={placeholder}
+                // onInput={onChange}
+            />
+        </VerticalStackContainer>
     )
 }
