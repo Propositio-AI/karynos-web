@@ -1,5 +1,5 @@
 import { HorizontalStackContainer, VerticalStackContainer } from "../molecules/Container"
-import { useState } from "react"
+import { useState, type ReactNode } from "react"
 import { motion } from "framer-motion"
 import { FiHeart } from "react-icons/fi";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -69,7 +69,11 @@ export const IconButton = ({
     isLoading, 
     onClick, 
     icon,
-}: BaseButtonType & {icon: IconDefinition}) => {
+}: BaseButtonType & {icon?: IconDefinition | ReactNode}) => {
+    const isIconDefinition = (i: any): i is IconDefinition => {
+        return i && typeof i === 'object' && 'prefix' in i && 'iconName' in i && 'icon' in i
+    }
+
     return(
         <BaseButton color={color} className={className} isLoading={isLoading} onClick={onClick}>
             <HorizontalStackContainer space={2} className="mx-auto">

@@ -94,14 +94,14 @@ const JobMatching = () => {
                         <div className="w-1/4 bg-zinc-200 h-1 rounded-full m-3 mx-auto"></div>
 
                         {/* 情報グリッド */}
-                        <GridContainer minWidth={100} className="h-40 mb-10">
+                        {/* <GridContainer minWidth={100} className="h-40 mb-10">
                             {["Salary", "Age", "Holiday", "Work time"].map((label, i) => (
                                 <div key={i} className="my-auto mx-auto text-center ">
                                     <h1 className="text-lg font-semibold">620万</h1>
                                     <p className="text-zinc-500 font-medium">{label}</p>
                                 </div>
                             ))}
-                        </GridContainer>
+                        </GridContainer> */}
                         
                         {/* 詳細情報 */}
                         <div className={expanded ? "display" : "hidden"}>
