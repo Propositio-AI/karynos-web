@@ -1,42 +1,108 @@
-import { GridContainer } from "../molecules/Container"
-import { NavIcon } from "../atoms/Button"
-import { NavType } from "@/types/ui/atoms/Button"
+"use client";
 
-import { faFireFlameSimple, faMagnifyingGlass, faHouse, faMap, faUser } from "@fortawesome/free-solid-svg-icons";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { GridContainer } from "../molecules/Container";
+import { NavIcon } from "../atoms/Button";
+import { NavType } from "@/types/ui/atoms/Button";
+
+import {
+    faFireFlameSimple,
+    faMagnifyingGlass,
+    faHouse,
+    faMap,
+    faUser,
+} from "@fortawesome/free-solid-svg-icons";
+import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 
 type NavBarProps = {
-    children: React.ReactNode;
-} & (
-    | { actives: Record<NavType, boolean> }
-    | { match: boolean; explore: boolean; home: boolean; map: boolean; setting: boolean }
-);
+    active?: NavType;
+    className?: string;
+};
 
-export const NavBar = (props: NavBarProps) => {
-    const { children } = props;
-    
-    // Support both formats: individual props or actives object
-    const actives = 'actives' in props 
-        ? props.actives 
-        : {
-            match: props.match,
-            explore: props.explore,
-            home: props.home,
-            map: props.map,
-            setting: props.setting
-        };
+type NavItem = {
+    type: NavType;
+    label: string;
+    href?: string;
+    isActive: (pathname: string) => boolean;
+    icon: IconDefinition;
+};
 
-    return(
-        <div className="w-full h-screen">
-            <div className="h-[87%]">
-                {children} 
-            </div>
-            <GridContainer minWidth={32} className="fixed bottom-2 w-full max-w-180 mx-auto px-5 py-2 border border-zinc-200 bg-white rounded-full">
-                <NavIcon icon={faFireFlameSimple} label="マッチ" active={actives.match ?? false} />
-                <NavIcon icon={faMagnifyingGlass} label="探検" active={actives.explore ?? false} />
-                <NavIcon icon={faHouse} label="ホーム" active={actives.home ?? false} />
-                <NavIcon icon={faMap} label="マップ" active={actives.map ?? false} />
-                <NavIcon icon={faUser} label="設定" active={actives.setting ?? false} />
-            </GridContainer>
-        </div>
-    )
-}
+const navItems: NavItem[] = [
+    {
+        type: "match",
+        label: "マッチ",
+        href: "/job/match",
+        isActive: (pathname) => pathname.startsWith("/job/match"),
+        icon: faFireFlameSimple,
+    },
+    {
+        type: "explore",
+        label: "探検",
+        href: "/job/search",
+        isActive: (pathname) => pathname.startsWith("/job/search"),
+        icon: faMagnifyingGlass,
+    },
+    {
+        type: "home",
+        label: "ホーム",
+        href: "/",
+        isActive: (pathname) => pathname === "/",
+        icon: faHouse,
+    },
+    {
+        type: "map",
+        label: "マップ",
+        href: undefined,
+        isActive: (pathname) => pathname.startsWith("/map"),
+        icon: faMap,
+    },
+    {
+        type: "setting",
+        label: "設定",
+        href: undefined,
+        isActive: (pathname) => pathname.startsWith("/setting"),
+        icon: faUser,
+    },
+];
+
+export const NavBar = ({ active, className = "" }: NavBarProps) => {
+    const pathname = usePathname();
+    const activeType = active ?? navItems.find((item) => item.isActive(pathname))?.type;
+
+    return (
+        <GridContainer
+            minWidth={32}
+            className={`fixed bottom-2 left-1/2 -translate-x-1/2 w-full max-w-180 mx-auto px-5 py-2 border border-zinc-200 bg-white rounded-full z-50 ${className}`}
+        >
+            {navItems.map((item) => {
+                const isActive = item.type === activeType;
+                const content = (
+                    <NavIcon icon={item.icon} label={item.label} active={isActive} />
+                );
+
+                if (!item.href) {
+                    return (
+                        <div
+                            key={item.type}
+                            aria-disabled
+                            className="pointer-events-none opacity-50"
+                        >
+                            {content}
+                        </div>
+                    );
+                }
+
+                return (
+                    <Link
+                        key={item.type}
+                        href={item.href}
+                        aria-current={isActive ? "page" : undefined}
+                    >
+                        {content}
+                    </Link>
+                );
+            })}
+        </GridContainer>
+    );
+};

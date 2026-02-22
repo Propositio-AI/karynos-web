@@ -1,11 +1,15 @@
 import axios, { AxiosInstance } from "axios";
 import { fetchAuthSession, signOut, AuthError } from "aws-amplify/auth";
-import { ApiErrorResponse, ApiErrorType } from "./type";
+import { ApiErrorResponse, ApiErrorType, ApiResponse } from "./type";
+
+const baseURL =
+    process.env.NEXT_PUBLIC_API_BASE_URL ||
+    (process.env.NODE_ENV === "development" ? "http://localhost:8080" : "");
 
 const api: AxiosInstance = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_API_BASE_URL || '',
+    baseURL,
     headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
     },
 });
 
@@ -63,10 +67,10 @@ const APIcall = async <TSend, TReceive>(
         method: "GET" | "POST" | "PUT" | "DELETE",
         url: string,    
         config?: ApiConfig<TSend>,
-        onSuccess?: (data: TReceive) => Promise<void> | null,
-        onError?: (error: ApiErrorResponse) => Promise<void>,
+        onSuccess?: (data: ApiResponse<TReceive>) => Promise<void> | void,
+        onError?: (error: ApiResponse<null>) => Promise<void> | void,
         onUnauthenticated?: () => Promise<void> | void,
-    ): Promise<boolean> => {
+    ): Promise<void> => {
     try{
         let headers: Record<string, string> = {
             ...config?.headers,
@@ -99,15 +103,14 @@ const APIcall = async <TSend, TReceive>(
                 // 認証がない場合、未認証ハンドラーを実行
                 await handleUnauthorizedError(onUnauthenticated);
                 
-                const errorResponse: ApiErrorResponse = {
-                    type: ApiErrorType.UNAUTHORIZED,
-                    code: 'AUTH_TOKEN_FETCH_FAILED',
-                    message: 'Failed to retrieve authentication token',
+                const errorResponse: ApiResponse<null> = {
+                    success: false,
+                    message: ['Failed to retrieve authentication token'],
+                    data: null,
                 };
 
                 if(onError) await onError(errorResponse);
                 
-                return false;
             }
 
             throw tokenErr;
@@ -117,92 +120,115 @@ const APIcall = async <TSend, TReceive>(
 
         switch (method){
             case "GET":
-                res = await api.get<TReceive>(url, { ...config, headers });
+                res = await api.get<ApiResponse<TReceive>>(url, { ...config, headers });
                 break;
                 
             case "POST":
-                res = await api.post<TReceive>(url, config?.data, { headers });
+                res = await api.post<ApiResponse<TReceive>>(url, config?.data, { headers });
                 break;
 
             case "PUT":
-                res = await api.put<TReceive>(url, config?.data, { headers });
+                res = await api.put<ApiResponse<TReceive>>(url, config?.data, { headers });
                 break;
 
             case "DELETE":
-                res = await api.delete<TReceive>(url, { ...config, headers });
+                res = await api.delete<ApiResponse<TReceive>>(url, { ...config, headers });
                 break;
 
             default:
                 throw new Error(`Unsupported method: ${method}`);
         }
         
-        if(onSuccess) await onSuccess(res.data)
-        
-        return true
+        if(onSuccess) await onSuccess({
+            success: true,
+            message: [],
+            data: res.data as TReceive,
+        })
 
     }catch(error: unknown){
-        const errorResponse: ApiErrorResponse = {
-            type: ApiErrorType.UNKNOWN,
-            code: 'UNKNOWN_ERROR',
-            message: 'An unexpected error occurred',
-        };
-
+        const errorMessages: string[] = [];
+        
         if(axios.isAxiosError(error)){
             if(error.response){
                 const http_status = error.response.status;
                 const error_data = error.response.data as any;
                 
-                errorResponse.status = http_status;
-                errorResponse.code = `${http_status}-${error_data?.code || 'ERROR'}`;
-                errorResponse.message = error_data?.message || error.message;
-                errorResponse.type = getErrorType(http_status);
+                const message = error_data?.message || error.message;
+                errorMessages.push(message);
 
-                console.error(`API Error [${errorResponse.code}]: ${errorResponse.message}`);
+                console.error(`API Error [${http_status}]: ${message}`);
 
                 // 未認証エラーの特別処理
                 if (http_status === 401 || http_status === 403) {
                     await handleUnauthorizedError(onUnauthenticated);
                 }
 
+                const errorResponse: ApiResponse<null> = {
+                    success: false,
+                    message: errorMessages,
+                    data: null,
+                };
+                
                 if(onError) await onError(errorResponse);
+                
             }else if (error.code === 'ECONNABORTED' || error.code === 'ENOTFOUND') {
                 // ネットワークエラー
-                errorResponse.type = ApiErrorType.NETWORK_ERROR;
-                errorResponse.code = 'NETWORK_ERROR';
-                errorResponse.message = 'Network connection error. Please check your internet connection.';
+                errorMessages.push('Network connection error. Please check your internet connection.');
                 
                 console.error("Network error:", error.message);
+                const errorResponse: ApiResponse<null> = {
+                    success: false,
+                    message: errorMessages,
+                    data: null,
+                };
                 if(onError) await onError(errorResponse);
+                
             } else {
                 // その他のAxiosエラー
-                errorResponse.code = error.code || 'REQUEST_ERROR';
-                errorResponse.message = error.message || 'Request failed';
+                errorMessages.push(error.message || 'Request failed');
                 
-                console.error(`Request error [${errorResponse.code}]: ${errorResponse.message}`);
+                console.error(`Request error: ${error.message}`);
+                const errorResponse: ApiResponse<null> = {
+                    success: false,
+                    message: errorMessages,
+                    data: null,
+                };
                 if(onError) await onError(errorResponse);
             }
         } else if (error instanceof AuthError) {
             // Cognito認証エラー
-            errorResponse.type = ApiErrorType.UNAUTHORIZED;
-            errorResponse.code = `AUTH_ERROR-${error.name}`;
-            errorResponse.message = error.message || 'Authentication error';
+            errorMessages.push(error.message || 'Authentication error');
             
             console.error("Cognito auth error:", error.message);
             await handleUnauthorizedError(onUnauthenticated);
+            const errorResponse: ApiResponse<null> = {
+                success: false,
+                message: errorMessages,
+                data: null,
+            };
             if(onError) await onError(errorResponse);
+            
         } else if (error instanceof Error) {
-            errorResponse.type = ApiErrorType.UNKNOWN;
-            errorResponse.code = 'UNKNOWN_ERROR';
-            errorResponse.message = error.message || 'An unexpected error occurred';
+            errorMessages.push(error.message || 'An unexpected error occurred');
             
             console.error("Unexpected error:", error.message);
+            const errorResponse: ApiResponse<null> = {
+                success: false,
+                message: errorMessages,
+                data: null,
+            };
             if(onError) await onError(errorResponse);
+            
         }else{
             console.error("Unknown error:", error);
+            errorMessages.push('An unexpected error occurred');
+            const errorResponse: ApiResponse<null> = {
+                success: false,
+                message: errorMessages,
+                data: null,
+            };
             if(onError) await onError(errorResponse);
         }
-
-        return false
     }
 }
 

@@ -13,3 +13,13 @@ export interface ApiErrorResponse {
     message: string;
     status?: number;
 }
+
+/**
+ * 統一されたAPIレスポンス型
+ * @template T レスポンスデータの型
+ */
+export interface ApiResponse<T = any> {
+    success: boolean;
+    message: string[];
+    data: T;
+}

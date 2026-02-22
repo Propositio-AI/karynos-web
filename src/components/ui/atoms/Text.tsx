@@ -1,10 +1,14 @@
 import { TagColor } from "@/types/ui/atoms/Text";
-import { HorizontalStackContainer } from "../molecules/Container";
-import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
 
+type TagProps = {
+    text: string;
+    color: TagColor;
+    href?: string;
+    onClick?: () => void;
+};
 
-export const Tag = ({text, color}: {text: string, color: TagColor}) => {
+export const Tag = ({ text, color, href, onClick }: TagProps) => {
     const ColorMap: Record<TagColor, {bg: string, hover: string, text: string}> = {
         slate: {bg: "bg-slate-100", hover: "bg-slate-200", text: "text-slate-800"},
         red: {bg: "bg-red-100", hover: "bg-red-200", text: "text-red-800"},
@@ -15,33 +19,20 @@ export const Tag = ({text, color}: {text: string, color: TagColor}) => {
         purple: {bg: "bg-purple-100", hover: "bg-purple-200", text: "text-purple-800"},
     }
 
-    return (
-        <div className={`inline-flex m-1 px-2.5 py-1 rounded-full border ${ColorMap[color].bg} hover:${ColorMap[color].hover} ${ColorMap[color].text} cursor-pointer `}>
+    const tagElement = (
+        <div className={`inline-flex m-1 px-2.5 py-1 rounded-full border ${ColorMap[color].bg} hover:${ColorMap[color].hover} ${ColorMap[color].text} cursor-pointer transition-colors`}>
             <span className="text-xs font-medium">{text}</span>
         </div>
     );
-}
 
-export const BreadCrumb = ({ links }: { links: { name: string; link: string }[] }) => {
-    return (
-        <HorizontalStackContainer className="my-8">
-            {links.map((value, index) => {
-                const isLast = index === links.length - 1;
+    if (href) {
+        return <Link href={href}>{tagElement}</Link>;
+    }
 
-                return isLast ? (
-                        <span key={index} className="text-blue-500 font-semibold">
-                            {value.name}
-                        </span>
-                ) : (
-                    <>
-                        <span key={index} className="text-gray-500 hover:underline cursor-pointer">
-                            {value.name}
-                        </span>
-                        <FontAwesomeIcon icon={faAngleRight} className="text-gray-500"/>
-                        
-                    </>
-                );
-            })}
-        </HorizontalStackContainer>
-    );
+    if (onClick) {
+        return <div onClick={onClick}>{tagElement}</div>;
+    }
+
+    return tagElement;
 };
+

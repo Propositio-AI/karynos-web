@@ -21,7 +21,7 @@ export const ChatInputArea: React.FC<Props> = ({ inputText, isLoading, onChange,
   };
 
   return (
-    <footer className="fixed bottom-0 left-0 w-full bg-white border-t border-zinc-200 p-3 z-20 pb-safe">
+    <footer className="fixed bottom-25 left-0 w-full bg-white border-t border-zinc-200 p-3 z-20 pb-safe">
       <div className="flex items-center gap-2 max-w-3xl mx-auto">
         <input
           type="text"

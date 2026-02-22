@@ -1,36 +1,65 @@
-type StreamConfig = {
+import { ApiResponse } from "./type";
+
+type StreamConfig<T = any> = {
   url: string;
-  body?: any; // ★追加: 送信データ
+  body?: any;
   onChunk: (chunk: string) => void;
-  onComplete?: () => void;
-  onError?: (error: Error) => void;
+  onComplete?: (response: ApiResponse<T>) => void | Promise<void>;
+  onError?: (error: ApiResponse<null>) => void | Promise<void>;
 };
 
-export const streamApiCall = async ({ url, body, onChunk, onComplete, onError }: StreamConfig) => {
-  // api-call.tsと同様、パス結合ロジックが必要ならここに書くか、呼び出し元で結合する
-  // ここでは .env のベースURLを使う前提で書きます
-//   const full_url = `${process.env.NEXT_PUBLIC_API_BASE_URL}${url}`;
-    const full_url = `http://localhost:${url}`;// 仮
+const defaultBaseUrl =
+  process.env.NEXT_PUBLIC_CHAT_API_URL ||
+  process.env.NEXT_PUBLIC_API_BASE_URL ||
+  (process.env.NODE_ENV === "development" ? "http://localhost:8080" : "");
+
+const resolveUrl = (url: string) => {
+  try {
+    return new URL(url).toString();
+  } catch {
+    if (!defaultBaseUrl) return url;
+    const base = defaultBaseUrl.endsWith("/") ? defaultBaseUrl : `${defaultBaseUrl}/`;
+    return new URL(url, base).toString();
+  }
+};
+
+export const streamApiCall = async <T = any>({ url, body, onChunk, onComplete, onError }: StreamConfig<T>) => {
+  const full_url = resolveUrl(url);
   try {
     const response = await fetch(full_url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: body ? JSON.stringify(body) : undefined, // ★追加
+      body: body ? JSON.stringify(body) : undefined,
     });
 
     if (!response.ok) {
-      // エラーレスポンスの内容を取得して投げる
       const errorText = await response.text();
-      throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
+      const errorMessage = `HTTP error! status: ${response.status}, message: ${errorText}`;
+      const errorResponse: ApiResponse<null> = {
+        success: false,
+        message: [errorMessage],
+        data: null,
+      };
+      if (onError) await onError(errorResponse);
+      throw new Error(errorMessage);
     }
 
-    if (!response.body) throw new Error('Response body is null');
+    if (!response.body) {
+      const errorResponse: ApiResponse<null> = {
+        success: false,
+        message: ['Response body is null'],
+        data: null,
+      };
+      if (onError) await onError(errorResponse);
+      throw new Error('Response body is null');
+    }
 
     const reader = response.body.getReader();
     const decoder = new TextDecoder('utf-8');
     let done = false;
+    let fullResponse = '';
 
     while (!done) {
       const { value, done: doneReading } = await reader.read();
@@ -38,13 +67,42 @@ export const streamApiCall = async ({ url, body, onChunk, onComplete, onError }:
       if (value) {
         const chunkValue = decoder.decode(value, { stream: true });
         onChunk(chunkValue);
+        fullResponse += chunkValue;
       }
     }
 
-    if (onComplete) onComplete();
+    // 最後の結果をパースしてコールバック
+    if (onComplete) {
+      const contentType = response.headers.get('content-type') || '';
+      const trimmed = fullResponse.trim();
+      const looksLikeJson = trimmed.startsWith('{') || trimmed.startsWith('[');
+      const shouldParseJson = contentType.includes('application/json') || looksLikeJson;
+
+      if (shouldParseJson) {
+        try {
+          const finalResponse = JSON.parse(fullResponse) as ApiResponse<T>;
+          await onComplete(finalResponse);
+          return;
+        } catch (parseErr) {
+          console.warn('Response is not valid JSON, treating as text:', parseErr);
+        }
+      }
+
+      const successResponse: ApiResponse<T> = {
+        success: true,
+        message: [],
+        data: fullResponse as any,
+      };
+      await onComplete(successResponse);
+    }
 
   } catch (error) {
     console.error('Stream error:', error);
-    if (onError) onError(error instanceof Error ? error : new Error('Unknown error'));
+    const errorResponse: ApiResponse<null> = {
+      success: false,
+      message: [error instanceof Error ? error.message : 'Unknown error'],
+      data: null,
+    };
+    if (onError) await onError(errorResponse);
   }
 };

@@ -34,12 +34,12 @@ export const useCreateAccount = () => {
                     name_given: givenName,
                     },
                 },
-                async (response: NewDreamerResponse) => {
+                async () => {
                     setFamilyName("");
                     setGivenName("");
                 },
-                async (error: ApiErrorResponse) => {
-                    setError(error.message);
+                async () => {
+                    // setError(error.message);
                 },
                 handleUnauthenticated
                 );
