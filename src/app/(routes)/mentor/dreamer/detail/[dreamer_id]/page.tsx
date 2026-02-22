@@ -5,7 +5,7 @@ import { VerticalStackContainer, HorizontalStackContainer } from "@/components/u
 import { IconButton } from "@/components/ui/atoms/Button";
 import { BreadCrumb, Tag } from "@/components/ui/atoms/Text";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
-import { ProfileText } from "@/features/mentor/Text";
+import { ProfileText } from "@/components/features/mentor/Text";
 
 const DreamerDetail = () => {
 

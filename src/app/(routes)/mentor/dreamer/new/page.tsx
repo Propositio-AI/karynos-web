@@ -5,7 +5,7 @@ import { SideBar } from "@/components/ui/templates/SideBar";
 import { VerticalStackContainer, HorizontalStackContainer } from "@/components/ui/molecules/Container";
 import { BaseButton, IconButton } from "@/components/ui/atoms/Button";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { DreamerForm } from "@/features/mentor/Form";
+import { DreamerForm } from "@/components/features/mentor/Form";
 import { BreadCrumb } from "@/components/ui/atoms/Text";
 
 const NewDreamer = () => {

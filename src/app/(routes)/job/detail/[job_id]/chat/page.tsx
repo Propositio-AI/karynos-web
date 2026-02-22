@@ -1,6 +1,7 @@
 "use client"
 
-import { ChatContainer, HorizontalStackContainer } from "@/components/ui/molecules/Container"
+import { HorizontalStackContainer } from "@/components/ui/molecules/Container"
+import { ChatContainer } from "@/components/features/chat/Text"
 import { BaseInputText } from "@/components/ui/atoms/Input"
 import { IconButton } from "@/components/ui/atoms/Button"
 

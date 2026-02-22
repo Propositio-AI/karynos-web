@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { BaseInputText } from "@/components/ui/atoms/Input";
 import { BreadCrumb } from "@/components/ui/atoms/Text";
-import { GroupForm } from "@/features/mentor/Form";
+import { GroupForm } from "@/components/features/mentor/Form";
 
 const DreamerNewGroup = () => {
 

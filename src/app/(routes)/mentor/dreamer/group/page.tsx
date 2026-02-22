@@ -5,7 +5,7 @@ import { VerticalStackContainer, GridContainer } from "@/components/ui/molecules
 import { DashboardCard } from "@/components/ui/molecules/Card";
 import { IconButton } from "@/components/ui/atoms/Button";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { GroupCard } from "@/features/mentor/Card";
+import { GroupCard } from "@/components/features/mentor/Card";
 
 import Link from "next/link";
 

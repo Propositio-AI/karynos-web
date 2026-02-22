@@ -2,9 +2,9 @@
 
 import React, { useState, useMemo } from 'react';
 import { Plus, X } from 'lucide-react';
-import { useChatList } from '@/hooks/feature/chat/UseChatList'; // パスは実際の環境に合わせてください
-import { ChatListHeader } from '@/components/feature/chat/ChatListHeader';
-import { ChatListItem } from '@/components/feature/chat/ChatListItem';
+import { useChatList } from '@/hooks/features/chat/UseChatList'; // パスは実際の環境に合わせてください
+import { ChatListHeader } from '@/components/features/chat/ChatListHeader';
+import { ChatListItem } from '@/components/features/chat/ChatListItem';
 
 // --- 日付フォーマット用のヘルパー関数 ---
 const formatLastMessageDate = (dateString: string) => {

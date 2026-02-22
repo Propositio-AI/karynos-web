@@ -1,5 +1,5 @@
 import { BaseContainerType, StackContainerType, spaceNumberType, GridContainerType } from "@/types/ui/molecules/Container"
-import { ChatMessage } from "@/features/chat/Text"
+import { ChatMessage } from "@/components/features/chat/Text"
 
 /**
 

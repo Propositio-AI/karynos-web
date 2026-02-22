@@ -7,7 +7,7 @@ import { VerticalStackContainer, HorizontalStackContainer } from "@/components/u
 import { BaseButton, IconButton } from "@/components/ui/atoms/Button";
 import { faSave } from "@fortawesome/free-solid-svg-icons";
 import { BreadCrumb } from "@/components/ui/atoms/Text";
-import { DreamerForm } from "@/features/mentor/Form";
+import { DreamerForm } from "@/components/features/mentor/Form";
 
 const DreamerEdit = () => {
 

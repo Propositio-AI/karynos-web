@@ -2,10 +2,10 @@
 
 import { GridContainer, VerticalStackContainer, HorizontalStackContainer } from "@/components/ui/molecules/Container"
 import { SideBar } from "@/components/ui/templates/SideBar"
-import { DreamerListItem } from "@/features/mentor/Table"
+import { DreamerListItem } from "@/components/features/mentor/Table"
 
 import { DashboardCard } from "@/components/ui/molecules/Card"
-import { TableButton, TableHeader } from "@/features/mentor/Table"
+import { TableButton, TableHeader } from "@/components/features/mentor/Table"
 
 const DreamerAdmin = () => {
 

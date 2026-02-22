@@ -1,3 +1,5 @@
+import { VerticalStackContainer } from "@/components/ui/molecules/Container";
+
 export const ChatMessage = ({message, isUser}: {message: string, isUser: boolean}) => {
     return (
         <div className="w-full">

@@ -5,13 +5,13 @@ import { faEdit, faFilter, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { SideBar } from "@/components/ui/templates/SideBar"
 import { BaseButton, IconButton } from "@/components/ui/atoms/Button";
 import { BaseInputText } from "@/components/ui/atoms/Input";
-import { DreamerListItem, TableButton, TableHeader } from "@/features/mentor/Table";
+import { DreamerListItem, TableButton, TableHeader } from "@/components/features/mentor/Table";
 import { Card } from "@/components/ui/molecules/Card";
 import { SimpleModal } from "@/components/ui/molecules/Modal";
 import { AddDreamerModal } from "@/components/ui/molecules/AddDreamerModal";
 import { HorizontalStackContainer, VerticalStackContainer } from "@/components/ui/molecules/Container";
 import { BreadCrumb } from "@/components/ui/atoms/Text";
-import { ProfileText } from "@/features/mentor/Text";
+import { ProfileText } from "@/components/features/mentor/Text";
 
 const dummyDreamers = [
 	{

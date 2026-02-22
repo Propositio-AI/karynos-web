@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { APIcall } from '@/lib/api-client/api-call'; 
+import APIcall from '@/lib/api-client/api-call';
 import { streamApiCall } from '@/lib/api-client/stream-api-call';
 import { ChatUIModel, Message, RoleType } from '@/types/feature/chat/chat';
 
