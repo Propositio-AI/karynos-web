@@ -1,0 +1,9 @@
+{
+	"extends": ["next/core-web-vitals", "next/typescript", "prettier"],
+	"rules": {
+		"@typescript-eslint/no-explicit-any": "off",
+		"@typescript-eslint/triple-slash-reference": "off",
+		"react/no-children-prop": "off"
+	},
+	"ignorePatterns": [".next/", "node_modules/", "storybook-static/", "coverage/", "src/app/gen/"]
+}

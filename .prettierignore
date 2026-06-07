@@ -1,0 +1,6 @@
+.next
+node_modules
+coverage
+storybook-static
+src/app/gen
+package-lock.json
