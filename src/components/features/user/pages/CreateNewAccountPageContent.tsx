@@ -1,7 +1,7 @@
 "use client";
 
-import CreateNewAccount from "@/components/features/user/createNewAcount";
-import { useCreateAccount } from "@/hooks/features/user/useCreateAcount";
+import CreateNewAccount from "@/components/features/user/CreateNewAccount";
+import { useCreateAccount } from "@/hooks/features/user/useCreateAccount";
 
 export default function CreateNewAccountPageContent() {
 	const { familyName, givenName, isLoading, error, setFamilyName, setGivenName, createAccount } =

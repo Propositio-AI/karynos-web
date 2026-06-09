@@ -1,10 +1,5 @@
-import React from 'react';
-import MatchQuestions from '@/components/features/match/MatchQuestions';
+import { InitQuestionsPageContent } from '@/components/features/dreamer/InitQuestionsPageContent';
 
-export default function MatchQuestionPage() {
-    return (
-        <div className="min-h-screen bg-white">
-            <MatchQuestions />
-        </div>
-    );
+export default function InitQuestionsPage() {
+    return <InitQuestionsPageContent />;
 }

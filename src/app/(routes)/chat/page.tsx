@@ -2,7 +2,7 @@
 
 import React, { useMemo } from 'react';
 import Link from 'next/link';
-import { useChatList } from '@/hooks/features/chat/UseChatList';
+import { useChatList } from '@/hooks/features/chat/useChatList';
 import { ChatListHeader } from '@/components/features/chat/ChatListHeader';
 
 // --- 日付フォーマット用のヘルパー関数 ---

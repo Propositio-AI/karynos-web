@@ -1,13 +1,13 @@
 "use client";
 
-import { JobHistory } from "@/hooks/features/job/useJobHistory";
+import type { ViewingHistoryItem } from "@/lib/api/gen/schema";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { BaseButton } from "@/components/ui/atoms/Button";
 
 type JobHistoryListProps = {
-    histories: JobHistory[];
+    histories: ViewingHistoryItem[];
     isLoading: boolean;
     error: string | null;
 };
@@ -48,7 +48,7 @@ export const JobHistoryList = ({ histories, isLoading, error }: JobHistoryListPr
                     className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow border border-slate-200 overflow-hidden"
                 >
                     {/* Image */}
-                    {history.job_imgs && history.job_imgs.length > 0 && (
+                    {history.job_imgs && history.job_imgs.length > 0 && history.job_imgs[0] && (
                         <div className="relative w-full h-48 bg-slate-100 flex items-center justify-center">
                             <Image
                                 src={history.job_imgs[0]}

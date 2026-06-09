@@ -1,25 +1,9 @@
-import { useState, useEffect } from "react";
-import APIcall from "@/lib/api-client/api-call";
-
-export interface JobHistory {
-    history_id: string;
-    job_id: number;
-    job_name: string;
-    job_imgs: string[];
-    good: boolean;
-    bad: boolean;
-    save: boolean;
-    created_at: string;
-}
-
-interface HistoryResponse {
-    total_count: number;
-    items: JobHistory[];
-    created_at: string;
-}
+import { useState, useEffect } from 'react';
+import { api } from '@/lib/api/client';
+import type { ViewingHistoryItem } from '@/lib/api/gen/schema';
 
 export const useJobHistory = () => {
-    const [histories, setHistories] = useState<JobHistory[]>([]);
+    const [histories, setHistories] = useState<ViewingHistoryItem[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
@@ -27,18 +11,11 @@ export const useJobHistory = () => {
         setIsLoading(true);
         setError(null);
         try {
-            await APIcall<null, HistoryResponse>(
-                "GET",
-                `http://localhost:8080/job/api/v1/history?limit=${limit}&offset=${offset}`,
-                undefined,
-                async (response) => {
-                    setHistories(response.data.items || []);
-                },
-                async (error) => {
-                    setError(error.message.join(", "));
-                    setHistories([]);
-                }
-            );
+            const response = await api.getViewingHistoryApiV1JobHistoryGet({ limit, offset });
+            setHistories(response.items ?? []);
+        } catch (err) {
+            setError(err instanceof Error ? err.message : '履歴の取得に失敗しました');
+            setHistories([]);
         } finally {
             setIsLoading(false);
         }
@@ -48,10 +25,5 @@ export const useJobHistory = () => {
         fetchHistory();
     }, []);
 
-    return {
-        histories,
-        isLoading,
-        error,
-        refetch: fetchHistory,
-    };
+    return { histories, isLoading, error, refetch: fetchHistory };
 };

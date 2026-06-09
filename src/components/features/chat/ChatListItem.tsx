@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Check, Circle } from 'lucide-react';
-import { Conversation } from '@/hooks/features/chat/UseChatList';
+import { Conversation } from '@/hooks/features/chat/useChatList';
 
 type Props = {
   conversation: Conversation;

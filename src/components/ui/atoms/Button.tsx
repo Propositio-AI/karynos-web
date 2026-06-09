@@ -77,7 +77,9 @@ export const IconButton = ({
     return(
         <BaseButton color={color} className={className} isLoading={isLoading} onClick={onClick}>
             <HorizontalStackContainer space={2} className="mx-auto">
-                <FontAwesomeIcon icon={icon} className="h-8 aspect-square mr-2 flex justify-center items-center"/>
+                {isIconDefinition(icon)
+                    ? <FontAwesomeIcon icon={icon} className="h-8 aspect-square mr-2 flex justify-center items-center"/>
+                    : icon}
                 {children}
             </HorizontalStackContainer>
         </BaseButton>

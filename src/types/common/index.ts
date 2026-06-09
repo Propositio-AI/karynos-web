@@ -1,1 +1,1 @@
-export type AcountType = "dreamer" | "mentor";
+export type AccountType = 'dreamer' | 'mentor';

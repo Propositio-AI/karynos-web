@@ -1,13 +1,13 @@
 "use client";
 
-import { SearchJobResult } from "@/hooks/features/job/useSearch";
+import type { JobSearchResult } from "@/lib/api/gen/schema";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { BaseButton } from "@/components/ui/atoms/Button";
 
 type SearchResultsProps = {
-    results: SearchJobResult[];
+    results: JobSearchResult[];
     isLoading: boolean;
     error: string | null;
     hasSearched: boolean;
@@ -68,7 +68,7 @@ export const SearchResults = ({
                         className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow border border-slate-200 overflow-hidden"
                     >
                         {/* Image */}
-                        {job.imgs && job.imgs.length > 0 && (
+                        {job.imgs && job.imgs.length > 0 && job.imgs[0] && (
                             <div className="relative w-full h-48 bg-slate-100 flex items-center justify-center">
                                 <Image
                                     src={job.imgs[0]}
@@ -88,20 +88,6 @@ export const SearchResults = ({
                             <p className="text-sm text-slate-600 line-clamp-2">
                                 {job.description}
                             </p>
-
-                            {/* Info badges */}
-                            <div className="flex gap-2 flex-wrap">
-                                {job.salary && (
-                                    <span className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">
-                                        {Math.round(job.salary / 10000)}万円
-                                    </span>
-                                )}
-                                {job.age && (
-                                    <span className="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded">
-                                        平均年齢 {job.age}歳
-                                    </span>
-                                )}
-                            </div>
 
                             {/* Link button */}
                             <Link href={`/job/detail/${job.job_id}`}>

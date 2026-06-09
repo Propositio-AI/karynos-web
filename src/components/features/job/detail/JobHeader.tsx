@@ -30,8 +30,8 @@ export const JobHeader = ({
             <VerticalStackContainer space={4}>
                 {imgs.length > 0 && (
                     <div className="w-full h-64 relative bg-gray-200 rounded-lg overflow-hidden flex items-center justify-center">
-                        <Image 
-                            src={imgs[0]} 
+                        <Image
+                            src={imgs[0] ?? ''}
                             alt="職業画像" 
                             fill
                             className="object-contain"

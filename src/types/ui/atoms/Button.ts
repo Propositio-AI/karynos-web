@@ -1,6 +1,6 @@
 import { ColorVariantKey } from "../color"
 
-export type BaseButtonType = {  
+export type BaseButtonType = {
     color?: ColorVariantKey
     children?: React.ReactNode
     className?: string

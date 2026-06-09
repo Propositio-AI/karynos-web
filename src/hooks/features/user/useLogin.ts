@@ -47,13 +47,18 @@ export const useLogin = () => {
         }
     }
 
+    const onChangeEmail = (v: string) => setEmail(v);
+    const onChangeConfirmationCode = (v: string) => setConfirmationCode(v);
+
     return {
         step,
         email,
         isLoading,
         setEmail,
+        onChangeEmail,
         handleLogin,
         setConfirmationCode,
+        onChangeConfirmationCode,
         handleConfirmLogin,
         error,
     }

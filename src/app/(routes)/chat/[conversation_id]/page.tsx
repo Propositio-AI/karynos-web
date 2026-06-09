@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { useChat } from '@/hooks/features/chat/UseChat';
+import { useChat } from '@/hooks/features/chat/useChat';
 import { ChatHeader } from '@/components/features/chat/ChatHeader';
 import { MessageBubble } from '@/components/features/chat/MessageBubble';
 import { ChatInputArea } from '@/components/features/chat/ChatInputArea';

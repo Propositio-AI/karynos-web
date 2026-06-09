@@ -67,7 +67,7 @@ const JobSearch = () => {
                         </BaseButton>
                         {hasSearched && (
                             <BaseButton
-                                color="gray"
+                                color="slate"
                                 onClick={handleClear}
                             >
                                 クリア

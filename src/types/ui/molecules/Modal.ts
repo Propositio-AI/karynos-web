@@ -1,6 +1,6 @@
-export type SimpleMpdalType = {  
+export type SimpleMpdalType = {
     isOpen: boolean
-    setIsOpen: (falg: boolean) => void
+    setIsOpen: (flag: boolean) => void
     title?: string
     children?: React.ReactNode
     className?: string

@@ -1,7 +1,7 @@
 import { Card } from "@/components/ui/molecules/Card"
 import { VerticalStackContainer, GridContainer } from "@/components/ui/molecules/Container"
 import { Tag } from "@/components/ui/atoms/Text"
-import { SkillItem, CertificationItem, TalentItem, InterestItem } from "@/types/api/job"
+import type { Skill, Certification, Talent, Interest } from "@/lib/api/gen/schema"
 import { TagColor } from "@/types/ui/atoms/Text"
 
 type RequirementCardProps = {
@@ -30,10 +30,10 @@ const RequirementCard = ({ title, items, requiredColor, optionalColor }: Require
 )
 
 type SkillsAndRequirementsProps = {
-    skills: SkillItem[]
-    certifications: CertificationItem[]
-    talents: TalentItem[]
-    interests: InterestItem[]
+    skills: Skill[]
+    certifications: Certification[]
+    talents: Talent[]
+    interests: Interest[]
 }
 
 export const SkillsAndRequirements = ({
