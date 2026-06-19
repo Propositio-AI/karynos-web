@@ -8,4 +8,4 @@ export type BaseButtonType = {
     onClick?: () => void
 }
 
-export type NavType = 'match' | 'explore' | 'home' | 'map' | 'setting';
+export type NavType = 'match' | 'explore' | 'home' | 'dream-action' | 'setting';
