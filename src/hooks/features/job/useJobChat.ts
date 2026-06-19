@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { api } from '@/lib/api/client';
-import type { Conversation } from '@/hooks/features/chat/useChatList';
+import type { Conversation } from '@/hooks/features/chat/UseChatList';
 
 export const useJobChat = () => {
     const router = useRouter();
