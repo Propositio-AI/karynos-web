@@ -10,7 +10,7 @@ import {
     faFireFlameSimple,
     faMagnifyingGlass,
     faHouse,
-    faMap,
+    faBook,
     faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
@@ -51,11 +51,11 @@ const navItems: NavItem[] = [
         icon: faHouse,
     },
     {
-        type: "map",
-        label: "マップ",
-        href: undefined,
-        isActive: (pathname) => pathname.startsWith("/map"),
-        icon: faMap,
+        type: "dream-action",
+        label: "教材",
+        href: "/dream-action",
+        isActive: (pathname) => pathname.startsWith("/dream-action"),
+        icon: faBook,
     },
     {
         type: "setting",
