@@ -145,7 +145,7 @@ export const InitQuestionsPageContent = () => {
                         </div>
                         <div className="h-1.5 overflow-hidden rounded-full bg-line">
                             <div
-                                className="h-full rounded-full bg-brand-700 transition-all duration-300"
+                                className="h-full rounded-full bg-brand-500 transition-all duration-300"
                                 style={{ width: `${progressPercent}%` }}
                             />
                         </div>
@@ -207,7 +207,7 @@ export const InitQuestionsPageContent = () => {
                     <button
                         disabled={!isAnsweredAll || submitting}
                         onClick={handleSubmit}
-                        className="min-h-12 w-full rounded-(--radius-sm) bg-brand-700 px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-800 disabled:cursor-not-allowed disabled:bg-line disabled:text-subtle"
+                        className="min-h-12 w-full rounded-(--radius-sm) bg-brand-500 px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-600 disabled:cursor-not-allowed disabled:bg-line disabled:text-subtle"
                     >
                         {submitting ? "送信中..." : "診断結果を見る"}
                     </button>

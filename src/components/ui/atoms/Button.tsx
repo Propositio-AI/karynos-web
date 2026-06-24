@@ -11,8 +11,8 @@ import type { ColorVariantKey } from "@/types/ui/color";
 const buttonClasses: Record<ColorVariantKey, string> = {
     slate: "bg-ink text-white hover:bg-stone-800",
     white: "border border-line bg-surface text-ink hover:bg-canvas hover:border-subtle/60",
-    emerald: "bg-brand-700 text-white hover:bg-brand-800",
-    blue: "bg-brand-700 text-white hover:bg-brand-800",
+    emerald: "bg-brand-500 text-white hover:bg-brand-600",
+    blue: "bg-brand-500 text-white hover:bg-brand-600",
 };
 
 const spinnerClasses: Record<ColorVariantKey, string> = {

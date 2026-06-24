@@ -34,7 +34,7 @@ export const ChatInputArea = ({ inputText, isLoading, onChange, onSend }: Props)
                 <button
                     onClick={onSend}
                     disabled={!inputText.trim() || isLoading}
-                    className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-brand-700 text-white transition-colors hover:bg-brand-800 active:scale-95 disabled:cursor-not-allowed disabled:bg-line disabled:text-subtle"
+                    className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-brand-500 text-white transition-colors hover:bg-brand-600 active:scale-95 disabled:cursor-not-allowed disabled:bg-line disabled:text-subtle"
                     aria-label="送信"
                 >
                     <Send className="h-5 w-5 -translate-x-0.5 translate-y-0.5 -rotate-12" />

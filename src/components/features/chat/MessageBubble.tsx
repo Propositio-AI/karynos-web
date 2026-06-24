@@ -14,7 +14,7 @@ export const MessageBubble = ({ message, onDelete }: Props) => {
             <div
                 className={`max-w-[82%] whitespace-pre-wrap rounded-(--radius-md) px-4 py-3 text-sm leading-7 sm:max-w-[70%] ${
                     isMyMessage
-                        ? "bg-brand-700 text-white"
+                        ? "bg-brand-500 text-white"
                         : "border border-line bg-surface text-ink"
                 }`}
             >

@@ -5,23 +5,23 @@
     --font-sans: var(--font-noto-sans-jp), ui-sans-serif, system-ui, "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
     --font-display: var(--font-jakarta), var(--font-noto-sans-jp), ui-sans-serif, system-ui, sans-serif;
 
-    --color-brand-50: #f0fdf6;
-    --color-brand-100: #dcfce9;
-    --color-brand-200: #bbf7d6;
-    --color-brand-300: #86efb8;
-    --color-brand-400: #4ade94;
-    --color-brand-500: #22a572;
-    --color-brand-600: #178f5e;
-    --color-brand-700: #146b48;
-    --color-brand-800: #0f4f37;
-    --color-brand-900: #0a3527;
+    --color-brand-50: #eefdf6;
+    --color-brand-100: #d6fae9;
+    --color-brand-200: #a9f3d0;
+    --color-brand-300: #6fe7b3;
+    --color-brand-400: #3dd694;
+    --color-brand-500: #1fbe7e;
+    --color-brand-600: #16a36a;
+    --color-brand-700: #0f8557;
+    --color-brand-800: #0c6b46;
+    --color-brand-900: #0a5238;
 
-    --color-accent-50: #fbf7ee;
-    --color-accent-100: #f3e8cf;
-    --color-accent-300: #ddb869;
-    --color-accent-400: #c99a45;
-    --color-accent-500: #b07f2f;
-    --color-accent-600: #8f6526;
+    --color-accent-50: #fdf8ec;
+    --color-accent-100: #f7ecd0;
+    --color-accent-300: #e8c069;
+    --color-accent-400: #ddaa42;
+    --color-accent-500: #cc9230;
+    --color-accent-600: #a8772a;
 
     --color-ink: #0c0f14;
     --color-canvas: #faf9f7;
