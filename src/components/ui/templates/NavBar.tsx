@@ -2,9 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { GridContainer } from "../molecules/Container";
 import { NavIcon } from "../atoms/Button";
-import { NavType } from "@/types/ui/atoms/Button";
+import type { NavType } from "@/types/ui/atoms/Button";
 
 import {
     faFireFlameSimple,
@@ -13,7 +12,7 @@ import {
     faMap,
     faUser,
 } from "@fortawesome/free-solid-svg-icons";
-import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
+import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 
 type NavBarProps = {
     active?: NavType;
@@ -24,6 +23,7 @@ type NavItem = {
     type: NavType;
     label: string;
     href?: string;
+    dimWhenDisabled?: boolean;
     isActive: (pathname: string) => boolean;
     icon: IconDefinition;
 };
@@ -38,7 +38,7 @@ const navItems: NavItem[] = [
     },
     {
         type: "explore",
-        label: "探検",
+        label: "探査",
         href: "/job/search",
         isActive: (pathname) => pathname.startsWith("/job/search"),
         icon: faMagnifyingGlass,
@@ -46,7 +46,8 @@ const navItems: NavItem[] = [
     {
         type: "home",
         label: "ホーム",
-        href: "/",
+        href: undefined,
+        dimWhenDisabled: false,
         isActive: (pathname) => pathname === "/",
         icon: faHouse,
     },
@@ -71,38 +72,45 @@ export const NavBar = ({ active, className = "" }: NavBarProps) => {
     const activeType = active ?? navItems.find((item) => item.isActive(pathname))?.type;
 
     return (
-        <GridContainer
-            minWidth={32}
-            className={`fixed bottom-2 left-1/2 -translate-x-1/2 w-full max-w-180 mx-auto px-5 py-2 border border-zinc-200 bg-white rounded-full z-50 ${className}`}
+        <nav
+            aria-label="Primary"
+            className={`fixed inset-x-4 bottom-3 z-50 mx-auto max-w-[680px] rounded-full border border-line/80 bg-surface/90 px-3 py-2 shadow-lift backdrop-blur-md ${className}`}
         >
-            {navItems.map((item) => {
-                const isActive = item.type === activeType;
-                const content = (
-                    <NavIcon icon={item.icon} label={item.label} active={isActive} />
-                );
+            <div className="grid grid-cols-5 gap-1">
+                {navItems.map((item) => {
+                    const isActive = item.type === activeType;
+                    const content = (
+                        <NavIcon icon={item.icon} label={item.label} active={isActive} />
+                    );
 
-                if (!item.href) {
+                    if (!item.href) {
+                        return (
+                            <div
+                                key={item.type}
+                                aria-disabled
+                                className={
+                                    item.dimWhenDisabled === false
+                                        ? "pointer-events-none"
+                                        : "pointer-events-none opacity-55"
+                                }
+                            >
+                                {content}
+                            </div>
+                        );
+                    }
+
                     return (
-                        <div
+                        <Link
                             key={item.type}
-                            aria-disabled
-                            className="pointer-events-none opacity-50"
+                            href={item.href}
+                            aria-current={isActive ? "page" : undefined}
+                            className="rounded-lg focus:outline-none focus:ring-4 focus:ring-brand-100"
                         >
                             {content}
-                        </div>
+                        </Link>
                     );
-                }
-
-                return (
-                    <Link
-                        key={item.type}
-                        href={item.href}
-                        aria-current={isActive ? "page" : undefined}
-                    >
-                        {content}
-                    </Link>
-                );
-            })}
-        </GridContainer>
+                })}
+            </div>
+        </nav>
     );
 };

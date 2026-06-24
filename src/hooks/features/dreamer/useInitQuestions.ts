@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import { api } from '@/lib/api/client';
-import type { InitQuestionResponse } from '@/lib/api/gen/schema';
+import { useEffect, useState } from "react";
+import { api } from "@/lib/api/client";
+import type { InitQuestionResponse } from "@/lib/api/gen/schema";
 
 export const useInitQuestions = (version: number = 1) => {
     const [questions, setQuestions] = useState<InitQuestionResponse[]>([]);
@@ -15,7 +15,7 @@ export const useInitQuestions = (version: number = 1) => {
                 const result = await api.getOnboardingQuestionsApiV1OnboardingQuestionsGet({ version });
                 setQuestions(result.questions ?? []);
             } catch (err) {
-                setError(err instanceof Error ? err.message : '質問取得に失敗しました');
+                setError(err instanceof Error ? err.message : "質問取得に失敗しました");
             } finally {
                 setLoading(false);
             }

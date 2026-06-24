@@ -1,5 +1,6 @@
 "use client";
 
+import { motion, useTransform } from "framer-motion";
 import { CenterContainer } from "@/components/ui/molecules/Container";
 import { useJobMatch } from "@/hooks/features/job/useJobMatch";
 import { SwipeCard } from "@/components/features/job/match/SwipeCard";
@@ -8,81 +9,109 @@ import { JobDetailSection } from "@/components/features/job/match/JobDetailSecti
 import { SwipeResultMessage } from "@/components/features/job/match/SwipeResultMessage";
 
 export default function JobMatchingPageContent() {
-	const {
-		expanded,
-		imageFullscreen,
-		swipeDirection,
-		x,
-		rotate,
-		opacity,
-		customDirection,
-		handleDragEndMain,
-		handleImageDragEnd,
-		handleDetailDragEnd,
-		resetSwipe,
-		currentJob,
-		isLoading,
-		error,
-	} = useJobMatch();
+    const {
+        expanded,
+        imageFullscreen,
+        swipeDirection,
+        x,
+        rotate,
+        opacity,
+        customDirection,
+        handleDragEndMain,
+        handleImageDragEnd,
+        handleDetailDragEnd,
+        resetSwipe,
+        handleSave,
+        currentJob,
+        cardIndex,
+        isLoading,
+        error,
+    } = useJobMatch();
 
-	if (isLoading) {
-		return (
-			<CenterContainer className="w-full min-h-screen overflow-hidden bg-zinc-50">
-				<p className="text-zinc-500">読み込み中...</p>
-			</CenterContainer>
-		);
-	}
+    const backgroundTint = useTransform(
+        x,
+        [-240, -80, 0, 80, 240],
+        [
+            "rgb(254, 226, 226)",
+            "rgb(254, 242, 242)",
+            "rgb(250, 250, 249)",
+            "rgb(236, 253, 245)",
+            "rgb(209, 250, 229)",
+        ],
+    );
 
-	if (error) {
-		return (
-			<CenterContainer className="w-full min-h-screen overflow-hidden bg-zinc-50">
-				<p className="text-red-500">{error}</p>
-			</CenterContainer>
-		);
-	}
+    if (isLoading) {
+        return (
+            <CenterContainer className="min-h-[calc(100vh-6rem)] w-full bg-canvas px-6">
+                <div className="rounded-lg border border-line bg-surface px-6 py-5 text-sm font-bold text-muted shadow-soft">
+                    読み込み中...
+                </div>
+            </CenterContainer>
+        );
+    }
 
-	if (!currentJob) {
-		return (
-			<CenterContainer className="w-full min-h-screen overflow-hidden bg-zinc-50">
-				<p className="text-zinc-500">おすすめの職業がありません。</p>
-			</CenterContainer>
-		);
-	}
+    if (error) {
+        return (
+            <CenterContainer className="min-h-[calc(100vh-6rem)] w-full bg-canvas px-6">
+                <div className="max-w-md rounded-lg border border-red-200 bg-red-50 px-6 py-5 text-sm font-bold text-red-600 shadow-soft">
+                    {error}
+                </div>
+            </CenterContainer>
+        );
+    }
 
-	const imageUrl = currentJob.imgs?.[0] || "/sample.png";
-	const salaryMan = Math.round(currentJob.salary / 10000);
+    if (!currentJob) {
+        return (
+            <CenterContainer className="min-h-[calc(100vh-6rem)] w-full bg-canvas px-6">
+                <div className="rounded-lg border border-line bg-surface px-6 py-5 text-sm font-bold text-muted shadow-soft">
+                    おすすめの職業がありません。
+                </div>
+            </CenterContainer>
+        );
+    }
 
-	return (
-		<CenterContainer className="relative w-full min-h-screen overflow-hidden bg-zinc-50">
-			<SwipeCard
-				swipeDirection={swipeDirection}
-				x={x}
-				rotate={rotate}
-				opacity={opacity}
-				expanded={expanded}
-				customDirection={customDirection}
-				onDragEnd={handleDragEndMain}
-			>
-				<JobImageSection
-					imageFullscreen={imageFullscreen}
-					expanded={expanded}
-					onDragEnd={handleImageDragEnd}
-					imageUrl={imageUrl}
-				/>
-				<JobDetailSection
-					imageFullscreen={imageFullscreen}
-					expanded={expanded}
-					onDragEnd={handleDetailDragEnd}
-					jobId={currentJob.job_id}
-					jobName={currentJob.name}
-					averageSalary={salaryMan}
-					similarityScore={currentJob.similarity_score}
-					averageAge={currentJob.age}
-					description={currentJob.description || "職業分析はまだありません。"}
-				/>
-			</SwipeCard>
+    const imageUrl = currentJob.imgs?.[0] || "/sample.png";
+    const salaryMan = currentJob.salary > 10000
+        ? Math.round(currentJob.salary / 10000)
+        : Math.round(currentJob.salary);
 
-			<SwipeResultMessage swipeDirection={swipeDirection} onReset={resetSwipe} />
-		</CenterContainer>
-	);
+    return (
+        <motion.main
+            className="relative flex min-h-[calc(100vh-6rem)] w-full items-center justify-center overflow-hidden px-4 py-4"
+            style={{ backgroundColor: backgroundTint }}
+        >
+            <SwipeCard
+                swipeDirection={swipeDirection}
+                x={x}
+                rotate={rotate}
+                opacity={opacity}
+                expanded={expanded}
+                customDirection={customDirection}
+                onDragEnd={handleDragEndMain}
+            >
+                <JobImageSection
+                    imageFullscreen={imageFullscreen}
+                    expanded={expanded}
+                    onDragEnd={handleImageDragEnd}
+                    imageUrl={imageUrl}
+                />
+                <JobDetailSection
+                    imageFullscreen={imageFullscreen}
+                    expanded={expanded}
+                    onDragEnd={handleDetailDragEnd}
+                    jobId={currentJob.job_id}
+                    jobName={currentJob.name}
+                    historyId={currentJob.history_id}
+                    cardIndex={cardIndex}
+                    averageSalary={salaryMan}
+                    similarityScore={currentJob.similarity_score}
+                    averageAge={currentJob.age}
+                    description={currentJob.description || "職業説明はまだありません。"}
+                    onSave={handleSave}
+                />
+            </SwipeCard>
+
+            <SwipeResultMessage swipeDirection={swipeDirection} onReset={resetSwipe} />
+        </motion.main>
+    );
 }

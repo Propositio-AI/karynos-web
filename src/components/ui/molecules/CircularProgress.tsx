@@ -1,23 +1,15 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 interface CircularProgressProps {
-    //値
     value: number;
-    //最大値
     max?: number;
-    //単位
     unit?: string;
-    //ラベル名
     label?: string;
-    //サイズ（px）
     size?: number;
-    //線の太さ(px)
     strokeWidth?: number;
-    //色
     color?: string;
-    //アニメーション有無
     animation?: boolean;
 }
 
@@ -25,15 +17,15 @@ export const CircularProgress = ({
     value = 60,
     max = 100,
     unit = "%",
-    label = "デフォルトラベル",
+    label = "スコア",
     size = 100,
     strokeWidth = 8,
-    color = "#6366f1",
+    color = "#10b981",
     animation = true,
 }: CircularProgressProps) => {
     const targetPercent = max > 0 ? (value / max) * 100 : 0;
     const [currentPercent, setCurrentPercent] = useState(
-        animation ? 0 : targetPercent
+        animation ? 0 : targetPercent,
     );
 
     useEffect(() => {
@@ -42,10 +34,10 @@ export const CircularProgress = ({
                 setCurrentPercent(Math.min(100, Math.max(0, targetPercent)));
             }, 100);
             return () => clearTimeout(timer);
-        } else {
-            setCurrentPercent(targetPercent);
-            return () => {};
         }
+
+        setCurrentPercent(targetPercent);
+        return () => {};
     }, [targetPercent, animation]);
 
     const radius = (size - strokeWidth) / 2;
@@ -59,10 +51,9 @@ export const CircularProgress = ({
 
     return (
         <div className="flex flex-col items-center">
-            {/* 1. ラベル部分 */}
             {label && (
                 <span
-                    className="font-bold text-zinc-400 tracking-widest uppercase"
+                    className="font-bold uppercase text-subtle"
                     style={{
                         fontSize: `${labelSize}px`,
                         marginBottom: `${labelMargin}px`,
@@ -72,7 +63,6 @@ export const CircularProgress = ({
                 </span>
             )}
 
-            {/* 2. グラフ本体 */}
             <div
                 className="relative flex items-center justify-center"
                 style={{ width: size, height: size }}
@@ -80,13 +70,13 @@ export const CircularProgress = ({
                 <svg
                     width={size}
                     height={size}
-                    className="transform -rotate-90"
+                    className="-rotate-90 transform"
                 >
                     <circle
                         cx={size / 2}
                         cy={size / 2}
                         r={radius}
-                        stroke="#e5e7eb"
+                        stroke="#e7e5e4"
                         strokeWidth={strokeWidth}
                         fill="transparent"
                     />
@@ -108,8 +98,7 @@ export const CircularProgress = ({
                     />
                 </svg>
 
-                {/* 3. 中央テキスト */}
-                <div className="absolute flex items-baseline justify-center text-zinc-800">
+                <div className="absolute flex items-baseline justify-center text-ink">
                     <span
                         className="font-extrabold leading-none"
                         style={{ fontSize: `${valueSize}px` }}
@@ -118,7 +107,7 @@ export const CircularProgress = ({
                     </span>
                     {unit && (
                         <span
-                            className="font-bold text-zinc-500 ml-0.5"
+                            className="ml-0.5 font-bold text-muted"
                             style={{ fontSize: `${unitSize}px` }}
                         >
                             {unit}

@@ -1,9 +1,9 @@
 "use client";
 
-import type { JobSearchResult } from "@/lib/api/gen/schema";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import type { JobSearchResult } from "@/lib/api/gen/schema";
 import { BaseButton } from "@/components/ui/atoms/Button";
 
 type SearchResultsProps = {
@@ -14,24 +14,24 @@ type SearchResultsProps = {
     query?: string;
 };
 
-export const SearchResults = ({ 
-    results, 
-    isLoading, 
-    error, 
-    hasSearched, 
-    query 
+export const SearchResults = ({
+    results,
+    isLoading,
+    error,
+    hasSearched,
+    query,
 }: SearchResultsProps) => {
     if (!hasSearched) {
         return (
-            <div className="text-center py-12 text-slate-500">
-                検索キーワードを入力して検索してください
+            <div className="rounded-lg border border-line bg-surface px-6 py-12 text-center text-sm font-bold text-muted shadow-soft">
+                検索キーワードを入力してください。
             </div>
         );
     }
 
     if (isLoading) {
         return (
-            <div className="text-center py-12 text-slate-500">
+            <div className="rounded-lg border border-line bg-surface px-6 py-12 text-center text-sm font-bold text-muted shadow-soft">
                 検索中...
             </div>
         );
@@ -39,7 +39,7 @@ export const SearchResults = ({
 
     if (error) {
         return (
-            <div className="text-center py-12 text-red-500">
+            <div className="rounded-lg border border-red-200 bg-red-50 px-6 py-12 text-center text-sm font-bold text-red-600 shadow-soft">
                 エラーが発生しました: {error}
             </div>
         );
@@ -47,59 +47,54 @@ export const SearchResults = ({
 
     if (results.length === 0) {
         return (
-            <div className="text-center py-12 text-slate-500">
-                「{query}」に関連する職業が見つかりません
+            <div className="rounded-lg border border-line bg-surface px-6 py-12 text-center text-sm font-bold text-muted shadow-soft">
+                「{query}」に関連する職業が見つかりませんでした。
             </div>
         );
     }
 
     return (
         <div className="space-y-4">
-            <p className="text-slate-600">
+            <p className="text-sm font-bold text-muted">
                 {results.length}件の職業が見つかりました
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {results.map((job, index) => (
-                    <motion.div
+                    <motion.article
                         key={job.job_id}
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 16 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: index * 0.05 }}
-                        className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow border border-slate-200 overflow-hidden"
+                        transition={{ delay: index * 0.04 }}
+                        className="overflow-hidden rounded-lg border border-line bg-surface shadow-soft transition hover:-translate-y-0.5 hover:shadow-lift"
                     >
-                        {/* Image */}
                         {job.imgs && job.imgs.length > 0 && job.imgs[0] && (
-                            <div className="relative w-full h-48 bg-slate-100 flex items-center justify-center">
+                            <div className="relative flex aspect-[4/3] w-full items-center justify-center bg-brand-50">
                                 <Image
                                     src={job.imgs[0]}
                                     alt={job.name}
                                     fill
-                                    className="object-contain"
+                                    className="object-contain p-3"
+                                    sizes="(max-width: 640px) 100vw, 33vw"
                                 />
                             </div>
                         )}
 
-                        {/* Content */}
-                        <div className="p-4 space-y-3">
-                            <h3 className="font-semibold text-slate-900 line-clamp-2">
+                        <div className="space-y-3 p-4">
+                            <h3 className="line-clamp-2 text-base font-bold leading-6 text-ink">
                                 {job.name}
                             </h3>
 
-                            <p className="text-sm text-slate-600 line-clamp-2">
-                                {job.description}
+                            <p className="line-clamp-3 text-sm leading-6 text-muted">
+                                {job.description || "説明はまだありません。"}
                             </p>
 
-                            {/* Link button */}
                             <Link href={`/job/detail/${job.job_id}`}>
-                                <BaseButton
-                                    color="blue"
-                                    className="w-full text-sm"
-                                >
+                                <BaseButton color="emerald" className="w-full text-sm">
                                     詳細を見る
                                 </BaseButton>
                             </Link>
                         </div>
-                    </motion.div>
+                    </motion.article>
                 ))}
             </div>
         </div>

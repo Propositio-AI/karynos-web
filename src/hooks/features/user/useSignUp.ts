@@ -1,4 +1,5 @@
-import { confirmSignUp, signUp } from "@aws-amplify/auth";
+import { isCognitoConfigured } from "@/lib/auth/amplify";
+import { confirmSignUp, signUp } from "aws-amplify/auth";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -15,6 +16,11 @@ export const useSignUp = () => {
         setIsLoading(true);
         setError("");
         try {
+            if (!isCognitoConfigured()) {
+                router.push("/signup/create-account");
+                return;
+            }
+
             await signUp({
                 username: email.trim(),
                 options: {
@@ -38,6 +44,11 @@ export const useSignUp = () => {
         setIsLoading(true);
         setError("");
         try {
+            if (!isCognitoConfigured()) {
+                router.push("/signup/create-account");
+                return;
+            }
+
             await confirmSignUp({ username: email, confirmationCode });
             router.push("/login/");
         } catch {

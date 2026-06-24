@@ -1,48 +1,37 @@
-import React from 'react';
-import { Trash2 } from 'lucide-react';
-import { ChatUIModel } from '@/types/feature/chat/chat'; // パスは環境に合わせて調整してください
+import { Trash2 } from "lucide-react";
+import type { ChatUIModel } from "@/types/feature/chat/chat";
 
 type Props = {
-  message: ChatUIModel;
-  onDelete: (messageId: string) => void; // ★追加
+    message: ChatUIModel;
+    onDelete: (messageId: string) => void;
 };
 
-export const MessageBubble: React.FC<Props> = ({ message, onDelete }) => {
-  const { id, isMyMessage, text } = message;
+export const MessageBubble = ({ message, onDelete }: Props) => {
+    const { id, isMyMessage, text } = message;
 
-  return (
-    // 全体を flex コンテナにする
-    // 自分(isMyMessage): flex-row-reverse (右寄せ & アイコンを左側に)
-    // 相手(!isMyMessage): flex-row (左寄せ & アイコンを右側に)
-    // items-end: バブルの下とアイコンを揃える
-    <div className={`flex w-full mb-4 items-end gap-2 ${isMyMessage ? 'flex-row-reverse' : 'flex-row'}`}>
-      
-      {/* メッセージバブル本体 */}
-      <div
-        className={`
-          max-w-[70%] px-4 py-2.5 rounded-2xl text-sm whitespace-pre-wrap shadow-sm leading-relaxed
-          ${isMyMessage 
-            ? 'bg-emerald-500 text-white rounded-tr-sm' 
-            : 'bg-white text-slate-800 rounded-tl-sm'
-          }
-        `}
-      >
-        {text}
-      </div>
+    return (
+        <div className={`flex w-full items-end gap-2 ${isMyMessage ? "flex-row-reverse" : "flex-row"}`}>
+            <div
+                className={`max-w-[82%] whitespace-pre-wrap rounded-lg px-4 py-3 text-sm leading-7 shadow-soft sm:max-w-[70%] ${
+                    isMyMessage
+                        ? "bg-brand-500 text-white"
+                        : "border border-line bg-surface text-ink"
+                }`}
+            >
+                {text || (!isMyMessage ? "..." : "")}
+            </div>
 
-      {/* 削除ボタン（ゴミ箱） */}
-      <button
-        onClick={() => {
-          if (confirm('このメッセージを削除しますか？')) {
-            onDelete(id);
-          }
-        }}
-        className="text-zinc-300 hover:text-red-400 transition-colors p-1"
-        aria-label="削除"
-      >
-        <Trash2 className="w-4 h-4" />
-      </button>
-      
-    </div>
-  );
+            <button
+                onClick={() => {
+                    if (confirm("このメッセージを削除しますか？")) {
+                        onDelete(id);
+                    }
+                }}
+                className="mb-1 flex h-8 w-8 items-center justify-center rounded-lg text-subtle transition hover:bg-red-50 hover:text-red-500"
+                aria-label="削除"
+            >
+                <Trash2 className="h-4 w-4" />
+            </button>
+        </div>
+    );
 };

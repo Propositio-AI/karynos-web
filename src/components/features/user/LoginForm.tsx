@@ -1,79 +1,111 @@
-"use client"
+"use client";
 
-import { CenterContainer, HorizontalStackContainer, VerticalStackContainer } from "@/components/ui/molecules/Container"
-import { BaseInputText } from "@/components/ui/atoms/Input"
-import { BaseButton, IconButton } from "@/components/ui/atoms/Button"
-import '@/lib/auth/amplify';
-import { AnimatePresence } from "framer-motion"
-
-import { FadeInAnimation } from "@/components/ui/molecules/Animation"
-import { faArrowRightLong } from "@fortawesome/free-solid-svg-icons"
-import LogoutButton from "@/components/features/user/LogoutButton"
+import Link from "next/link";
+import { AnimatePresence } from "framer-motion";
+import { BaseButton } from "@/components/ui/atoms/Button";
+import { BaseInputText } from "@/components/ui/atoms/Input";
+import { CenterContainer, VerticalStackContainer } from "@/components/ui/molecules/Container";
+import { FadeInAnimation } from "@/components/ui/molecules/Animation";
 
 type Props = {
-    step: string,
-    email: string,
-    isLoading: boolean,
-    onChangeEmail: (v: string) => void,
-    onChangeConfirmationCode: (v: string) => void,
-    handleLogin: () => void,
-    handleConfirmLogin: () => void,
-    error: string,
-
+    step: "LOGIN" | "CONFIRM";
+    email: string;
+    confirmationCode: string;
+    isLoading: boolean;
+    onChangeEmail: (v: string) => void;
+    onChangeConfirmationCode: (v: string) => void;
+    handleLogin: () => void;
+    handleConfirmLogin: () => void;
+    error: string;
 };
 
-const Login = ({
+const LoginForm = ({
     step,
     email,
+    confirmationCode,
     isLoading,
     onChangeEmail,
-    handleLogin,
     onChangeConfirmationCode,
+    handleLogin,
     handleConfirmLogin,
     error,
 }: Props) => {
-    return( 
-        <CenterContainer className="h-screen">
-            <VerticalStackContainer className="w-96 shadow-2xl p-8 lg:p-12 border-emerald border-t-16">
-                <h1 className="mb-12">Karynos</h1>
-                {
-                    step == "CONFIRM" ? (
-                        <p className="mb-4">{email} に送信された認証コードを入力してください。</p>
-                    ) : null
-                }
+    const submit = () => {
+        if (step === "LOGIN") {
+            handleLogin();
+            return;
+        }
+
+        handleConfirmLogin();
+    };
+
+    return (
+        <CenterContainer className="min-h-screen overflow-hidden bg-canvas px-5 py-10">
+            <div className="absolute inset-x-0 top-0 h-48 bg-[linear-gradient(135deg,#ecfdf5_0%,#fafaf9_56%,#fffbeb_100%)]" />
+            <VerticalStackContainer className="relative z-10 w-full max-w-md rounded-lg border border-line bg-surface/95 p-8 shadow-lift backdrop-blur" space={8}>
+                <div>
+                    <p className="mb-3 inline-flex rounded-full bg-brand-50 px-3 py-1 text-xs font-bold text-brand-700">
+                        Karynos
+                    </p>
+                    <h1 className="text-ink">
+                        {step === "LOGIN" ? "おかえりなさい" : "認証コードを入力"}
+                    </h1>
+                    <p className="mt-3 text-sm leading-6 text-muted">
+                        {step === "LOGIN"
+                            ? "メールアドレスだけで、あなたのキャリア探索を再開できます。"
+                            : `${email} に届いたコードを入力してください。`}
+                    </p>
+                </div>
+
                 <AnimatePresence mode="wait">
                     <FadeInAnimation>
-                        { step === "LOGIN" ? (
-                            <VerticalStackContainer>
-                                <label className="font-semibold">メールアドレス</label>
-                                <HorizontalStackContainer space={4}>
-                                    <BaseInputText className="w-full" placeholder="メールアドレスを入力してください" onChange={(e) => onChangeEmail(e.target.value)}/>
-                                    <IconButton icon={faArrowRightLong} className="aspect-square !rounded-full" color="slate" isLoading={isLoading} onClick={() => handleLogin()}/>
-                                </HorizontalStackContainer>
-                            </VerticalStackContainer>
-                        ): (
-                            <VerticalStackContainer space={4}>
-                                <VerticalStackContainer space={2}>
-                                    <label className="font-semibold">認証コード</label>
-                                    <BaseInputText className="w-full" placeholder="認証コードを入力してください" onChange={(e) => onChangeConfirmationCode(e.target.value)}/>
-                                </VerticalStackContainer>
-                                <BaseButton color="slate" className="w-1/2 mx-auto"  isLoading={isLoading} onClick={() => handleConfirmLogin()}>
-                                    <h4>認証</h4>
-                                </BaseButton>
-                            </VerticalStackContainer>
-                        )}
+                        <VerticalStackContainer space={4}>
+                            {step === "LOGIN" ? (
+                                <BaseInputText
+                                    className="w-full"
+                                    label="メールアドレス"
+                                    placeholder="you@example.com"
+                                    type="email"
+                                    value={email}
+                                    onChange={(e) => onChangeEmail(e.target.value)}
+                                />
+                            ) : (
+                                <BaseInputText
+                                    className="w-full tracking-[0.18em]"
+                                    label="認証コード"
+                                    placeholder="6桁のコード"
+                                    value={confirmationCode}
+                                    onChange={(e) => onChangeConfirmationCode(e.target.value)}
+                                />
+                            )}
 
-                        <LogoutButton/>
-                        {/* {error && (
-                            <div className="mb-4 bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded relative" role="alert">
-                                <span className="block sm:inline">{error}</span>
-                            </div>
-                        )} */}
+                            {error && (
+                                <p className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-600">
+                                    {error}
+                                </p>
+                            )}
+
+                            <BaseButton
+                                color="emerald"
+                                className="w-full"
+                                isLoading={isLoading}
+                                onClick={submit}
+                            >
+                                {step === "LOGIN" ? "ログイン" : "認証して進む"}
+                            </BaseButton>
+
+                            <Link
+                                href="/signup"
+                                className="text-center text-sm font-bold text-brand-700 transition hover:text-brand-900"
+                            >
+                                はじめての方はアカウント作成へ
+                            </Link>
+                        </VerticalStackContainer>
                     </FadeInAnimation>
                 </AnimatePresence>
             </VerticalStackContainer>
         </CenterContainer>
-   )
-}
+    );
+};
 
-export default Login;
+export default LoginForm;
