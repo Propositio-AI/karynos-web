@@ -19,7 +19,7 @@ export const ChatInputArea = ({ inputText, isLoading, onChange, onSend }: Props)
     };
 
     return (
-        <footer className="fixed inset-x-0 bottom-16 z-30 border-t border-line bg-surface/95 px-3 py-3 backdrop-blur">
+        <footer className="fixed inset-x-0 bottom-0 z-30 border-t border-line bg-surface/95 px-3 py-3 pb-[calc(env(safe-area-inset-bottom)+0.75rem)] backdrop-blur">
             <div className="mx-auto flex max-w-3xl items-center gap-2">
                 <input
                     type="text"

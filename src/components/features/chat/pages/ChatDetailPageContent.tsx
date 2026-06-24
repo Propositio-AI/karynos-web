@@ -36,7 +36,7 @@ export default function ChatDetailPageContent() {
         <div className="flex h-screen flex-col overflow-hidden bg-canvas">
             <ChatHeader title={title} />
 
-            <main className="flex-1 overflow-y-auto pb-44 pt-16">
+            <main className="flex-1 overflow-y-auto pb-28 pt-16">
                 <div className="mx-auto flex min-h-full w-full max-w-3xl flex-col justify-end px-4 py-4">
                     {loading && messages.length === 0 && (
                         <div className="flex justify-center py-10">
