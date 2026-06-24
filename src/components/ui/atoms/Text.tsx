@@ -9,18 +9,18 @@ type TagProps = {
 };
 
 const colorClassMap: Record<TagColor, string> = {
-    slate: "border-line bg-stone-100 text-ink hover:bg-stone-200",
+    slate: "border-line bg-canvas text-ink hover:bg-line/60",
     red: "border-red-100 bg-red-50 text-red-700 hover:bg-red-100",
     orange: "border-accent-100 bg-accent-50 text-accent-600 hover:bg-accent-100",
     yellow: "border-accent-100 bg-accent-50 text-accent-600 hover:bg-accent-100",
     green: "border-brand-100 bg-brand-50 text-brand-700 hover:bg-brand-100",
     blue: "border-brand-100 bg-brand-50 text-brand-700 hover:bg-brand-100",
-    purple: "border-line bg-stone-100 text-muted hover:bg-stone-200",
+    purple: "border-line bg-canvas text-muted hover:bg-line/60",
 };
 
 export const Tag = ({ text, color, href, onClick }: TagProps) => {
     const tagElement = (
-        <div className={`m-1 inline-flex cursor-pointer rounded-full border px-2.5 py-1 text-xs font-bold transition-colors ${colorClassMap[color]}`}>
+        <div className={`m-1 inline-flex cursor-pointer rounded-full border px-2.5 py-1 text-xs font-semibold transition-colors ${colorClassMap[color]}`}>
             {text}
         </div>
     );

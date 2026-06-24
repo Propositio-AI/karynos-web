@@ -29,16 +29,16 @@ export const ChatListItem: React.FC<Props> = ({
   };
 
   return (
-    <li className="relative border-b border-zinc-100 last:border-none overflow-hidden bg-white">
+    <li className="relative border-b border-line last:border-none overflow-hidden bg-surface">
       
       {/* --- 左側の選択アイコン (背景に配置) --- */}
       <div className="absolute left-4 top-1/2 -translate-y-1/2 z-0">
         {isSelected ? (
-          <div className="w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center">
+          <div className="w-6 h-6 bg-brand-600 rounded-full flex items-center justify-center">
             <Check className="w-4 h-4 text-white" />
           </div>
         ) : (
-          <Circle className="w-6 h-6 text-zinc-300" />
+          <Circle className="w-6 h-6 text-subtle" />
         )}
       </div>
 
@@ -47,18 +47,18 @@ export const ChatListItem: React.FC<Props> = ({
         // 編集モードなら右に40pxずらす
         animate={{ x: isEditMode ? 40 : 0 }}
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-        className="relative z-10 bg-white" // 背景色をつけないと後ろのアイコンが透けてしまう
+        className="relative z-10 bg-surface" // 背景色をつけないと後ろのアイコンが透けてしまう
       >
         <Link
           href={`/chat/${conversation.conversation_id}`}
           onClick={handleClick}
-          className="block px-4 py-4 active:bg-zinc-50 transition-colors"
+          className="block px-4 py-4 active:bg-canvas transition-colors"
         >
           <div className="flex justify-between items-baseline mb-1">
-            <h2 className="text-base font-bold text-slate-900 truncate pr-4">
+            <h2 className="text-base font-bold text-ink truncate pr-4">
               {conversation.job_name}
             </h2>
-            <span className="text-xs text-zinc-400 flex-shrink-0 font-medium">
+            <span className="text-xs text-subtle flex-shrink-0 font-medium">
               {formatDate(conversation.last_message_at)}
             </span>
           </div>

@@ -1,38 +1,42 @@
 @import "tailwindcss";
 
-/* Karynos design tokens: Fresh Mint & Ink */
+/* Karynos design tokens: Quiet Trust — deep emerald, near-black ink, warm neutrals */
 @theme {
     --font-sans: var(--font-noto-sans-jp), ui-sans-serif, system-ui, "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
     --font-display: var(--font-jakarta), var(--font-noto-sans-jp), ui-sans-serif, system-ui, sans-serif;
 
-    --color-brand-50: #ecfdf5;
-    --color-brand-100: #d1fae5;
-    --color-brand-200: #a7f3d0;
-    --color-brand-300: #6ee7b7;
-    --color-brand-400: #34d399;
-    --color-brand-500: #10b981;
-    --color-brand-600: #059669;
-    --color-brand-700: #047857;
-    --color-brand-800: #065f46;
-    --color-brand-900: #064e3b;
+    --color-brand-50: #f0fdf6;
+    --color-brand-100: #dcfce9;
+    --color-brand-200: #bbf7d6;
+    --color-brand-300: #86efb8;
+    --color-brand-400: #4ade94;
+    --color-brand-500: #22a572;
+    --color-brand-600: #178f5e;
+    --color-brand-700: #146b48;
+    --color-brand-800: #0f4f37;
+    --color-brand-900: #0a3527;
 
-    --color-accent-50: #fffbeb;
-    --color-accent-100: #fef3c7;
-    --color-accent-300: #fcd34d;
-    --color-accent-400: #fbbf24;
-    --color-accent-500: #f59e0b;
-    --color-accent-600: #d97706;
+    --color-accent-50: #fbf7ee;
+    --color-accent-100: #f3e8cf;
+    --color-accent-300: #ddb869;
+    --color-accent-400: #c99a45;
+    --color-accent-500: #b07f2f;
+    --color-accent-600: #8f6526;
 
-    --color-ink: #0b1120;
-    --color-canvas: #fafaf9;
+    --color-ink: #0c0f14;
+    --color-canvas: #faf9f7;
     --color-surface: #ffffff;
-    --color-line: #e7e5e4;
-    --color-muted: #57534e;
-    --color-subtle: #a8a29e;
+    --color-line: #e6e4e0;
+    --color-muted: #5c5a56;
+    --color-subtle: #9b9893;
 
-    --shadow-soft: 0 1px 2px rgba(15, 23, 42, 0.04), 0 12px 28px -16px rgba(15, 23, 42, 0.18);
-    --shadow-lift: 0 2px 6px rgba(15, 23, 42, 0.06), 0 24px 48px -24px rgba(15, 23, 42, 0.22);
-    --shadow-brand: 0 10px 30px -12px rgba(16, 185, 129, 0.45);
+    --radius-sm: 0.5rem;
+    --radius-md: 0.75rem;
+    --radius-lg: 1.25rem;
+
+    --shadow-soft: 0 1px 2px rgba(12, 15, 20, 0.04);
+    --shadow-lift: 0 12px 32px -16px rgba(12, 15, 20, 0.16);
+    --shadow-brand: 0 1px 2px rgba(12, 15, 20, 0.04);
 }
 
 @layer base {
@@ -55,13 +59,14 @@
     h3,
     h4 {
         font-family: var(--font-display);
-        letter-spacing: 0;
+        letter-spacing: -0.01em;
     }
 
-    h1 { @apply text-3xl font-extrabold; }
-    h2 { @apply text-2xl font-bold; }
-    h3 { @apply text-xl font-bold; }
-    h4 { @apply text-base font-semibold; }
+    h1 { @apply text-3xl font-bold leading-tight; }
+    h2 { @apply text-2xl font-semibold leading-tight; }
+    h3 { @apply text-lg font-semibold leading-snug; }
+    h4 { @apply text-base font-semibold leading-snug; }
+    p { @apply leading-relaxed; }
     small { @apply text-sm; }
 
     ::selection {

@@ -27,17 +27,17 @@ export const SwipeResultMessage = ({
             <motion.div
                 animate={{ y: [0, -12, 0] }}
                 transition={{ duration: 0.55, delay: 0.1 }}
-                className={`mb-5 inline-flex h-24 w-24 items-center justify-center rounded-full border shadow-lift ${
+                className={`mb-5 inline-flex h-20 w-20 items-center justify-center rounded-full border ${
                     isGood
-                        ? "border-brand-200 bg-brand-50 text-brand-600"
-                        : "border-red-200 bg-red-50 text-red-500"
+                        ? "border-brand-200 bg-brand-50 text-brand-700"
+                        : "border-line bg-surface text-muted"
                 }`}
             >
-                <FontAwesomeIcon icon={isGood ? faThumbsUp : faTimes} className="text-5xl" />
+                <FontAwesomeIcon icon={isGood ? faThumbsUp : faTimes} className="text-3xl" />
             </motion.div>
             <p
-                className={`mb-8 text-2xl font-extrabold ${
-                    isGood ? "text-brand-700" : "text-red-600"
+                className={`mb-8 text-xl font-semibold ${
+                    isGood ? "text-brand-700" : "text-muted"
                 }`}
             >
                 {isGood ? "いいねしました" : "パスしました"}

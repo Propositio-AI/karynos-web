@@ -42,7 +42,7 @@ export default function ChatListPage() {
     }, [conversations]);
 
     return (
-        <div className="min-h-screen bg-zinc-50 font-sans pb-20">
+        <div className="min-h-screen bg-canvas font-sans pb-20">
             
             {/* ヘッダー */}
             {/* // ヘッダーの編集機能関連をコメントアウト */}
@@ -57,10 +57,10 @@ export default function ChatListPage() {
             <main className="pt-14 px-4">
                 {loading ? (
                     <div className="flex justify-center py-10">
-                        <div className="animate-spin h-6 w-6 border-2 border-emerald-500 border-t-transparent rounded-full" />
+                        <div className="animate-spin h-6 w-6 border-2 border-brand-600 border-t-transparent rounded-full" />
                     </div>
                 ) : sortedConversations.length === 0 ? (
-                    <div className="p-8 text-center text-zinc-400 text-sm">
+                    <div className="p-8 text-center text-subtle text-sm">
                         チャット履歴がありません。
                     </div>
                 ) : (
@@ -71,15 +71,15 @@ export default function ChatListPage() {
                                 href={`/chat/${conv.conversation_id}`}
                                 className="group"
                             >
-                                <div className="h-full bg-white rounded-lg border border-zinc-200 p-4 hover:shadow-md hover:border-emerald-300 transition-all cursor-pointer">
+                                <div className="h-full bg-surface rounded-(--radius-md) border border-line p-4 hover:border-brand-300 transition-all cursor-pointer">
                                     <div className="flex flex-col h-full">
-                                        <h3 className="text-sm font-bold text-slate-900 truncate mb-2 line-clamp-2">
+                                        <h3 className="text-sm font-bold text-ink truncate mb-2 line-clamp-2">
                                             {conv.job_name}
                                         </h3>
-                                        <p className="text-xs text-zinc-500 mb-3 flex-grow">
+                                        <p className="text-xs text-muted mb-3 flex-grow">
                                             {conv.assistant_name}
                                         </p>
-                                        <div className="text-xs text-zinc-400 text-right">
+                                        <div className="text-xs text-subtle text-right">
                                             {formatLastMessageDate(conv.last_message_at)}
                                         </div>
                                     </div>

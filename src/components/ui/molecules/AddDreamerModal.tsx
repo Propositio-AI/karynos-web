@@ -31,10 +31,10 @@ export const AddDreamerModal = () => {
 		<div className="p-6">
 		<div className="flex items-center space-x-4 mb-6">
 			<div className="relative flex-1">
-			<Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+			<Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-subtle" />
 			<BaseInputText placeholder="Dreamer名で検索" className="pl-10 w-full" />
 			</div>
-			<BaseButton color="white" className="border border-zinc-200">
+			<BaseButton color="white" className="border border-line">
 			<div className="flex items-center">
 				<Filter className="h-4 w-4 mr-2" />
 				フィルタ
@@ -42,27 +42,27 @@ export const AddDreamerModal = () => {
 			</BaseButton>
 		</div>
 
-		<div className="border rounded-lg overflow-hidden">
+		<div className="border border-line rounded-(--radius-md) overflow-hidden">
 			<table className="w-full text-sm">
-			<thead className="bg-gray-100">
+			<thead className="bg-line/40">
 				<tr>
 				<th className="p-4 w-12"></th>
-				<th className="p-4 text-left font-semibold text-gray-600">名前</th>
-				<th className="p-4 text-left font-semibold text-gray-600">学籍番号</th>
-				<th className="p-4 text-left font-semibold text-gray-600">グループ</th>
+				<th className="p-4 text-left font-semibold text-muted">名前</th>
+				<th className="p-4 text-left font-semibold text-muted">学籍番号</th>
+				<th className="p-4 text-left font-semibold text-muted">グループ</th>
 				</tr>
 			</thead>
 			<tbody>
 				{dummyDreamers.map((dreamer, index) => (
-				<tr key={index} className="border-b">
+				<tr key={index} className="border-b border-line">
 					<td className="p-4">
 					<input type="checkbox" defaultChecked={dreamer.checked} className="h-5 w-5"/>
 					</td>
 					<td className="p-4 flex items-center space-x-3">
-					<div className="w-8 h-8 bg-gray-200 rounded-full"></div>
+					<div className="w-8 h-8 bg-line/40 rounded-full"></div>
 					<p className="">{dreamer.name}</p>
 					</td>
-					<td className="p-4 text-gray-600">{dreamer.studentId}</td>
+					<td className="p-4 text-muted">{dreamer.studentId}</td>
 					<td className="p-4">
 					<div className="flex space-x-2">
 						{dreamer.groups.map((group, i) => (
@@ -76,7 +76,7 @@ export const AddDreamerModal = () => {
 			</table>
 		</div>
 		<div className="flex justify-center space-x-4 mt-8">
-			<BaseButton color="white" className="border border-zinc-200">キャンセル</BaseButton>
+			<BaseButton color="white" className="border border-line">キャンセル</BaseButton>
 			<BaseButton color="blue">追加</BaseButton>
 		</div>
 		</div>

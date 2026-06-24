@@ -19,7 +19,7 @@ const LogoutButton = () => {
     return (
         <button
             onClick={handleLogout}
-            className="rounded-md px-3 py-2 text-sm font-semibold text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900"
+            className="rounded-(--radius-sm) px-3 py-2 text-sm font-semibold text-muted hover:bg-line/40 hover:text-ink"
         >
             Logout
         </button>

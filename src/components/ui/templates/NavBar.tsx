@@ -74,9 +74,9 @@ export const NavBar = ({ active, className = "" }: NavBarProps) => {
     return (
         <nav
             aria-label="Primary"
-            className={`fixed inset-x-4 bottom-3 z-50 mx-auto max-w-[680px] rounded-full border border-line/80 bg-surface/90 px-3 py-2 shadow-lift backdrop-blur-md ${className}`}
+            className={`fixed inset-x-0 bottom-0 z-50 border-t border-line bg-surface/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-md ${className}`}
         >
-            <div className="grid grid-cols-5 gap-1">
+            <div className="mx-auto grid max-w-[680px] grid-cols-5 px-2 py-1">
                 {navItems.map((item) => {
                     const isActive = item.type === activeType;
                     const content = (
@@ -104,7 +104,7 @@ export const NavBar = ({ active, className = "" }: NavBarProps) => {
                             key={item.type}
                             href={item.href}
                             aria-current={isActive ? "page" : undefined}
-                            className="rounded-lg focus:outline-none focus:ring-4 focus:ring-brand-100"
+                            className="rounded-(--radius-sm) focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-200"
                         >
                             {content}
                         </Link>

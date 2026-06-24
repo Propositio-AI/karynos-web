@@ -12,9 +12,9 @@ export const MessageBubble = ({ message, onDelete }: Props) => {
     return (
         <div className={`flex w-full items-end gap-2 ${isMyMessage ? "flex-row-reverse" : "flex-row"}`}>
             <div
-                className={`max-w-[82%] whitespace-pre-wrap rounded-lg px-4 py-3 text-sm leading-7 shadow-soft sm:max-w-[70%] ${
+                className={`max-w-[82%] whitespace-pre-wrap rounded-(--radius-md) px-4 py-3 text-sm leading-7 sm:max-w-[70%] ${
                     isMyMessage
-                        ? "bg-brand-500 text-white"
+                        ? "bg-brand-700 text-white"
                         : "border border-line bg-surface text-ink"
                 }`}
             >

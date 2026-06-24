@@ -50,7 +50,7 @@ export default function DreamerGroupDetailPageContent() {
 
 	return (
 		<SideBar>
-			<div className="bg-slate-100 p-8 flex-1">
+			<div className="bg-canvas p-8 flex-1">
 				<BreadCrumb
 					links={[
 						{
@@ -65,7 +65,7 @@ export default function DreamerGroupDetailPageContent() {
 				/>
 
 				<VerticalStackContainer
-					className="flex-1 bg-white border border-slate-200 rounded-lg"
+					className="flex-1 bg-surface border border-line rounded-(--radius-md)"
 					space={4}
 				>
 					<HorizontalStackContainer className="w-full p-8">

@@ -9,10 +9,10 @@ import type { BaseButtonType } from "@/types/ui/atoms/Button";
 import type { ColorVariantKey } from "@/types/ui/color";
 
 const buttonClasses: Record<ColorVariantKey, string> = {
-    slate: "bg-ink text-white shadow-soft hover:bg-stone-900",
-    white: "border border-line bg-surface text-ink shadow-soft hover:border-brand-200 hover:bg-brand-50",
-    emerald: "bg-brand-500 text-white shadow-brand hover:bg-brand-600",
-    blue: "bg-brand-500 text-white shadow-brand hover:bg-brand-600",
+    slate: "bg-ink text-white hover:bg-stone-800",
+    white: "border border-line bg-surface text-ink hover:bg-canvas hover:border-subtle/60",
+    emerald: "bg-brand-700 text-white hover:bg-brand-800",
+    blue: "bg-brand-700 text-white hover:bg-brand-800",
 };
 
 const spinnerClasses: Record<ColorVariantKey, string> = {
@@ -31,10 +31,9 @@ export const BaseButton = ({
 }: BaseButtonType) => {
     return (
         <motion.button
-            className={`inline-flex min-h-11 cursor-pointer items-center justify-center rounded-lg px-4 py-2.5 text-sm font-bold transition duration-200 disabled:cursor-not-allowed disabled:opacity-60 ${buttonClasses[color]} ${className}`}
+            className={`inline-flex min-h-11 cursor-pointer items-center justify-center rounded-(--radius-sm) px-4 py-2.5 text-sm font-semibold transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-200 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${buttonClasses[color]} ${className}`}
             onClick={onClick}
             disabled={isLoading}
-            whileHover={isLoading ? undefined : { y: -1 }}
             whileTap={isLoading ? undefined : { scale: 0.98 }}
         >
             {isLoading ? (
@@ -93,68 +92,26 @@ export const FavoriteButton = ({ className = "", onToggle }: FavoriteButtonType)
     return (
         <motion.button
             onClick={handleClick}
-            className={`relative flex h-9 w-9 items-center justify-center rounded-full border border-line bg-surface text-muted shadow-soft transition-colors hover:border-red-200 hover:text-red-400 ${className}`}
-            whileHover={{ scale: 1.05 }}
+            className={`relative flex h-9 w-9 items-center justify-center rounded-full border border-line bg-surface text-muted transition-colors hover:border-red-200 hover:text-red-400 ${className}`}
             whileTap={{ scale: 0.92 }}
         >
-            <motion.div
-                animate={{
-                    scale: isFavorite ? [1, 1.2, 1] : 1,
-                    rotate: isFavorite ? [0, -5, 5, 0] : 0,
-                }}
-                transition={{
-                    duration: 0.4,
-                    ease: "easeInOut",
-                }}
-            >
-                <FiHeart
-                    className={`h-5 w-5 transition-colors duration-200 ${isFavorite ? "fill-red-500 text-red-500" : ""}`}
-                />
-            </motion.div>
-
-            {isFavorite && (
-                <>
-                    {[...Array(4)].map((_, i) => (
-                        <motion.div
-                            key={i}
-                            className="absolute h-1 w-1 rounded-full bg-accent-400"
-                            initial={{
-                                opacity: 0,
-                                scale: 0,
-                                x: 0,
-                                y: 0,
-                            }}
-                            animate={{
-                                opacity: [0, 1, 0],
-                                scale: [0, 1, 0],
-                                x: Math.cos((i * Math.PI * 2) / 4) * 16,
-                                y: Math.sin((i * Math.PI * 2) / 4) * 16,
-                            }}
-                            transition={{
-                                duration: 0.6,
-                                ease: "easeOut",
-                                delay: 0.1,
-                            }}
-                        />
-                    ))}
-                </>
-            )}
+            <FiHeart
+                className={`h-4.5 w-4.5 transition-colors duration-150 ${isFavorite ? "fill-red-500 text-red-500" : ""}`}
+            />
         </motion.button>
     );
 };
 
 export const NavIcon = ({ icon, label, active }: { icon: IconDefinition; label: string; active: boolean }) => {
     return (
-        <div className="mx-auto flex h-16 w-16 flex-col items-center justify-center gap-1 text-center">
+        <div className="mx-auto flex h-14 w-16 flex-col items-center justify-center gap-1 text-center">
             <FontAwesomeIcon
                 icon={icon}
-                className={`h-4 w-4 rounded-lg p-2 transition duration-200 ${
-                    active
-                        ? "bg-brand-500 text-white shadow-brand"
-                        : "text-subtle hover:bg-brand-50 hover:text-brand-600"
+                className={`h-[18px] w-[18px] transition-colors duration-150 ${
+                    active ? "text-brand-700" : "text-subtle"
                 }`}
             />
-            <p className={`text-xs font-bold ${active ? "text-brand-600" : "text-subtle"}`}>
+            <p className={`text-[11px] font-semibold ${active ? "text-brand-700" : "text-subtle"}`}>
                 {label}
             </p>
         </div>
@@ -176,7 +133,7 @@ export const SideBarButton = ({
             icon={icon}
             onClick={onClick}
             isLoading={isLoading}
-            className={`w-full border-none text-sm font-bold ${className} ${active ? "!bg-brand-500 !text-white" : ""}`}
+            className={`w-full justify-start border-none text-sm font-semibold ${className} ${active ? "bg-brand-50! text-brand-700!" : "bg-transparent! text-muted! hover:bg-canvas!"}`}
         >
             {children}
         </IconButton>

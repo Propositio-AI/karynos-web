@@ -28,7 +28,7 @@ export default function DreamerDetailPageContent() {
 				/>
 
 				<VerticalStackContainer
-					className="flex-1 bg-white border border-slate-200 rounded-lg"
+					className="flex-1 bg-surface border border-line rounded-(--radius-md)"
 					space={4}
 				>
 					<HorizontalStackContainer className="w-full p-8">

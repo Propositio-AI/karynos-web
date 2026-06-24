@@ -50,7 +50,7 @@ export default function DreamerGroupDetailPage() {
 	return (
 		<SideBar>
 			
-			<div className="bg-slate-100 p-8 flex-1">
+			<div className="bg-canvas p-8 flex-1">
 				<BreadCrumb links = {[
 					{
 						name: "グループ管理",
@@ -62,7 +62,7 @@ export default function DreamerGroupDetailPage() {
 					}
 				]}/>
 				
-				<VerticalStackContainer className="flex-1 bg-white border border-slate-200 rounded-lg" space={4}>
+				<VerticalStackContainer className="flex-1 bg-surface border border-line rounded-(--radius-md)" space={4}>
 					<HorizontalStackContainer className="w-full p-8">
 						<img alt="User Icon" src="https://www.figma.com/api/mcp/asset/6ee632ba-ade1-40f4-ae60-7d8c9991cbd1" className="w-14 h-14" />
 						<h3 className="w-full">3年A組</h3>

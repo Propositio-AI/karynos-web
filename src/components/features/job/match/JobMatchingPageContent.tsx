@@ -32,18 +32,18 @@ export default function JobMatchingPageContent() {
         x,
         [-240, -80, 0, 80, 240],
         [
-            "rgb(254, 226, 226)",
-            "rgb(254, 242, 242)",
-            "rgb(250, 250, 249)",
-            "rgb(236, 253, 245)",
-            "rgb(209, 250, 229)",
+            "rgb(250, 247, 244)",
+            "rgb(250, 249, 247)",
+            "rgb(250, 249, 247)",
+            "rgb(243, 250, 247)",
+            "rgb(236, 247, 242)",
         ],
     );
 
     if (isLoading) {
         return (
             <CenterContainer className="min-h-[calc(100vh-6rem)] w-full bg-canvas px-6">
-                <div className="rounded-lg border border-line bg-surface px-6 py-5 text-sm font-bold text-muted shadow-soft">
+                <div className="rounded-(--radius-sm) border border-line bg-surface px-6 py-5 text-sm font-semibold text-muted">
                     読み込み中...
                 </div>
             </CenterContainer>
@@ -53,7 +53,7 @@ export default function JobMatchingPageContent() {
     if (error) {
         return (
             <CenterContainer className="min-h-[calc(100vh-6rem)] w-full bg-canvas px-6">
-                <div className="max-w-md rounded-lg border border-red-200 bg-red-50 px-6 py-5 text-sm font-bold text-red-600 shadow-soft">
+                <div className="max-w-md rounded-(--radius-sm) border border-red-200 bg-red-50 px-6 py-5 text-sm font-semibold text-red-600">
                     {error}
                 </div>
             </CenterContainer>
@@ -63,7 +63,7 @@ export default function JobMatchingPageContent() {
     if (!currentJob) {
         return (
             <CenterContainer className="min-h-[calc(100vh-6rem)] w-full bg-canvas px-6">
-                <div className="rounded-lg border border-line bg-surface px-6 py-5 text-sm font-bold text-muted shadow-soft">
+                <div className="rounded-(--radius-sm) border border-line bg-surface px-6 py-5 text-sm font-semibold text-muted">
                     おすすめの職業がありません。
                 </div>
             </CenterContainer>

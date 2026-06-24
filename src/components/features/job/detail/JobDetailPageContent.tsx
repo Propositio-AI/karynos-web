@@ -57,7 +57,7 @@ export default function JobDetailPageContent() {
     if (isLoading) {
         return (
             <div className="flex min-h-screen items-center justify-center bg-canvas px-6">
-                <p className="rounded-lg border border-line bg-surface px-6 py-5 text-sm font-bold text-muted shadow-soft">
+                <p className="rounded-(--radius-sm) border border-line bg-surface px-6 py-5 text-sm font-semibold text-muted">
                     読み込み中...
                 </p>
             </div>
@@ -67,7 +67,7 @@ export default function JobDetailPageContent() {
     if (error || !jobData) {
         return (
             <div className="flex min-h-screen items-center justify-center bg-canvas px-6">
-                <p className="rounded-lg border border-red-200 bg-red-50 px-6 py-5 text-sm font-bold text-red-600 shadow-soft">
+                <p className="rounded-(--radius-sm) border border-red-200 bg-red-50 px-6 py-5 text-sm font-semibold text-red-600">
                     {error || "データが見つかりません。"}
                 </p>
             </div>

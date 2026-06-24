@@ -100,7 +100,7 @@ export const InitQuestionsPageContent = () => {
     if (loading) {
         return (
             <div className="flex min-h-screen items-center justify-center bg-canvas px-6">
-                <p className="rounded-lg border border-line bg-surface px-6 py-5 text-sm font-bold text-muted shadow-soft">
+                <p className="rounded-(--radius-sm) border border-line bg-surface px-6 py-5 text-sm font-semibold text-muted">
                     読み込み中...
                 </p>
             </div>
@@ -110,7 +110,7 @@ export const InitQuestionsPageContent = () => {
     if (error) {
         return (
             <div className="flex min-h-screen items-center justify-center bg-canvas px-6">
-                <p className="rounded-lg border border-red-200 bg-red-50 px-6 py-5 text-sm font-bold text-red-600 shadow-soft">
+                <p className="rounded-(--radius-sm) border border-red-200 bg-red-50 px-6 py-5 text-sm font-semibold text-red-600">
                     質問の取得に失敗しました: {error}
                 </p>
             </div>
@@ -128,24 +128,24 @@ export const InitQuestionsPageContent = () => {
     return (
         <main className="min-h-screen bg-canvas px-4 pb-48 pt-6 sm:px-6 sm:pt-10">
             <div className="mx-auto w-full max-w-2xl">
-                <section className="mb-6 rounded-lg border border-line bg-surface p-5 shadow-soft sm:p-7">
-                    <p className="mb-3 inline-flex rounded-full bg-brand-50 px-3 py-1 text-xs font-bold text-brand-700">
+                <section className="mb-6 rounded-(--radius-md) border border-line bg-surface p-5 sm:p-7">
+                    <p className="mb-2 text-sm font-semibold text-brand-700">
                         First match setup
                     </p>
-                    <h1 className="text-2xl font-extrabold text-ink sm:text-3xl">
+                    <h1 className="text-2xl text-ink sm:text-3xl">
                         初期診断
                     </h1>
                     <p className="mt-3 text-sm leading-7 text-muted">
                         直感に近い選択肢を選んでください。回答をもとに、最初のおすすめ職業を並べます。
                     </p>
                     <div className="mt-5">
-                        <div className="mb-2 flex items-center justify-between text-xs font-bold text-muted">
+                        <div className="mb-2 flex items-center justify-between text-xs font-semibold text-muted">
                             <span>{answeredCount} / {orderedQuestions.length}</span>
                             <span>{progressPercent}%</span>
                         </div>
-                        <div className="h-2 overflow-hidden rounded-full bg-stone-100">
+                        <div className="h-1.5 overflow-hidden rounded-full bg-line">
                             <div
-                                className="h-full rounded-full bg-brand-500 transition-all duration-300"
+                                className="h-full rounded-full bg-brand-700 transition-all duration-300"
                                 style={{ width: `${progressPercent}%` }}
                             />
                         </div>
@@ -156,18 +156,18 @@ export const InitQuestionsPageContent = () => {
                     {orderedQuestions.map((question, index) => (
                         <section
                             key={question.question_id}
-                            className="rounded-lg border border-line bg-surface p-5 shadow-soft sm:p-6"
+                            className="rounded-(--radius-md) border border-line bg-surface p-5 sm:p-6"
                         >
                             <div className="mb-4">
                                 <div className="mb-3 flex items-center justify-between gap-3">
-                                    <p className="rounded-full bg-accent-50 px-3 py-1 text-xs font-bold text-accent-600">
+                                    <p className="rounded-full bg-accent-50 px-3 py-1 text-xs font-semibold text-accent-600">
                                         Q{index + 1}
                                     </p>
-                                    <p className="text-xs font-bold text-subtle">
+                                    <p className="text-xs font-medium text-subtle">
                                         {question.category}
                                     </p>
                                 </div>
-                                <h2 className="text-lg font-bold leading-7 text-ink">
+                                <h2 className="text-lg leading-7 text-ink">
                                     {question.question_text}
                                 </h2>
                             </div>
@@ -180,9 +180,9 @@ export const InitQuestionsPageContent = () => {
                                         <button
                                             key={option.option_id}
                                             onClick={() => handleOptionSelect(question, option.option_id)}
-                                            className={`w-full rounded-lg border px-4 py-4 text-left text-sm font-bold leading-6 transition ${
+                                            className={`w-full rounded-(--radius-sm) border px-4 py-4 text-left text-sm font-medium leading-6 transition-colors ${
                                                 selected
-                                                    ? "border-brand-500 bg-brand-50 text-brand-900 shadow-soft"
+                                                    ? "border-brand-600 bg-brand-50 text-brand-900"
                                                     : "border-line bg-white text-ink hover:border-brand-200 hover:bg-brand-50/60"
                                             }`}
                                         >
@@ -196,18 +196,18 @@ export const InitQuestionsPageContent = () => {
                 </div>
 
                 {submitError && (
-                    <p className="mt-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm font-bold text-red-600">
+                    <p className="mt-4 rounded-(--radius-sm) border border-red-200 bg-red-50 px-4 py-3 text-sm font-semibold text-red-600">
                         {submitError}
                     </p>
                 )}
             </div>
 
-            <div className="fixed inset-x-0 bottom-[92px] z-40 border-t border-line bg-surface/95 px-4 py-4 backdrop-blur">
+            <div className="fixed inset-x-0 bottom-16 z-40 border-t border-line bg-surface/95 px-4 py-4 backdrop-blur">
                 <div className="mx-auto max-w-2xl">
                     <button
                         disabled={!isAnsweredAll || submitting}
                         onClick={handleSubmit}
-                        className="min-h-12 w-full rounded-lg bg-brand-500 px-4 py-3 text-sm font-bold text-white shadow-brand transition hover:bg-brand-600 disabled:cursor-not-allowed disabled:bg-stone-300 disabled:shadow-none"
+                        className="min-h-12 w-full rounded-(--radius-sm) bg-brand-700 px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-800 disabled:cursor-not-allowed disabled:bg-line disabled:text-subtle"
                     >
                         {submitting ? "送信中..." : "診断結果を見る"}
                     </button>

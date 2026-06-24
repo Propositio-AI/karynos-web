@@ -3,7 +3,7 @@ import { BaseInputText, BaseTextArea } from "@/components/ui/atoms/Input"
 
 export const DreamerForm = () => {
     return(
-        <VerticalStackContainer space={8} className="bg-white border-zinc-200 p-8 rounded-md">
+        <VerticalStackContainer space={8} className="bg-surface border-line p-8 rounded-(--radius-md)">
         
             <VerticalStackContainer space={4}>
                 <HorizontalStackContainer space={4}>
@@ -27,7 +27,7 @@ export const DreamerForm = () => {
 
 export const GroupForm = () => {
     return(
-        <VerticalStackContainer space={8} className="bg-white border-zinc-200 p-8 rounded-md">        
+        <VerticalStackContainer space={8} className="bg-surface border-line p-8 rounded-(--radius-md)">        
             <BaseInputText placeholder="3年A組" label="グループ名 *"/>
 
             <BaseTextArea placeholder="グループの説明" label="説明"/>

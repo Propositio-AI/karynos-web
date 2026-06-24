@@ -38,7 +38,7 @@ export default function ChatDetailPageContent() {
                 <div className="mx-auto flex min-h-full w-full max-w-3xl flex-col justify-end px-4 py-4">
                     {loading && messages.length === 0 && (
                         <div className="flex justify-center py-10">
-                            <div className="h-7 w-7 animate-spin rounded-full border-2 border-brand-500 border-t-transparent" />
+                            <div className="h-7 w-7 animate-spin rounded-full border-2 border-brand-600 border-t-transparent" />
                         </div>
                     )}
 

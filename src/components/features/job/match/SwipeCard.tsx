@@ -42,7 +42,7 @@ export const SwipeCard = ({
                         opacity,
                         willChange: "transform, opacity",
                     }}
-                    className="relative h-[62vh] min-h-[520px] w-full max-w-[720px] cursor-grab overflow-hidden rounded-lg border border-line bg-surface shadow-lift active:cursor-grabbing"
+                    className="relative h-[62vh] min-h-[520px] w-full max-w-[720px] cursor-grab overflow-hidden rounded-(--radius-lg) border border-line bg-surface shadow-lift active:cursor-grabbing"
                     drag="x"
                     dragConstraints={{ left: 0, right: 0 }}
                     onDragEnd={onDragEnd}
@@ -89,8 +89,8 @@ export const SwipeCard = ({
                             scale: likeScale as any,
                         }}
                     >
-                        <div className="flex h-20 w-20 items-center justify-center rounded-full border border-brand-200 bg-brand-50 text-brand-600 shadow-soft">
-                            <FontAwesomeIcon icon={faThumbsUp} className="text-4xl" />
+                        <div className="flex h-16 w-16 items-center justify-center rounded-full border border-brand-200 bg-brand-50 text-brand-700">
+                            <FontAwesomeIcon icon={faThumbsUp} className="text-2xl" />
                         </div>
                     </motion.div>
 
@@ -101,8 +101,8 @@ export const SwipeCard = ({
                             scale: passScale as any,
                         }}
                     >
-                        <div className="flex h-20 w-20 items-center justify-center rounded-full border border-red-200 bg-red-50 text-red-500 shadow-soft">
-                            <FontAwesomeIcon icon={faXmark} className="text-4xl" />
+                        <div className="flex h-16 w-16 items-center justify-center rounded-full border border-line bg-surface text-muted">
+                            <FontAwesomeIcon icon={faXmark} className="text-2xl" />
                         </div>
                     </motion.div>
                 </motion.div>

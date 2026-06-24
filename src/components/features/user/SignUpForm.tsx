@@ -29,12 +29,11 @@ export const SignUpForm = ({
     error,
 }: Props) => {
     return (
-        <CenterContainer className="min-h-screen overflow-hidden bg-canvas px-5 py-10">
-            <div className="absolute inset-x-0 top-0 h-48 bg-[linear-gradient(135deg,#ecfdf5_0%,#fafaf9_56%,#fffbeb_100%)]" />
-            <VerticalStackContainer className="relative z-10 w-full max-w-md rounded-lg border border-line bg-surface/95 p-8 shadow-lift backdrop-blur" space={8}>
+        <CenterContainer className="min-h-screen bg-canvas px-5 py-10">
+            <VerticalStackContainer className="w-full max-w-md rounded-(--radius-lg) border border-line bg-surface p-8" space={8}>
                 <div>
-                    <p className="mb-3 inline-flex rounded-full bg-accent-50 px-3 py-1 text-xs font-bold text-accent-600">
-                        New journey
+                    <p className="mb-4 text-sm font-semibold tracking-wide text-brand-700">
+                        Karynos
                     </p>
                     <h1>アカウント作成</h1>
                     <p className="mt-3 text-sm leading-6 text-muted">
@@ -88,7 +87,7 @@ export const SignUpForm = ({
                         )}
 
                         {error && (
-                            <div className="mt-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600" role="alert">
+                            <div className="mt-4 rounded-(--radius-sm) border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600" role="alert">
                                 {error}
                             </div>
                         )}
@@ -97,7 +96,7 @@ export const SignUpForm = ({
 
                 <Link
                     href="/login"
-                    className="text-center text-sm font-bold text-brand-700 transition hover:text-brand-900"
+                    className="text-center text-sm font-semibold text-brand-700 transition-colors hover:text-brand-900"
                 >
                     すでにアカウントをお持ちの方
                 </Link>

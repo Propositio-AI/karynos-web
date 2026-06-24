@@ -13,7 +13,7 @@ export default function HomePageContent() {
 					value={620}
 					max={1000}
 					unit="万"
-					color="#f59e0b"
+					color="#b07f2f"
 					size={120}
 					strokeWidth={12}
 					animation={false}
@@ -23,11 +23,11 @@ export default function HomePageContent() {
 					value={120}
 					max={200}
 					unit="日"
-					color="#10b981"
+					color="#146b48"
 					size={170}
 					strokeWidth={25}
 				/>
-				<CircularProgress label="平均年齢" value={28} max={60} unit="歳" color="#3b82f6" />
+				<CircularProgress label="平均年齢" value={28} max={60} unit="歳" color="#0c0f14" />
 			</div>
 		</div>
 	);

@@ -58,7 +58,7 @@ export const JobDetailSection = ({
 
     return (
         <motion.div
-            className="absolute bottom-0 z-20 w-full rounded-t-lg border-t border-line bg-surface p-4 shadow-lift"
+            className="absolute bottom-0 z-20 w-full rounded-t-(--radius-lg) border-t border-line bg-surface p-4 shadow-lift"
             drag="y"
             dragConstraints={{ top: 0, bottom: 0 }}
             onDragEnd={onDragEnd}
@@ -90,10 +90,10 @@ export const JobDetailSection = ({
 
             {jobName && (
                 <div className="px-1 pb-3">
-                    <p className="mb-2 inline-flex rounded-full bg-brand-50 px-3 py-1 text-xs font-bold text-brand-700">
+                    <p className="mb-2 inline-flex rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold text-brand-700">
                         Match #{cardIndex + 1}
                     </p>
-                    <h2 className="text-xl font-extrabold text-ink">
+                    <h2 className="text-xl text-ink">
                         {jobName}
                     </h2>
                 </div>
@@ -105,7 +105,7 @@ export const JobDetailSection = ({
                     value={salaryValue}
                     max={1000}
                     unit="万円"
-                    color="#f59e0b"
+                    color="#b07f2f"
                     size={64}
                     strokeWidth={7}
                 />
@@ -114,7 +114,7 @@ export const JobDetailSection = ({
                     value={Math.round(similarityValue)}
                     max={100}
                     unit="%"
-                    color="#10b981"
+                    color="#146b48"
                     size={64}
                     strokeWidth={7}
                 />
@@ -123,14 +123,14 @@ export const JobDetailSection = ({
                     value={ageValue}
                     max={60}
                     unit="歳"
-                    color="#0b1120"
+                    color="#0c0f14"
                     size={64}
                     strokeWidth={7}
                 />
             </div>
 
             {expanded && (
-                <div className="mt-5 grid grid-cols-3 gap-2 rounded-lg border border-line bg-stone-50 p-2">
+                <div className="mt-5 grid grid-cols-3 gap-2 rounded-(--radius-sm) border border-line bg-canvas p-2">
                     <Link href={detailHref}>
                         <BaseButton color="slate" className="w-full">
                             詳細
@@ -156,7 +156,7 @@ export const JobDetailSection = ({
 
             {expanded && (
                 <div className="my-5 px-1 pb-4">
-                    <h3 className="text-base font-bold text-ink">仕事内容</h3>
+                    <h3 className="text-base text-ink">仕事内容</h3>
                     <p className="mt-3 text-sm leading-7 text-muted">{description}</p>
                 </div>
             )}

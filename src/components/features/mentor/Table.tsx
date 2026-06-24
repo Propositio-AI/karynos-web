@@ -24,7 +24,7 @@ export const TableButton = () => {
 
 export const TableHeader = ({titleList}: {titleList: string[]}) => {
     return (
-        <thead className="bg-zinc-200">
+        <thead className="bg-line/40">
             <tr>
                 <>
                     {titleList.map((title) => (
@@ -40,7 +40,7 @@ export const TableHeader = ({titleList}: {titleList: string[]}) => {
 
 export const DreamerListItem = ({name, student_num, group, login_at, created_at}: {name: string, student_num: string, group: {label: string, id: string}[], login_at: string, created_at: string}) => {
     return (
-        <tr className="bg-white hover:bg-zinc-100 cursor-pointer">
+        <tr className="bg-surface hover:bg-canvas cursor-pointer">
             <td className="p-4">
                 <FontAwesomeIcon icon={faUser} className="h-10 aspect-square mr-2 flex justify-center items-center"/>
                 {name}

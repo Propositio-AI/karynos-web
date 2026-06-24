@@ -14,7 +14,7 @@ export const AppFrame = ({ children }: { children: React.ReactNode }) => {
 
     return (
         <AuthGate>
-            <div className={isAuthRoute ? "min-h-screen" : "min-h-screen pb-24"}>
+            <div className={isAuthRoute ? "min-h-screen" : "min-h-screen pb-20"}>
                 {children}
             </div>
             {!isAuthRoute && <NavBar />}

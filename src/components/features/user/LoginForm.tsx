@@ -40,11 +40,10 @@ const LoginForm = ({
     };
 
     return (
-        <CenterContainer className="min-h-screen overflow-hidden bg-canvas px-5 py-10">
-            <div className="absolute inset-x-0 top-0 h-48 bg-[linear-gradient(135deg,#ecfdf5_0%,#fafaf9_56%,#fffbeb_100%)]" />
-            <VerticalStackContainer className="relative z-10 w-full max-w-md rounded-lg border border-line bg-surface/95 p-8 shadow-lift backdrop-blur" space={8}>
+        <CenterContainer className="min-h-screen bg-canvas px-5 py-10">
+            <VerticalStackContainer className="w-full max-w-md rounded-(--radius-lg) border border-line bg-surface p-8" space={8}>
                 <div>
-                    <p className="mb-3 inline-flex rounded-full bg-brand-50 px-3 py-1 text-xs font-bold text-brand-700">
+                    <p className="mb-4 text-sm font-semibold tracking-wide text-brand-700">
                         Karynos
                     </p>
                     <h1 className="text-ink">
@@ -80,7 +79,7 @@ const LoginForm = ({
                             )}
 
                             {error && (
-                                <p className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-600">
+                                <p className="rounded-(--radius-sm) border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-600">
                                     {error}
                                 </p>
                             )}
@@ -96,7 +95,7 @@ const LoginForm = ({
 
                             <Link
                                 href="/signup"
-                                className="text-center text-sm font-bold text-brand-700 transition hover:text-brand-900"
+                                className="text-center text-sm font-semibold text-brand-700 transition-colors hover:text-brand-900"
                             >
                                 はじめての方はアカウント作成へ
                             </Link>

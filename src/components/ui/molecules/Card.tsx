@@ -5,7 +5,7 @@ import { HorizontalStackContainer } from "./Container";
 
 export const Card = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => {
     return (
-        <div className={`rounded-lg border border-line bg-surface shadow-soft ${className}`}>
+        <div className={`rounded-(--radius-md) border border-line bg-surface ${className}`}>
             {children}
         </div>
     );
@@ -23,13 +23,18 @@ export const DashboardCard = ({
     icon?: IconDefinition;
 }) => {
     return (
-        <HorizontalStackContainer className={`rounded-lg border border-line bg-surface p-6 shadow-soft ${className}`}>
+        <HorizontalStackContainer
+            space={4}
+            className={`rounded-(--radius-md) border border-line bg-surface p-6 ${className}`}
+        >
             {icon && (
-                <FontAwesomeIcon icon={icon} className="h-5 w-5 text-brand-500" />
+                <div className="flex h-9 w-9 items-center justify-center rounded-(--radius-sm) bg-brand-50">
+                    <FontAwesomeIcon icon={icon} className="h-4 w-4 text-brand-700" />
+                </div>
             )}
             <div>
-                <p className="my-2 text-sm font-bold text-muted">{title}</p>
-                <h1>{children}</h1>
+                <p className="text-sm font-medium text-muted">{title}</p>
+                <h1 className="mt-1">{children}</h1>
             </div>
         </HorizontalStackContainer>
     );
