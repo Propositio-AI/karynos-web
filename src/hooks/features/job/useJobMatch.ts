@@ -176,6 +176,32 @@ export const useJobMatch = () => {
         advanceCard();
     }, [advanceCard, captureSwipe, currentJob, markAsSave]);
 
+    const handleLike = useCallback(() => {
+        if (!currentJob) {
+            return;
+        }
+
+        setSwipeDirection("right");
+        captureSwipe("good", currentJob);
+        markAsGood(currentJob.history_id);
+        advanceCard();
+    }, [advanceCard, captureSwipe, currentJob, markAsGood]);
+
+    const handlePass = useCallback(() => {
+        if (!currentJob) {
+            return;
+        }
+
+        setSwipeDirection("left");
+        captureSwipe("bad", currentJob);
+        markAsBad(currentJob.history_id);
+        advanceCard();
+    }, [advanceCard, captureSwipe, currentJob, markAsBad]);
+
+    const toggleExpanded = useCallback(() => {
+        setExpanded((prev) => !prev);
+    }, []);
+
     const customDirection = swipeDirection === "right" ? 1 : -1;
 
     return {
@@ -191,6 +217,9 @@ export const useJobMatch = () => {
         handleDetailDragEnd,
         resetSwipe,
         handleSave,
+        handleLike,
+        handlePass,
+        toggleExpanded,
         currentJob,
         cardIndex,
         isLoading,

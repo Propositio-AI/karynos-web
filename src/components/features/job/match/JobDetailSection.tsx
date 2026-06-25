@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronUp, faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { BaseButton } from "@/components/ui/atoms/Button";
 import { CircularProgress } from "@/components/ui/molecules/CircularProgress";
 import { useJobChat } from "@/hooks/features/job/useJobChat";
@@ -9,6 +11,7 @@ type JobDetailSectionProps = {
     imageFullscreen: boolean;
     expanded: boolean;
     onDragEnd: (event: any, info: any) => void;
+    onToggleExpand?: () => void;
     jobId?: number;
     historyId?: string;
     cardIndex?: number;
@@ -24,6 +27,7 @@ export const JobDetailSection = ({
     imageFullscreen,
     expanded,
     onDragEnd,
+    onToggleExpand,
     jobId = 0,
     historyId,
     cardIndex = 0,
@@ -86,7 +90,18 @@ export const JobDetailSection = ({
                 pointerEvents: imageFullscreen ? "none" : "auto",
             }}
         >
-            <div className="mx-auto mb-4 h-1 w-16 rounded-full bg-line" />
+            <button
+                type="button"
+                onClick={onToggleExpand}
+                className="mx-auto mb-3 flex w-full flex-col items-center gap-1 text-subtle"
+                aria-label={expanded ? "詳細を閉じる" : "詳細を見る"}
+            >
+                <span className="h-1 w-10 rounded-full bg-line" />
+                <span className="flex items-center gap-1 text-[11px] font-medium">
+                    <FontAwesomeIcon icon={expanded ? faChevronDown : faChevronUp} className="h-2.5 w-2.5" />
+                    {expanded ? "閉じる" : "詳細を見る"}
+                </span>
+            </button>
 
             {jobName && (
                 <div className="px-1 pb-3">

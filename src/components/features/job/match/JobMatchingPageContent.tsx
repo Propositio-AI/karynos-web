@@ -1,12 +1,21 @@
 "use client";
 
-import { motion, useTransform } from "framer-motion";
+import { useEffect, useRef } from "react";
+import { animate, motion, useTransform } from "framer-motion";
+import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CenterContainer } from "@/components/ui/molecules/Container";
 import { useJobMatch } from "@/hooks/features/job/useJobMatch";
 import { SwipeCard } from "@/components/features/job/match/SwipeCard";
 import { JobImageSection } from "@/components/features/job/match/JobImageSection";
 import { JobDetailSection } from "@/components/features/job/match/JobDetailSection";
 import { SwipeResultMessage } from "@/components/features/job/match/SwipeResultMessage";
+
+const AppNameLabel = () => (
+    <p className="absolute left-10 top-4 z-40 text-3xl font-bold tracking-tight text-ink">
+        Dream Matching
+    </p>
+);
 
 export default function JobMatchingPageContent() {
     const {
@@ -22,11 +31,32 @@ export default function JobMatchingPageContent() {
         handleDetailDragEnd,
         resetSwipe,
         handleSave,
+        toggleExpanded,
         currentJob,
         cardIndex,
         isLoading,
         error,
     } = useJobMatch();
+
+    const hasShownHintRef = useRef(false);
+
+    useEffect(() => {
+        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        if (hasShownHintRef.current || !currentJob || cardIndex !== 0 || prefersReducedMotion) {
+            return;
+        }
+        hasShownHintRef.current = true;
+
+        const timer = window.setTimeout(() => {
+            animate(x, [0, -36, 28, 0], {
+                duration: 1.1,
+                times: [0, 0.35, 0.7, 1],
+                ease: "easeInOut",
+            });
+        }, 600);
+
+        return () => window.clearTimeout(timer);
+    }, [currentJob, cardIndex, x]);
 
     const backgroundTint = useTransform(
         x,
@@ -42,7 +72,8 @@ export default function JobMatchingPageContent() {
 
     if (isLoading) {
         return (
-            <CenterContainer className="min-h-[calc(100vh-6rem)] w-full bg-canvas px-6">
+            <CenterContainer className="relative min-h-[calc(100vh-6rem)] w-full bg-canvas px-6">
+                <AppNameLabel />
                 <div className="rounded-(--radius-sm) border border-line bg-surface px-6 py-5 text-sm font-semibold text-muted">
                     読み込み中...
                 </div>
@@ -52,7 +83,8 @@ export default function JobMatchingPageContent() {
 
     if (error) {
         return (
-            <CenterContainer className="min-h-[calc(100vh-6rem)] w-full bg-canvas px-6">
+            <CenterContainer className="relative min-h-[calc(100vh-6rem)] w-full bg-canvas px-6">
+                <AppNameLabel />
                 <div className="max-w-md rounded-(--radius-sm) border border-red-200 bg-red-50 px-6 py-5 text-sm font-semibold text-red-600">
                     {error}
                 </div>
@@ -62,7 +94,8 @@ export default function JobMatchingPageContent() {
 
     if (!currentJob) {
         return (
-            <CenterContainer className="min-h-[calc(100vh-6rem)] w-full bg-canvas px-6">
+            <CenterContainer className="relative min-h-[calc(100vh-6rem)] w-full bg-canvas px-6">
+                <AppNameLabel />
                 <div className="rounded-(--radius-sm) border border-line bg-surface px-6 py-5 text-sm font-semibold text-muted">
                     おすすめの職業がありません。
                 </div>
@@ -80,6 +113,8 @@ export default function JobMatchingPageContent() {
             className="relative flex min-h-[calc(100vh-6rem)] w-full items-center justify-center overflow-hidden px-4 py-4"
             style={{ backgroundColor: backgroundTint }}
         >
+            <AppNameLabel />
+
             <SwipeCard
                 swipeDirection={swipeDirection}
                 x={x}
@@ -99,6 +134,7 @@ export default function JobMatchingPageContent() {
                     imageFullscreen={imageFullscreen}
                     expanded={expanded}
                     onDragEnd={handleDetailDragEnd}
+                    onToggleExpand={toggleExpanded}
                     jobId={currentJob.job_id}
                     jobName={currentJob.name}
                     historyId={currentJob.history_id}
@@ -110,6 +146,20 @@ export default function JobMatchingPageContent() {
                     onSave={handleSave}
                 />
             </SwipeCard>
+
+            {swipeDirection === "center" && !expanded && !imageFullscreen && (
+                <div className="pointer-events-none absolute inset-x-0 bottom-4 z-30 flex items-center justify-center gap-4 text-xs font-medium text-subtle">
+                    <span className="flex items-center gap-1.5">
+                        <FontAwesomeIcon icon={faArrowLeft} className="h-3 w-3" />
+                        興味なし
+                    </span>
+                    <span className="h-3 w-px bg-line" />
+                    <span className="flex items-center gap-1.5">
+                        気になる
+                        <FontAwesomeIcon icon={faArrowRight} className="h-3 w-3" />
+                    </span>
+                </div>
+            )}
 
             <SwipeResultMessage swipeDirection={swipeDirection} onReset={resetSwipe} />
         </motion.main>
