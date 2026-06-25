@@ -1,7 +1,9 @@
 "use client";
 
-import { useParams, useSearchParams } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { useDetail } from "@/hooks/features/job/useDetail";
 import { useJobChat } from "@/hooks/features/job/useJobChat";
 import { JobHeader } from "@/components/features/job/detail/JobHeader";
@@ -15,12 +17,21 @@ import { ActionButtons } from "@/components/features/job/detail/ActionButtons";
 import { captureAnalyticsEvent } from "@/lib/analytics/posthog";
 
 export default function JobDetailPageContent() {
+    const router = useRouter();
     const params = useParams();
     const searchParams = useSearchParams();
     const jobId = params.job_id as string;
     const { jobData, isLoading, error } = useDetail(jobId);
     const { startChatForJob, isCreating } = useJobChat();
     const viewedEventKeyRef = useRef<string | null>(null);
+
+    const handleBack = () => {
+        if (window.history.length > 1) {
+            router.back();
+            return;
+        }
+        router.push("/job/match");
+    };
 
     useEffect(() => {
         const historyId = searchParams.get("history_id");
@@ -77,6 +88,15 @@ export default function JobDetailPageContent() {
     return (
         <main className="min-h-screen bg-canvas px-4 pb-48 pt-6 sm:px-6 sm:pt-10">
             <div className="mx-auto w-full max-w-6xl">
+                <button
+                    type="button"
+                    onClick={handleBack}
+                    className="mb-4 flex items-center gap-1.5 text-sm font-semibold text-muted transition-colors hover:text-ink"
+                >
+                    <FontAwesomeIcon icon={faArrowLeft} className="h-3.5 w-3.5" />
+                    戻る
+                </button>
+
                 <JobHeader
                     jobId={jobData.job_id}
                     name={jobData.name}
