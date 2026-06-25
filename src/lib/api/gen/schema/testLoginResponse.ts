@@ -5,4 +5,7 @@
  * OpenAPI spec version: 0.1.0
  */
 
-export type TopRecommendedJobMatchReason = string | null;
+export interface TestLoginResponse {
+  /** dreamer ID */
+  dreamer_id: string;
+}

@@ -9,17 +9,14 @@ import type {
   DreamerResponse,
   DreamerToGroupRequest,
   DreamerToGroupResponse,
-  GetInitQuestionsApiV1DreamerInitQuestionsGetParams,
-  GetInitQuestionsResponse,
-  InitAnswersSubmitResponse,
   NewDreamerGroupRequest,
   NewDreamerGroupResponse,
   NewDreamerRequest,
   NewDreamerResponse,
-  SubmitInitAnswersRequest,
+  TestLoginRequest,
+  TestLoginResponse,
   UpdateDreamerGroupRequest,
-  UpdateDreamerRequest,
-  UserInitialAnswerHistoryResponse
+  UpdateDreamerRequest
 } from '.././schema';
 
 import { customInstance } from '../../mutator';
@@ -30,6 +27,19 @@ type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
 
   export const getDreamer = () => {
 /**
+ * @summary Test Login
+ */
+const testLoginApiV1DreamerTestLoginPost = (
+    testLoginRequest: TestLoginRequest,
+ options?: SecondParameter<typeof customInstance<TestLoginResponse>>,) => {
+      return customInstance<TestLoginResponse>(
+      {url: `/api/v1/dreamer/test-login`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: testLoginRequest
+    },
+      options);
+    }
+  /**
  * @summary Create Dreamer
  */
 const createDreamerApiV1DreamerAdminNewPost = (
@@ -155,43 +165,8 @@ const removeDreamerFromGroupApiV1DreamerGroupsGroupIdRemoveDreamerDelete = (
     },
       options);
     }
-  /**
- * @summary Get Init Questions
- */
-const getInitQuestionsApiV1DreamerInitQuestionsGet = (
-    params?: GetInitQuestionsApiV1DreamerInitQuestionsGetParams,
- options?: SecondParameter<typeof customInstance<GetInitQuestionsResponse>>,) => {
-      return customInstance<GetInitQuestionsResponse>(
-      {url: `/api/v1/dreamer/init-questions`, method: 'GET',
-        params
-    },
-      options);
-    }
-  /**
- * @summary Submit Init Answers
- */
-const submitInitAnswersApiV1DreamerInitAnswersPost = (
-    submitInitAnswersRequest: SubmitInitAnswersRequest,
- options?: SecondParameter<typeof customInstance<InitAnswersSubmitResponse>>,) => {
-      return customInstance<InitAnswersSubmitResponse>(
-      {url: `/api/v1/dreamer/init-answers`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
-      data: submitInitAnswersRequest
-    },
-      options);
-    }
-  /**
- * @summary Get Init Answers History
- */
-const getInitAnswersHistoryApiV1DreamerInitAnswersHistoryGet = (
-    
- options?: SecondParameter<typeof customInstance<UserInitialAnswerHistoryResponse[]>>,) => {
-      return customInstance<UserInitialAnswerHistoryResponse[]>(
-      {url: `/api/v1/dreamer/init-answers/history`, method: 'GET'
-    },
-      options);
-    }
-  return {createDreamerApiV1DreamerAdminNewPost,getDreamerApiV1DreamerAdminDreamerIdGet,updateDreamerApiV1DreamerAdminDreamerIdPut,deleteDreamerApiV1DreamerAdminDreamerIdDelete,createGroupApiV1DreamerGroupsNewPost,getGroupApiV1DreamerGroupsGroupIdGet,updateGroupApiV1DreamerGroupsGroupIdPut,deleteGroupApiV1DreamerGroupsGroupIdDelete,addDreamerToGroupApiV1DreamerGroupsGroupIdAddDreamerPut,removeDreamerFromGroupApiV1DreamerGroupsGroupIdRemoveDreamerDelete,getInitQuestionsApiV1DreamerInitQuestionsGet,submitInitAnswersApiV1DreamerInitAnswersPost,getInitAnswersHistoryApiV1DreamerInitAnswersHistoryGet}};
+  return {testLoginApiV1DreamerTestLoginPost,createDreamerApiV1DreamerAdminNewPost,getDreamerApiV1DreamerAdminDreamerIdGet,updateDreamerApiV1DreamerAdminDreamerIdPut,deleteDreamerApiV1DreamerAdminDreamerIdDelete,createGroupApiV1DreamerGroupsNewPost,getGroupApiV1DreamerGroupsGroupIdGet,updateGroupApiV1DreamerGroupsGroupIdPut,deleteGroupApiV1DreamerGroupsGroupIdDelete,addDreamerToGroupApiV1DreamerGroupsGroupIdAddDreamerPut,removeDreamerFromGroupApiV1DreamerGroupsGroupIdRemoveDreamerDelete}};
+export type TestLoginApiV1DreamerTestLoginPostResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getDreamer>['testLoginApiV1DreamerTestLoginPost']>>>
 export type CreateDreamerApiV1DreamerAdminNewPostResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getDreamer>['createDreamerApiV1DreamerAdminNewPost']>>>
 export type GetDreamerApiV1DreamerAdminDreamerIdGetResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getDreamer>['getDreamerApiV1DreamerAdminDreamerIdGet']>>>
 export type UpdateDreamerApiV1DreamerAdminDreamerIdPutResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getDreamer>['updateDreamerApiV1DreamerAdminDreamerIdPut']>>>
@@ -202,6 +177,3 @@ export type UpdateGroupApiV1DreamerGroupsGroupIdPutResult = NonNullable<Awaited<
 export type DeleteGroupApiV1DreamerGroupsGroupIdDeleteResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getDreamer>['deleteGroupApiV1DreamerGroupsGroupIdDelete']>>>
 export type AddDreamerToGroupApiV1DreamerGroupsGroupIdAddDreamerPutResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getDreamer>['addDreamerToGroupApiV1DreamerGroupsGroupIdAddDreamerPut']>>>
 export type RemoveDreamerFromGroupApiV1DreamerGroupsGroupIdRemoveDreamerDeleteResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getDreamer>['removeDreamerFromGroupApiV1DreamerGroupsGroupIdRemoveDreamerDelete']>>>
-export type GetInitQuestionsApiV1DreamerInitQuestionsGetResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getDreamer>['getInitQuestionsApiV1DreamerInitQuestionsGet']>>>
-export type SubmitInitAnswersApiV1DreamerInitAnswersPostResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getDreamer>['submitInitAnswersApiV1DreamerInitAnswersPost']>>>
-export type GetInitAnswersHistoryApiV1DreamerInitAnswersHistoryGetResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getDreamer>['getInitAnswersHistoryApiV1DreamerInitAnswersHistoryGet']>>>

@@ -5,4 +5,6 @@
  * OpenAPI spec version: 0.1.0
  */
 
-export type TopRecommendedJobMatchJobId = number | null;
+export type GetQuestionsApiV1OnboardingQuestionsGetParams = {
+version?: number;
+};

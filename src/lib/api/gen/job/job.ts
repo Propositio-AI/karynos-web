@@ -8,9 +8,7 @@ import type {
   GetViewingHistoryApiV1JobHistoryGetParams,
   JobDetailResponse,
   JobSearchResponse,
-  JobSuggestionResponse,
   SearchJobsApiV1JobSearchGetParams,
-  SuggestionDebugResponse,
   ViewingHistoryResponse
 } from '.././schema';
 
@@ -90,28 +88,6 @@ const markSaveApiV1JobSaveHistoryIdPut = (
       options);
     }
   /**
- * @summary Recommend Jobs
- */
-const recommendJobsApiV1JobRecommendGet = (
-    
- options?: SecondParameter<typeof customInstance<JobSuggestionResponse>>,) => {
-      return customInstance<JobSuggestionResponse>(
-      {url: `/api/v1/job/recommend`, method: 'GET'
-    },
-      options);
-    }
-  /**
- * @summary Recommend Jobs Debug
- */
-const recommendJobsDebugApiV1JobRecommendDebugGet = (
-    
- options?: SecondParameter<typeof customInstance<SuggestionDebugResponse>>,) => {
-      return customInstance<SuggestionDebugResponse>(
-      {url: `/api/v1/job/recommend/debug`, method: 'GET'
-    },
-      options);
-    }
-  /**
  * @summary Sync Jobs To Vectordb
  */
 const syncJobsToVectordbApiV1JobAdminSyncVectordbPost = (
@@ -133,14 +109,12 @@ const rebuildVectordbApiV1JobAdminSyncVectordbRebuildPost = (
     },
       options);
     }
-  return {getJobDetailApiV1JobDetailJobIdGet,getViewingHistoryApiV1JobHistoryGet,searchJobsApiV1JobSearchGet,markGoodApiV1JobGoodHistoryIdPut,markBadApiV1JobBadHistoryIdPut,markSaveApiV1JobSaveHistoryIdPut,recommendJobsApiV1JobRecommendGet,recommendJobsDebugApiV1JobRecommendDebugGet,syncJobsToVectordbApiV1JobAdminSyncVectordbPost,rebuildVectordbApiV1JobAdminSyncVectordbRebuildPost}};
+  return {getJobDetailApiV1JobDetailJobIdGet,getViewingHistoryApiV1JobHistoryGet,searchJobsApiV1JobSearchGet,markGoodApiV1JobGoodHistoryIdPut,markBadApiV1JobBadHistoryIdPut,markSaveApiV1JobSaveHistoryIdPut,syncJobsToVectordbApiV1JobAdminSyncVectordbPost,rebuildVectordbApiV1JobAdminSyncVectordbRebuildPost}};
 export type GetJobDetailApiV1JobDetailJobIdGetResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getJob>['getJobDetailApiV1JobDetailJobIdGet']>>>
 export type GetViewingHistoryApiV1JobHistoryGetResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getJob>['getViewingHistoryApiV1JobHistoryGet']>>>
 export type SearchJobsApiV1JobSearchGetResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getJob>['searchJobsApiV1JobSearchGet']>>>
 export type MarkGoodApiV1JobGoodHistoryIdPutResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getJob>['markGoodApiV1JobGoodHistoryIdPut']>>>
 export type MarkBadApiV1JobBadHistoryIdPutResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getJob>['markBadApiV1JobBadHistoryIdPut']>>>
 export type MarkSaveApiV1JobSaveHistoryIdPutResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getJob>['markSaveApiV1JobSaveHistoryIdPut']>>>
-export type RecommendJobsApiV1JobRecommendGetResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getJob>['recommendJobsApiV1JobRecommendGet']>>>
-export type RecommendJobsDebugApiV1JobRecommendDebugGetResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getJob>['recommendJobsDebugApiV1JobRecommendDebugGet']>>>
 export type SyncJobsToVectordbApiV1JobAdminSyncVectordbPostResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getJob>['syncJobsToVectordbApiV1JobAdminSyncVectordbPost']>>>
 export type RebuildVectordbApiV1JobAdminSyncVectordbRebuildPostResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getJob>['rebuildVectordbApiV1JobAdminSyncVectordbRebuildPost']>>>

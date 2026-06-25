@@ -33,7 +33,7 @@ export const useJobMatch = () => {
         }, 10000);
 
         try {
-            const response = await api.recommendJobsApiV1MatchingRecommendGet();
+            const response = await api.recommendApiV1MatchingRecommendGet();
             // NOTE: OpenAPI spec (TopRecommendedJobMatch) does not match actual response shape.
             const payload = response as unknown as RecommendResponse;
             setCurrentJob(payload?.recommendation ?? null);

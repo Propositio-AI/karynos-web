@@ -5,7 +5,7 @@
  * OpenAPI spec version: 0.1.0
  */
 
-export interface UserDataSummary {
+export interface MatchingUserDataSummary {
   dreamer_id: string;
   init_answers_count: number;
   good_jobs_count: number;

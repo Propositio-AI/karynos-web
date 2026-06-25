@@ -26,9 +26,16 @@ axiosInstance.interceptors.request.use(async (config) => {
         if (accessToken) {
             config.headers = config.headers ?? {};
             config.headers.Authorization = `Bearer ${accessToken}`;
+            return config;
         }
     } catch {
         // Unauthenticated endpoints can still proceed.
+    }
+
+    const dreamerId = window.localStorage.getItem("karynos.dreamerId");
+    if (dreamerId) {
+        config.headers = config.headers ?? {};
+        config.headers["X-Dreamer-Id"] = dreamerId;
     }
 
     return config;

@@ -7,24 +7,30 @@ const Login = () => {
     const {
         step,
         email,
+        grade,
+        isTestLogin,
         confirmationCode,
         isLoading,
         onChangeEmail,
+        onChangeGrade,
         handleLogin,
         onChangeConfirmationCode,
         handleConfirmLogin,
         error,
     } = useLogin();
 
-    return( 
+    return(
         <LoginForm
             step = {step}
             email = {email}
+            grade = {grade}
+            isTestLogin = {isTestLogin}
             confirmationCode = {confirmationCode}
             isLoading = {isLoading}
             onChangeEmail = {onChangeEmail}
+            onChangeGrade = {onChangeGrade}
             handleLogin = {handleLogin}
-            onChangeConfirmationCode = {onChangeConfirmationCode} 
+            onChangeConfirmationCode = {onChangeConfirmationCode}
             handleConfirmLogin = {handleConfirmLogin}
             error = {error}
         />

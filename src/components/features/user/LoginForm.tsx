@@ -10,9 +10,12 @@ import { FadeInAnimation } from "@/components/ui/molecules/Animation";
 type Props = {
     step: "LOGIN" | "CONFIRM";
     email: string;
+    grade: string;
+    isTestLogin: boolean;
     confirmationCode: string;
     isLoading: boolean;
     onChangeEmail: (v: string) => void;
+    onChangeGrade: (v: string) => void;
     onChangeConfirmationCode: (v: string) => void;
     handleLogin: () => void;
     handleConfirmLogin: () => void;
@@ -22,9 +25,12 @@ type Props = {
 const LoginForm = ({
     step,
     email,
+    grade,
+    isTestLogin,
     confirmationCode,
     isLoading,
     onChangeEmail,
+    onChangeGrade,
     onChangeConfirmationCode,
     handleLogin,
     handleConfirmLogin,
@@ -44,22 +50,45 @@ const LoginForm = ({
             <VerticalStackContainer className="w-full max-w-md rounded-(--radius-lg) border border-line bg-surface p-8" space={8}>
                 <div>
                     <p className="mb-4 text-sm font-semibold tracking-wide text-brand-700">
-                        Karynos
+                        Dream Matching
                     </p>
                     <h1 className="text-ink">
-                        {step === "LOGIN" ? "おかえりなさい" : "認証コードを入力"}
+                        {isTestLogin
+                            ? "テスト利用を開始"
+                            : step === "LOGIN"
+                              ? "おかえりなさい"
+                              : "認証コードを入力"}
                     </h1>
                     <p className="mt-3 text-sm leading-6 text-muted">
-                        {step === "LOGIN"
-                            ? "メールアドレスだけで、あなたのキャリア探索を再開できます。"
-                            : `${email} に届いたコードを入力してください。`}
+                        {isTestLogin
+                            ? "お名前と学年を入力してください。"
+                            : step === "LOGIN"
+                              ? "メールアドレスだけで、あなたのキャリア探索を再開できます。"
+                              : `${email} に届いたコードを入力してください。`}
                     </p>
                 </div>
 
                 <AnimatePresence mode="wait">
                     <FadeInAnimation>
                         <VerticalStackContainer space={4}>
-                            {step === "LOGIN" ? (
+                            {isTestLogin ? (
+                                <>
+                                    <BaseInputText
+                                        className="w-full"
+                                        label="お名前"
+                                        placeholder="やまだ たろう"
+                                        value={email}
+                                        onChange={(e) => onChangeEmail(e.target.value)}
+                                    />
+                                    <BaseInputText
+                                        className="w-full"
+                                        label="学年"
+                                        placeholder="例: 大学3年"
+                                        value={grade}
+                                        onChange={(e) => onChangeGrade(e.target.value)}
+                                    />
+                                </>
+                            ) : step === "LOGIN" ? (
                                 <BaseInputText
                                     className="w-full"
                                     label="メールアドレス"
@@ -90,15 +119,17 @@ const LoginForm = ({
                                 isLoading={isLoading}
                                 onClick={submit}
                             >
-                                {step === "LOGIN" ? "ログイン" : "認証して進む"}
+                                {isTestLogin ? "はじめる" : step === "LOGIN" ? "ログイン" : "認証して進む"}
                             </BaseButton>
 
-                            <Link
-                                href="/signup"
-                                className="text-center text-sm font-semibold text-brand-700 transition-colors hover:text-brand-900"
-                            >
-                                はじめての方はアカウント作成へ
-                            </Link>
+                            {!isTestLogin && (
+                                <Link
+                                    href="/signup"
+                                    className="text-center text-sm font-semibold text-brand-700 transition-colors hover:text-brand-900"
+                                >
+                                    はじめての方はアカウント作成へ
+                                </Link>
+                            )}
                         </VerticalStackContainer>
                     </FadeInAnimation>
                 </AnimatePresence>

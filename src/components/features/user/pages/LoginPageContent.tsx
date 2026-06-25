@@ -7,9 +7,12 @@ export default function LoginPageContent() {
 	const {
 		step,
 		email,
+		grade,
+		isTestLogin,
 		confirmationCode,
 		isLoading,
 		setEmail,
+		setGrade,
 		handleLogin,
 		setConfirmationCode,
 		handleConfirmLogin,
@@ -20,9 +23,12 @@ export default function LoginPageContent() {
 		<LoginForm
 			step={step}
 			email={email}
+			grade={grade}
+			isTestLogin={isTestLogin}
 			confirmationCode={confirmationCode}
 			isLoading={isLoading}
 			onChangeEmail={setEmail}
+			onChangeGrade={setGrade}
 			handleLogin={handleLogin}
 			onChangeConfirmationCode={setConfirmationCode}
 			handleConfirmLogin={handleConfirmLogin}

@@ -6,4 +6,7 @@
  */
 import type { TopRecommendedJobMatch } from './topRecommendedJobMatch';
 
-export type JobSuggestionResponseRecommendation = TopRecommendedJobMatch | null;
+export interface MatchingResponse {
+  recommendation: TopRecommendedJobMatch;
+  analysis_completed_at: string;
+}

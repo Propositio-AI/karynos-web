@@ -12,7 +12,7 @@ export const useInitQuestions = (version: number = 1) => {
             setLoading(true);
             setError(null);
             try {
-                const result = await api.getOnboardingQuestionsApiV1OnboardingQuestionsGet({ version });
+                const result = await api.getQuestionsApiV1OnboardingQuestionsGet({ version });
                 setQuestions(result.questions ?? []);
             } catch (err) {
                 setError(err instanceof Error ? err.message : "質問取得に失敗しました");

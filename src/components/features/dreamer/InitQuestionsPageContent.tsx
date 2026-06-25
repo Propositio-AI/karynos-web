@@ -82,7 +82,7 @@ export const InitQuestionsPageContent = () => {
         }));
 
         try {
-            await api.submitOnboardingAnswersApiV1OnboardingAnswersPost({ answers });
+            await api.submitAnswersApiV1OnboardingAnswersPost({ answers });
             markLocalOnboardingAnswered(ONBOARDING_VERSION);
             router.push("/job/match");
         } catch (err) {

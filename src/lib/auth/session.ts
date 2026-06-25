@@ -8,6 +8,7 @@ import {
     signOut,
 } from "aws-amplify/auth";
 import { configureAmplify, isCognitoConfigured } from "./amplify";
+import { api } from "@/lib/api/client";
 
 export type AuthMode = "cognito" | "mock";
 
@@ -18,6 +19,7 @@ export type AuthState = {
 };
 
 const MOCK_AUTH_KEY = "karynos.mockAuth";
+const DREAMER_ID_KEY = "karynos.dreamerId";
 const AUTH_CHANGED_EVENT = "karynos-auth-changed";
 
 const isBrowser = () => typeof window !== "undefined";
@@ -30,6 +32,11 @@ const emitAuthChanged = () => {
 
 const getAuthMode = (): AuthMode => {
     return isCognitoConfigured() ? "cognito" : "mock";
+};
+
+export const getStoredDreamerId = (): string | null => {
+    if (!isBrowser()) return null;
+    return window.localStorage.getItem(DREAMER_ID_KEY);
 };
 
 const getMockAuth = (): AuthState | null => {
@@ -51,13 +58,14 @@ const getMockAuth = (): AuthState | null => {
     }
 };
 
-const setMockAuth = (email: string) => {
+const setMockAuth = (email: string, dreamerId: string) => {
     if (!isBrowser()) return;
 
     window.localStorage.setItem(
         MOCK_AUTH_KEY,
         JSON.stringify({ email, signedInAt: new Date().toISOString() }),
     );
+    window.localStorage.setItem(DREAMER_ID_KEY, dreamerId);
     emitAuthChanged();
 };
 
@@ -65,6 +73,7 @@ const clearMockAuth = () => {
     if (!isBrowser()) return;
 
     window.localStorage.removeItem(MOCK_AUTH_KEY);
+    window.localStorage.removeItem(DREAMER_ID_KEY);
     emitAuthChanged();
 };
 
@@ -94,6 +103,25 @@ export const getCurrentAuthState = async (): Promise<AuthState> => {
     }
 };
 
+export const startTestLogin = async (name: string, grade: string) => {
+    const normalizedName = name.trim();
+    const normalizedGrade = grade.trim();
+    if (!normalizedName) {
+        throw new Error("名前を入力してください。");
+    }
+    if (!normalizedGrade) {
+        throw new Error("学年を入力してください。");
+    }
+
+    const response = await api.testLoginApiV1DreamerTestLoginPost({
+        name: normalizedName,
+        grade: normalizedGrade,
+    });
+
+    setMockAuth(normalizedName, response.dreamer_id);
+    return { mode: "mock" as const, step: "DONE" as const };
+};
+
 export const startLogin = async (email: string) => {
     const normalizedEmail = email.trim();
     if (!normalizedEmail) {
@@ -102,8 +130,7 @@ export const startLogin = async (email: string) => {
 
     const mode = getAuthMode();
     if (mode === "mock") {
-        setMockAuth(normalizedEmail);
-        return { mode, step: "DONE" as const };
+        throw new Error("This deployment uses name/grade test login, not email.");
     }
 
     configureAmplify();

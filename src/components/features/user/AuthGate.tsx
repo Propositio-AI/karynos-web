@@ -26,7 +26,7 @@ const isOnboardingAnswered = async (allowLocalStatus: boolean) => {
     }
 
     const history =
-        await api.getOnboardingAnswersHistoryApiV1OnboardingAnswersHistoryGet();
+        await api.getAnswerHistoryApiV1OnboardingAnswersHistoryGet();
 
     return history.some(
         (answer) => answer.question_version === ONBOARDING_VERSION,
