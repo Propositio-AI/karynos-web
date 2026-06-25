@@ -111,7 +111,7 @@ export const NavIcon = ({ icon, label, active }: { icon: IconDefinition; label: 
                     active ? "text-brand-700" : "text-subtle"
                 }`}
             />
-            <p className={`text-[11px] font-semibold ${active ? "text-brand-700" : "text-subtle"}`}>
+            <p className={`text-xs font-semibold ${active ? "text-brand-700" : "text-subtle"}`}>
                 {label}
             </p>
         </div>

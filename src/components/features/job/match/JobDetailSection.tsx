@@ -97,7 +97,7 @@ export const JobDetailSection = ({
                 aria-label={expanded ? "詳細を閉じる" : "詳細を見る"}
             >
                 <span className="h-1 w-10 rounded-full bg-line" />
-                <span className="flex items-center gap-1 text-[11px] font-medium">
+                <span className="flex items-center gap-1 text-xs font-medium">
                     <FontAwesomeIcon icon={expanded ? faChevronDown : faChevronUp} className="h-2.5 w-2.5" />
                     {expanded ? "閉じる" : "詳細を見る"}
                 </span>

@@ -43,6 +43,8 @@
     html {
         -webkit-text-size-adjust: 100%;
         background: var(--color-canvas);
+        /* Base bump: every rem-based Tailwind text size scales up from here. */
+        font-size: 118.75%;
     }
 
     body {
