@@ -6,7 +6,7 @@
  */
 
 export interface Talent {
-  talent_id: number;
-  name: string;
-  is_required: boolean;
+	talent_id: number;
+	name: string;
+	is_required: boolean;
 }

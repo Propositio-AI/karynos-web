@@ -4,9 +4,9 @@
  * Karynos-Backend
  * OpenAPI spec version: 0.1.0
  */
-import type { TopRecommendedJobMatch } from './topRecommendedJobMatch';
+import type { TopRecommendedJobMatch } from "./topRecommendedJobMatch";
 
 export interface MatchingResponse {
-  recommendation: TopRecommendedJobMatch;
-  analysis_completed_at: string;
+	recommendation: TopRecommendedJobMatch;
+	analysis_completed_at: string;
 }

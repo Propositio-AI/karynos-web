@@ -6,6 +6,6 @@
  */
 
 export interface DreamerToGroupRequest {
-  /** 更新対象dreamer ID */
-  dreamers: string[];
+	/** 更新対象dreamer ID */
+	dreamers: string[];
 }

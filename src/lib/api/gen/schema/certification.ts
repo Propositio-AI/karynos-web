@@ -6,7 +6,7 @@
  */
 
 export interface Certification {
-  certification_id: number;
-  name: string;
-  is_required: boolean;
+	certification_id: number;
+	name: string;
+	is_required: boolean;
 }

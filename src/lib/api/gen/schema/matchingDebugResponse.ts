@@ -4,12 +4,12 @@
  * Karynos-Backend
  * OpenAPI spec version: 0.1.0
  */
-import type { MatchingUserDataSummary } from './matchingUserDataSummary';
-import type { MatchingProfileSummary } from './matchingProfileSummary';
+import type { MatchingUserDataSummary } from "./matchingUserDataSummary";
+import type { MatchingProfileSummary } from "./matchingProfileSummary";
 
 export interface MatchingDebugResponse {
-  dreamer_id: string;
-  user_data_summary: MatchingUserDataSummary;
-  profile: MatchingProfileSummary;
-  recommendations: unknown[];
+	dreamer_id: string;
+	user_data_summary: MatchingUserDataSummary;
+	profile: MatchingProfileSummary;
+	recommendations: unknown[];
 }

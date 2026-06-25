@@ -6,12 +6,12 @@
  */
 
 export interface TopRecommendedJobMatch {
-  job_id: number;
-  imgs: string[];
-  name: string;
-  salary: number;
-  similarity_score: number;
-  age: number;
-  description: string;
-  history_id: string;
+	job_id: number;
+	imgs: string[];
+	name: string;
+	salary: number;
+	similarity_score: number;
+	age: number;
+	description: string;
+	history_id: string;
 }

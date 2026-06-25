@@ -6,6 +6,6 @@
  */
 
 export interface MatchingProfileSummary {
-  profile_text: string;
-  generated_at: string;
+	profile_text: string;
+	generated_at: string;
 }

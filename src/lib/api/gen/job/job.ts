@@ -5,116 +5,148 @@
  * OpenAPI spec version: 0.1.0
  */
 import type {
-  GetViewingHistoryApiV1JobHistoryGetParams,
-  JobDetailResponse,
-  JobSearchResponse,
-  SearchJobsApiV1JobSearchGetParams,
-  ViewingHistoryResponse
-} from '.././schema';
+	GetViewingHistoryApiV1JobHistoryGetParams,
+	JobDetailResponse,
+	JobSearchResponse,
+	SearchJobsApiV1JobSearchGetParams,
+	ViewingHistoryResponse,
+} from ".././schema";
 
-import { customInstance } from '../../mutator';
-
+import { customInstance } from "../../mutator";
 
 type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
 
-
-  export const getJob = () => {
-/**
- * @summary Get Job Detail
- */
-const getJobDetailApiV1JobDetailJobIdGet = (
-    jobId: number,
- options?: SecondParameter<typeof customInstance<JobDetailResponse>>,) => {
-      return customInstance<JobDetailResponse>(
-      {url: `/api/v1/job/detail/${jobId}`, method: 'GET'
-    },
-      options);
-    }
-  /**
- * @summary Get Viewing History
- */
-const getViewingHistoryApiV1JobHistoryGet = (
-    params?: GetViewingHistoryApiV1JobHistoryGetParams,
- options?: SecondParameter<typeof customInstance<ViewingHistoryResponse>>,) => {
-      return customInstance<ViewingHistoryResponse>(
-      {url: `/api/v1/job/history`, method: 'GET',
-        params
-    },
-      options);
-    }
-  /**
- * @summary Search Jobs
- */
-const searchJobsApiV1JobSearchGet = (
-    params: SearchJobsApiV1JobSearchGetParams,
- options?: SecondParameter<typeof customInstance<JobSearchResponse>>,) => {
-      return customInstance<JobSearchResponse>(
-      {url: `/api/v1/job/search`, method: 'GET',
-        params
-    },
-      options);
-    }
-  /**
- * @summary Mark Good
- */
-const markGoodApiV1JobGoodHistoryIdPut = (
-    historyId: string,
- options?: SecondParameter<typeof customInstance<unknown>>,) => {
-      return customInstance<unknown>(
-      {url: `/api/v1/job/good/${historyId}`, method: 'PUT'
-    },
-      options);
-    }
-  /**
- * @summary Mark Bad
- */
-const markBadApiV1JobBadHistoryIdPut = (
-    historyId: string,
- options?: SecondParameter<typeof customInstance<unknown>>,) => {
-      return customInstance<unknown>(
-      {url: `/api/v1/job/bad/${historyId}`, method: 'PUT'
-    },
-      options);
-    }
-  /**
- * @summary Mark Save
- */
-const markSaveApiV1JobSaveHistoryIdPut = (
-    historyId: string,
- options?: SecondParameter<typeof customInstance<unknown>>,) => {
-      return customInstance<unknown>(
-      {url: `/api/v1/job/save/${historyId}`, method: 'PUT'
-    },
-      options);
-    }
-  /**
- * @summary Sync Jobs To Vectordb
- */
-const syncJobsToVectordbApiV1JobAdminSyncVectordbPost = (
-    
- options?: SecondParameter<typeof customInstance<unknown>>,) => {
-      return customInstance<unknown>(
-      {url: `/api/v1/job/admin/sync-vectordb`, method: 'POST'
-    },
-      options);
-    }
-  /**
- * @summary Rebuild Vectordb
- */
-const rebuildVectordbApiV1JobAdminSyncVectordbRebuildPost = (
-    
- options?: SecondParameter<typeof customInstance<unknown>>,) => {
-      return customInstance<unknown>(
-      {url: `/api/v1/job/admin/sync-vectordb/rebuild`, method: 'POST'
-    },
-      options);
-    }
-  return {getJobDetailApiV1JobDetailJobIdGet,getViewingHistoryApiV1JobHistoryGet,searchJobsApiV1JobSearchGet,markGoodApiV1JobGoodHistoryIdPut,markBadApiV1JobBadHistoryIdPut,markSaveApiV1JobSaveHistoryIdPut,syncJobsToVectordbApiV1JobAdminSyncVectordbPost,rebuildVectordbApiV1JobAdminSyncVectordbRebuildPost}};
-export type GetJobDetailApiV1JobDetailJobIdGetResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getJob>['getJobDetailApiV1JobDetailJobIdGet']>>>
-export type GetViewingHistoryApiV1JobHistoryGetResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getJob>['getViewingHistoryApiV1JobHistoryGet']>>>
-export type SearchJobsApiV1JobSearchGetResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getJob>['searchJobsApiV1JobSearchGet']>>>
-export type MarkGoodApiV1JobGoodHistoryIdPutResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getJob>['markGoodApiV1JobGoodHistoryIdPut']>>>
-export type MarkBadApiV1JobBadHistoryIdPutResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getJob>['markBadApiV1JobBadHistoryIdPut']>>>
-export type MarkSaveApiV1JobSaveHistoryIdPutResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getJob>['markSaveApiV1JobSaveHistoryIdPut']>>>
-export type SyncJobsToVectordbApiV1JobAdminSyncVectordbPostResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getJob>['syncJobsToVectordbApiV1JobAdminSyncVectordbPost']>>>
-export type RebuildVectordbApiV1JobAdminSyncVectordbRebuildPostResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getJob>['rebuildVectordbApiV1JobAdminSyncVectordbRebuildPost']>>>
+export const getJob = () => {
+	/**
+	 * @summary Get Job Detail
+	 */
+	const getJobDetailApiV1JobDetailJobIdGet = (
+		jobId: number,
+		options?: SecondParameter<typeof customInstance<JobDetailResponse>>,
+	) => {
+		return customInstance<JobDetailResponse>(
+			{ url: `/api/v1/job/detail/${jobId}`, method: "GET" },
+			options,
+		);
+	};
+	/**
+	 * @summary Get Viewing History
+	 */
+	const getViewingHistoryApiV1JobHistoryGet = (
+		params?: GetViewingHistoryApiV1JobHistoryGetParams,
+		options?: SecondParameter<typeof customInstance<ViewingHistoryResponse>>,
+	) => {
+		return customInstance<ViewingHistoryResponse>(
+			{ url: `/api/v1/job/history`, method: "GET", params },
+			options,
+		);
+	};
+	/**
+	 * @summary Search Jobs
+	 */
+	const searchJobsApiV1JobSearchGet = (
+		params: SearchJobsApiV1JobSearchGetParams,
+		options?: SecondParameter<typeof customInstance<JobSearchResponse>>,
+	) => {
+		return customInstance<JobSearchResponse>(
+			{ url: `/api/v1/job/search`, method: "GET", params },
+			options,
+		);
+	};
+	/**
+	 * @summary Mark Good
+	 */
+	const markGoodApiV1JobGoodHistoryIdPut = (
+		historyId: string,
+		options?: SecondParameter<typeof customInstance<unknown>>,
+	) => {
+		return customInstance<unknown>(
+			{ url: `/api/v1/job/good/${historyId}`, method: "PUT" },
+			options,
+		);
+	};
+	/**
+	 * @summary Mark Bad
+	 */
+	const markBadApiV1JobBadHistoryIdPut = (
+		historyId: string,
+		options?: SecondParameter<typeof customInstance<unknown>>,
+	) => {
+		return customInstance<unknown>(
+			{ url: `/api/v1/job/bad/${historyId}`, method: "PUT" },
+			options,
+		);
+	};
+	/**
+	 * @summary Mark Save
+	 */
+	const markSaveApiV1JobSaveHistoryIdPut = (
+		historyId: string,
+		options?: SecondParameter<typeof customInstance<unknown>>,
+	) => {
+		return customInstance<unknown>(
+			{ url: `/api/v1/job/save/${historyId}`, method: "PUT" },
+			options,
+		);
+	};
+	/**
+	 * @summary Sync Jobs To Vectordb
+	 */
+	const syncJobsToVectordbApiV1JobAdminSyncVectordbPost = (
+		options?: SecondParameter<typeof customInstance<unknown>>,
+	) => {
+		return customInstance<unknown>(
+			{ url: `/api/v1/job/admin/sync-vectordb`, method: "POST" },
+			options,
+		);
+	};
+	/**
+	 * @summary Rebuild Vectordb
+	 */
+	const rebuildVectordbApiV1JobAdminSyncVectordbRebuildPost = (
+		options?: SecondParameter<typeof customInstance<unknown>>,
+	) => {
+		return customInstance<unknown>(
+			{ url: `/api/v1/job/admin/sync-vectordb/rebuild`, method: "POST" },
+			options,
+		);
+	};
+	return {
+		getJobDetailApiV1JobDetailJobIdGet,
+		getViewingHistoryApiV1JobHistoryGet,
+		searchJobsApiV1JobSearchGet,
+		markGoodApiV1JobGoodHistoryIdPut,
+		markBadApiV1JobBadHistoryIdPut,
+		markSaveApiV1JobSaveHistoryIdPut,
+		syncJobsToVectordbApiV1JobAdminSyncVectordbPost,
+		rebuildVectordbApiV1JobAdminSyncVectordbRebuildPost,
+	};
+};
+export type GetJobDetailApiV1JobDetailJobIdGetResult = NonNullable<
+	Awaited<ReturnType<ReturnType<typeof getJob>["getJobDetailApiV1JobDetailJobIdGet"]>>
+>;
+export type GetViewingHistoryApiV1JobHistoryGetResult = NonNullable<
+	Awaited<ReturnType<ReturnType<typeof getJob>["getViewingHistoryApiV1JobHistoryGet"]>>
+>;
+export type SearchJobsApiV1JobSearchGetResult = NonNullable<
+	Awaited<ReturnType<ReturnType<typeof getJob>["searchJobsApiV1JobSearchGet"]>>
+>;
+export type MarkGoodApiV1JobGoodHistoryIdPutResult = NonNullable<
+	Awaited<ReturnType<ReturnType<typeof getJob>["markGoodApiV1JobGoodHistoryIdPut"]>>
+>;
+export type MarkBadApiV1JobBadHistoryIdPutResult = NonNullable<
+	Awaited<ReturnType<ReturnType<typeof getJob>["markBadApiV1JobBadHistoryIdPut"]>>
+>;
+export type MarkSaveApiV1JobSaveHistoryIdPutResult = NonNullable<
+	Awaited<ReturnType<ReturnType<typeof getJob>["markSaveApiV1JobSaveHistoryIdPut"]>>
+>;
+export type SyncJobsToVectordbApiV1JobAdminSyncVectordbPostResult = NonNullable<
+	Awaited<
+		ReturnType<ReturnType<typeof getJob>["syncJobsToVectordbApiV1JobAdminSyncVectordbPost"]>
+	>
+>;
+export type RebuildVectordbApiV1JobAdminSyncVectordbRebuildPostResult = NonNullable<
+	Awaited<
+		ReturnType<ReturnType<typeof getJob>["rebuildVectordbApiV1JobAdminSyncVectordbRebuildPost"]>
+	>
+>;

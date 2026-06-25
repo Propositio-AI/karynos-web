@@ -4,8 +4,8 @@
  * Karynos-Backend
  * OpenAPI spec version: 0.1.0
  */
-import type { SubmitInitAnswerRequest } from './submitInitAnswerRequest';
+import type { SubmitInitAnswerRequest } from "./submitInitAnswerRequest";
 
 export interface SubmitInitAnswersRequest {
-  answers: SubmitInitAnswerRequest[];
+	answers: SubmitInitAnswerRequest[];
 }

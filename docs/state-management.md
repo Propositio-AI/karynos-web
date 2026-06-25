@@ -15,24 +15,24 @@
 ### フックの標準パターン
 
 ```ts
-const [data, setData]       = useState<T | null>(null);
+const [data, setData] = useState<T | null>(null);
 const [loading, setLoading] = useState(true);
-const [error, setError]     = useState<string | null>(null);
+const [error, setError] = useState<string | null>(null);
 
 useEffect(() => {
-    const fetch = async () => {
-        setLoading(true);
-        setError(null);
-        try {
-            const result = await api.xxx();
-            setData(result);
-        } catch (err) {
-            setError(err instanceof Error ? err.message : 'エラーが発生しました');
-        } finally {
-            setLoading(false);
-        }
-    };
-    fetch();
+	const fetch = async () => {
+		setLoading(true);
+		setError(null);
+		try {
+			const result = await api.xxx();
+			setData(result);
+		} catch (err) {
+			setError(err instanceof Error ? err.message : "エラーが発生しました");
+		} finally {
+			setLoading(false);
+		}
+	};
+	fetch();
 }, [deps]);
 
 return { data, loading, error };
@@ -46,10 +46,10 @@ return { data, loading, error };
 
 ### チャット
 
-| フック | 状態 | 説明 |
-|---|---|---|
+| フック                    | 状態                                        | 説明                             |
+| ------------------------- | ------------------------------------------- | -------------------------------- |
 | `useChat(conversationId)` | `messages`, `title`, `loading`, `isSending` | メッセージ一覧の取得・送信・削除 |
-| `useChatList()` | `conversations`, `loading` | チャット一覧の取得 |
+| `useChatList()`           | `conversations`, `loading`                  | チャット一覧の取得               |
 
 #### `useChat` の特殊パターン（Optimistic Update）
 
@@ -57,42 +57,43 @@ return { data, loading, error };
 
 ```ts
 // 1. ユーザーメッセージと空の AI バブルを即時追加
-setMessages(prev => [...prev, userMsg, { id: aiId, text: '', isMyMessage: false }]);
+setMessages((prev) => [...prev, userMsg, { id: aiId, text: "", isMyMessage: false }]);
 
 // 2. SSE チャンクごとに AI バブルのテキストを追記
-onChunk: (chunk) => setMessages(prev => {
-    const next = [...prev];
-    const last = next[next.length - 1];
-    next[next.length - 1] = { ...last, text: last.text + chunk };
-    return next;
-});
+onChunk: (chunk) =>
+	setMessages((prev) => {
+		const next = [...prev];
+		const last = next[next.length - 1];
+		next[next.length - 1] = { ...last, text: last.text + chunk };
+		return next;
+	});
 
 // 3. エラー時は先行追加したメッセージを削除
-onError: () => setMessages(prev => prev.filter(m => m.id !== tempId && m.id !== aiId));
+onError: () => setMessages((prev) => prev.filter((m) => m.id !== tempId && m.id !== aiId));
 ```
 
 ---
 
 ### 求人
 
-| フック | 状態 | 説明 |
-|---|---|---|
-| `useJobMatch()` | `currentJob`, `isLoading`, `error`, `swipeDirection`, `expanded`, `imageFullscreen`, `x`, `rotate`, `opacity` | スワイプマッチングの全状態。Framer Motion `useMotionValue`/`useTransform` を含む |
-| `useSearch()` | `results`, `isLoading`, `error`, `hasSearched` | テキスト検索 |
-| `useDetail(jobId)` | `jobData`, `isLoading`, `error` | 求人詳細取得 |
-| `useJobHistory()` | `histories`, `isLoading`, `error` | 閲覧履歴取得 |
-| `useJobChat()` | `isCreating` | 求人に紐づくチャット作成・遷移 |
+| フック             | 状態                                                                                                          | 説明                                                                             |
+| ------------------ | ------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `useJobMatch()`    | `currentJob`, `isLoading`, `error`, `swipeDirection`, `expanded`, `imageFullscreen`, `x`, `rotate`, `opacity` | スワイプマッチングの全状態。Framer Motion `useMotionValue`/`useTransform` を含む |
+| `useSearch()`      | `results`, `isLoading`, `error`, `hasSearched`                                                                | テキスト検索                                                                     |
+| `useDetail(jobId)` | `jobData`, `isLoading`, `error`                                                                               | 求人詳細取得                                                                     |
+| `useJobHistory()`  | `histories`, `isLoading`, `error`                                                                             | 閲覧履歴取得                                                                     |
+| `useJobChat()`     | `isCreating`                                                                                                  | 求人に紐づくチャット作成・遷移                                                   |
 
 #### `useJobMatch` の複雑な状態
 
 スワイプ UI は状態が多いため `useJobMatch` に集約されている:
 
 ```ts
-const x        = useMotionValue(0);         // カードの X 座標
-const rotate   = useTransform(x, [-200,200], [-20,20]);
-const opacity  = useTransform(x, [-200,-150,0,150,200], [0,0.8,1,0.8,0]);
-const [swipeDirection, setSwipeDirection] = useState<'center'|'left'|'right'>('center');
-const [expanded, setExpanded]             = useState(false);  // 詳細展開
+const x = useMotionValue(0); // カードの X 座標
+const rotate = useTransform(x, [-200, 200], [-20, 20]);
+const opacity = useTransform(x, [-200, -150, 0, 150, 200], [0, 0.8, 1, 0.8, 0]);
+const [swipeDirection, setSwipeDirection] = useState<"center" | "left" | "right">("center");
+const [expanded, setExpanded] = useState(false); // 詳細展開
 const [imageFullscreen, setImageFullscreen] = useState(false);
 ```
 
@@ -102,8 +103,8 @@ const [imageFullscreen, setImageFullscreen] = useState(false);
 
 ### オンボーディング
 
-| フック | 状態 | 説明 |
-|---|---|---|
+| フック                       | 状態                            | 説明             |
+| ---------------------------- | ------------------------------- | ---------------- |
 | `useInitQuestions(version?)` | `questions`, `loading`, `error` | 初期質問一覧取得 |
 
 回答の `selectedAnswers` 状態は `InitQuestionsPageContent` コンポーネント内の `useState<Record<string, string>>` で管理する（フックではなくコンポーネント直接）。
@@ -112,11 +113,11 @@ const [imageFullscreen, setImageFullscreen] = useState(false);
 
 ### ユーザー認証
 
-| フック | 状態 | 説明 |
-|---|---|---|
-| `useSignUp()` | `step`, `email`, `confirmationCode`, `isLoading`, `error` | サインアップフロー（REGISTER → CONFIRM） |
-| `useLogin()` | `step`, `email`, `confirmationCode`, `isLoading`, `error` | ログインフロー（CREATE\_ACCOUNT → LOGIN → CONFIRM） |
-| `useCreateAccount()` | `familyName`, `givenName`, `isLoading`, `error` | Dreamer プロフィール作成 |
+| フック               | 状態                                                      | 説明                                               |
+| -------------------- | --------------------------------------------------------- | -------------------------------------------------- |
+| `useSignUp()`        | `step`, `email`, `confirmationCode`, `isLoading`, `error` | サインアップフロー（REGISTER → CONFIRM）           |
+| `useLogin()`         | `step`, `email`, `confirmationCode`, `isLoading`, `error` | ログインフロー（CREATE_ACCOUNT → LOGIN → CONFIRM） |
+| `useCreateAccount()` | `familyName`, `givenName`, `isLoading`, `error`           | Dreamer プロフィール作成                           |
 
 認証フローは `step` という文字列 union で多段階を表現する:
 
@@ -145,9 +146,9 @@ TanStack Query・SWR などのキャッシュライブラリは**使用してい
 - データは各フックのライフサイクルに依存（コンポーネントのアンマウントで破棄）
 - 画面遷移のたびにフェッチが走る
 - `refresh` / `refetch` コールバックを返すフックでは手動再取得が可能:
-  - `useChat.refresh`
-  - `useChatList.refresh`
-  - `useJobHistory.refetch`
+    - `useChat.refresh`
+    - `useChatList.refresh`
+    - `useJobHistory.refetch`
 - キャッシュが必要な場合は TanStack Query の導入を検討すること（TODO）
 
 ---

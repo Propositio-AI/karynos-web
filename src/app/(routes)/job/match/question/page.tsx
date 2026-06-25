@@ -1,5 +1,5 @@
-import { InitQuestionsPageContent } from '@/components/features/dreamer/InitQuestionsPageContent';
+import { InitQuestionsPageContent } from "@/components/features/dreamer/InitQuestionsPageContent";
 
 export default function InitQuestionsPage() {
-    return <InitQuestionsPageContent />;
+	return <InitQuestionsPageContent />;
 }

@@ -1,5 +1,5 @@
-import JobMatchingPageContent from '@/components/features/job/match/JobMatchingPageContent';
+import JobMatchingPageContent from "@/components/features/job/match/JobMatchingPageContent";
 
 export default function JobMatchPage() {
-    return <JobMatchingPageContent />;
+	return <JobMatchingPageContent />;
 }

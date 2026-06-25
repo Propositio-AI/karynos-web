@@ -6,6 +6,6 @@
  */
 
 export interface NewMessageRequest {
-  role: string;
-  text_content: string;
+	role: string;
+	text_content: string;
 }

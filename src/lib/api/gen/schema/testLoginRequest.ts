@@ -6,8 +6,8 @@
  */
 
 export interface TestLoginRequest {
-  /** お名前 */
-  name: string;
-  /** 学年 */
-  grade: string;
+	/** お名前 */
+	name: string;
+	/** 学年 */
+	grade: string;
 }

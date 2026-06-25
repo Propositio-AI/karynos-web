@@ -7,7 +7,7 @@ import { HorizontalStackContainer } from "./Container";
 import { IconButton } from "../atoms/Button";
 import { SimpleMpdalType } from "@/types/ui/molecules/Modal";
 
-export const SimpleModal = (props: SimpleMpdalType) =>  {
+export const SimpleModal = (props: SimpleMpdalType) => {
 	return (
 		<div className="absolute flex h-screen items-center justify-center">
 			<AnimatePresence>
@@ -29,17 +29,27 @@ export const SimpleModal = (props: SimpleMpdalType) =>  {
 							exit={{ opacity: 0, scale: 0.97 }}
 							transition={{ duration: 0.15 }}
 						>
-						<div className={`w-full max-w-md max-h-[90vh] overflow-y-auto rounded-(--radius-lg) border border-line bg-white p-6 shadow-lift ${props.className}`}>
-							<HorizontalStackContainer space={2} className="mb-4 justify-between">
-								<h3 className="w-11/12">{props.title}</h3>
-								<IconButton icon={faClose} color="white" className="h-9! min-h-0! w-9! rounded-full! border-none! p-0!" onClick={() => props.setIsOpen(false)}></IconButton>
-							</HorizontalStackContainer>
-							{props.children}
-						</div>
+							<div
+								className={`w-full max-w-md max-h-[90vh] overflow-y-auto rounded-(--radius-lg) border border-line bg-white p-6 shadow-lift ${props.className}`}
+							>
+								<HorizontalStackContainer
+									space={2}
+									className="mb-4 justify-between"
+								>
+									<h3 className="w-11/12">{props.title}</h3>
+									<IconButton
+										icon={faClose}
+										color="white"
+										className="h-9! min-h-0! w-9! rounded-full! border-none! p-0!"
+										onClick={() => props.setIsOpen(false)}
+									></IconButton>
+								</HorizontalStackContainer>
+								{props.children}
+							</div>
 						</motion.div>
 					</>
 				)}
 			</AnimatePresence>
 		</div>
 	);
-}
+};

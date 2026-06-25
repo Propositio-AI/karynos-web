@@ -23,23 +23,23 @@ src/lib/api/
 フックからは常に `api` オブジェクトを通じて呼び出す。
 
 ```ts
-import { api } from '@/lib/api/client';
+import { api } from "@/lib/api/client";
 
 // 例
 const result = await api.getOnboardingQuestionsApiV1OnboardingQuestionsGet({ version: 1 });
-const job    = await api.getJobDetailApiV1JobDetailJobIdGet(42);
+const job = await api.getJobDetailApiV1JobDetailJobIdGet(42);
 ```
 
 `api` は各モジュールの関数を spread したフラットなオブジェクト:
 
 ```ts
 export const api = {
-  ...getChat(),       // /api/v1/chat/*
-  ...getJob(),        // /api/v1/job/*
-  ...getDreamer(),    // /api/v1/dreamer/*
-  ...getOnboarding(), // /api/v1/onboarding/*
-  ...getMatching(),   // /api/v1/matching/*
-  streamChatMessageApiV1ChatMessageConversationIdPost,  // SSE
+	...getChat(), // /api/v1/chat/*
+	...getJob(), // /api/v1/job/*
+	...getDreamer(), // /api/v1/dreamer/*
+	...getOnboarding(), // /api/v1/onboarding/*
+	...getMatching(), // /api/v1/matching/*
+	streamChatMessageApiV1ChatMessageConversationIdPost, // SSE
 };
 ```
 
@@ -64,13 +64,13 @@ npm run orval:watch    # 変更監視・自動再生成
 
 バックエンドの OpenAPI タグに対応したディレクトリへ分割出力される:
 
-| バックエンドタグ | 出力ファイル |
-|---|---|
-| chat | `gen/chat/chat.ts` |
-| dreamer | `gen/dreamer/dreamer.ts` |
-| job | `gen/job/job.ts` |
-| onboarding | `gen/onboarding/onboarding.ts` |
-| matching | `gen/matching/matching.ts` |
+| バックエンドタグ | 出力ファイル                   |
+| ---------------- | ------------------------------ |
+| chat             | `gen/chat/chat.ts`             |
+| dreamer          | `gen/dreamer/dreamer.ts`       |
+| job              | `gen/job/job.ts`               |
+| onboarding       | `gen/onboarding/onboarding.ts` |
+| matching         | `gen/matching/matching.ts`     |
 
 > **注意**: `onboarding/` と `matching/` は現時点でバックエンドのエンドポイント移行に伴い手動作成したファイル。バックエンドが新しいタグで OpenAPI を公開した後に `npm run orval` を実行すれば自動生成に切り替わる。
 
@@ -90,12 +90,12 @@ npm run orval:watch    # 変更監視・自動再生成
 
 ```ts
 axiosInstance.interceptors.request.use(async (config) => {
-    const session = await fetchAuthSession();
-    const accessToken = session.tokens?.accessToken?.toString();
-    if (accessToken) {
-        config.headers.Authorization = `Bearer ${accessToken}`;
-    }
-    return config;
+	const session = await fetchAuthSession();
+	const accessToken = session.tokens?.accessToken?.toString();
+	if (accessToken) {
+		config.headers.Authorization = `Bearer ${accessToken}`;
+	}
+	return config;
 });
 ```
 
@@ -114,17 +114,24 @@ Fetch API でも同様に `fetchAuthSession()` でトークンを取得し `Auth
 
 ```ts
 await api.streamChatMessageApiV1ChatMessageConversationIdPost(
-    conversationId,
-    { role: 'user', text_content: text },
-    {
-        onChunk: (chunk: string) => { /* チャンク受信ごとに呼ばれる */ },
-        onComplete: async () => { /* 完了時 */ },
-        onError: async (err: Error) => { /* エラー時 */ },
-    },
+	conversationId,
+	{ role: "user", text_content: text },
+	{
+		onChunk: (chunk: string) => {
+			/* チャンク受信ごとに呼ばれる */
+		},
+		onComplete: async () => {
+			/* 完了時 */
+		},
+		onError: async (err: Error) => {
+			/* エラー時 */
+		},
+	},
 );
 ```
 
 **内部動作:**
+
 1. `Fetch` で POST リクエスト
 2. `response.body.getReader()` でストリームを読み取り
 3. 各チャンクを `TextDecoder` でデコードして `onChunk` を呼び出す
@@ -138,11 +145,11 @@ await api.streamChatMessageApiV1ChatMessageConversationIdPost(
 
 ```ts
 new WebSocketCall<TSend, TStartReceive, TStreamReceive, TEndReceive>(
-    url,
-    onStart,    // index === 0 のメッセージ
-    onStream,   // index > 0 の途中メッセージ
-    onEnd,      // index === -1 の終了メッセージ
-    onError,
+	url,
+	onStart, // index === 0 のメッセージ
+	onStream, // index > 0 の途中メッセージ
+	onEnd, // index === -1 の終了メッセージ
+	onError,
 );
 ```
 
@@ -154,40 +161,40 @@ new WebSocketCall<TSend, TStartReceive, TStreamReceive, TEndReceive>(
 
 ### Chat (`/api/v1/chat/`)
 
-| 関数名 | メソッド | パス |
-|---|---|---|
-| `createNewConversationApiV1ChatPost` | POST | `/api/v1/chat/` |
-| `getConversationHistoryApiV1ChatHistoryGet` | GET | `/api/v1/chat/history` |
-| `getConversationDetailsApiV1ChatConversationConversationIdGet` | GET | `/api/v1/chat/conversation/{id}` |
-| `deleteConversationApiV1ChatConversationConversationIdDelete` | DELETE | `/api/v1/chat/conversation/{id}` |
-| `deleteMessagesInConversationApiV1ChatMessageMessageIdDelete` | DELETE | `/api/v1/chat/message/{id}` |
-| `streamChatMessageApiV1ChatMessageConversationIdPost` | POST (SSE) | `/api/v1/chat/message/{id}` |
+| 関数名                                                         | メソッド   | パス                             |
+| -------------------------------------------------------------- | ---------- | -------------------------------- |
+| `createNewConversationApiV1ChatPost`                           | POST       | `/api/v1/chat/`                  |
+| `getConversationHistoryApiV1ChatHistoryGet`                    | GET        | `/api/v1/chat/history`           |
+| `getConversationDetailsApiV1ChatConversationConversationIdGet` | GET        | `/api/v1/chat/conversation/{id}` |
+| `deleteConversationApiV1ChatConversationConversationIdDelete`  | DELETE     | `/api/v1/chat/conversation/{id}` |
+| `deleteMessagesInConversationApiV1ChatMessageMessageIdDelete`  | DELETE     | `/api/v1/chat/message/{id}`      |
+| `streamChatMessageApiV1ChatMessageConversationIdPost`          | POST (SSE) | `/api/v1/chat/message/{id}`      |
 
 ### Job (`/api/v1/job/`)
 
-| 関数名 | メソッド | パス |
-|---|---|---|
-| `getJobDetailApiV1JobDetailJobIdGet` | GET | `/api/v1/job/detail/{job_id}` |
-| `getViewingHistoryApiV1JobHistoryGet` | GET | `/api/v1/job/history` |
-| `searchJobsApiV1JobSearchGet` | GET | `/api/v1/job/search` |
-| `markGoodApiV1JobGoodHistoryIdPut` | PUT | `/api/v1/job/good/{history_id}` |
-| `markBadApiV1JobBadHistoryIdPut` | PUT | `/api/v1/job/bad/{history_id}` |
-| `markSaveApiV1JobSaveHistoryIdPut` | PUT | `/api/v1/job/save/{history_id}` |
+| 関数名                                | メソッド | パス                            |
+| ------------------------------------- | -------- | ------------------------------- |
+| `getJobDetailApiV1JobDetailJobIdGet`  | GET      | `/api/v1/job/detail/{job_id}`   |
+| `getViewingHistoryApiV1JobHistoryGet` | GET      | `/api/v1/job/history`           |
+| `searchJobsApiV1JobSearchGet`         | GET      | `/api/v1/job/search`            |
+| `markGoodApiV1JobGoodHistoryIdPut`    | PUT      | `/api/v1/job/good/{history_id}` |
+| `markBadApiV1JobBadHistoryIdPut`      | PUT      | `/api/v1/job/bad/{history_id}`  |
+| `markSaveApiV1JobSaveHistoryIdPut`    | PUT      | `/api/v1/job/save/{history_id}` |
 
 ### Onboarding (`/api/v1/onboarding/`)
 
-| 関数名 | メソッド | パス |
-|---|---|---|
-| `getOnboardingQuestionsApiV1OnboardingQuestionsGet` | GET | `/api/v1/onboarding/questions` |
-| `submitOnboardingAnswersApiV1OnboardingAnswersPost` | POST | `/api/v1/onboarding/answers` |
-| `getOnboardingAnswersHistoryApiV1OnboardingAnswersHistoryGet` | GET | `/api/v1/onboarding/answers/history` |
+| 関数名                                                        | メソッド | パス                                 |
+| ------------------------------------------------------------- | -------- | ------------------------------------ |
+| `getOnboardingQuestionsApiV1OnboardingQuestionsGet`           | GET      | `/api/v1/onboarding/questions`       |
+| `submitOnboardingAnswersApiV1OnboardingAnswersPost`           | POST     | `/api/v1/onboarding/answers`         |
+| `getOnboardingAnswersHistoryApiV1OnboardingAnswersHistoryGet` | GET      | `/api/v1/onboarding/answers/history` |
 
 ### Matching (`/api/v1/matching/`)
 
-| 関数名 | メソッド | パス |
-|---|---|---|
-| `recommendJobsApiV1MatchingRecommendGet` | GET | `/api/v1/matching/recommend` |
-| `recommendJobsDebugApiV1MatchingRecommendDebugGet` | GET | `/api/v1/matching/recommend/debug` |
+| 関数名                                             | メソッド | パス                               |
+| -------------------------------------------------- | -------- | ---------------------------------- |
+| `recommendJobsApiV1MatchingRecommendGet`           | GET      | `/api/v1/matching/recommend`       |
+| `recommendJobsDebugApiV1MatchingRecommendDebugGet` | GET      | `/api/v1/matching/recommend/debug` |
 
 ### Dreamer (`/api/v1/dreamer/`)
 
@@ -201,13 +208,18 @@ new WebSocketCall<TSend, TStartReceive, TStreamReceive, TEndReceive>(
 
 ```ts
 export enum ApiErrorType {
-    UNAUTHORIZED, FORBIDDEN, NOT_FOUND, SERVER_ERROR, NETWORK_ERROR, UNKNOWN
+	UNAUTHORIZED,
+	FORBIDDEN,
+	NOT_FOUND,
+	SERVER_ERROR,
+	NETWORK_ERROR,
+	UNKNOWN,
 }
 
 export interface ApiResponse<T> {
-    success: boolean;
-    message: string[];
-    data: T;
+	success: boolean;
+	message: string[];
+	data: T;
 }
 ```
 
@@ -226,13 +238,13 @@ const [data, setData] = useState(null);
 const [loading, setLoading] = useState(true);
 
 useEffect(() => {
-    const fetch = async () => {
-        setLoading(true);
-        const result = await api.xxx();
-        setData(result);
-        setLoading(false);
-    };
-    fetch();
+	const fetch = async () => {
+		setLoading(true);
+		const result = await api.xxx();
+		setData(result);
+		setLoading(false);
+	};
+	fetch();
 }, []);
 ```
 

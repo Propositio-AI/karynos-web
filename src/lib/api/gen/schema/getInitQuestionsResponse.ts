@@ -4,10 +4,10 @@
  * Karynos-Backend
  * OpenAPI spec version: 0.1.0
  */
-import type { InitQuestionResponse } from './initQuestionResponse';
+import type { InitQuestionResponse } from "./initQuestionResponse";
 
 export interface GetInitQuestionsResponse {
-  questions: InitQuestionResponse[];
-  version: number;
-  total_questions: number;
+	questions: InitQuestionResponse[];
+	version: number;
+	total_questions: number;
 }

@@ -4,14 +4,14 @@
  * Karynos-Backend
  * OpenAPI spec version: 0.1.0
  */
-import type { DreamerGroupResponseDescription } from './dreamerGroupResponseDescription';
-import type { DreamerInGroup } from './dreamerInGroup';
+import type { DreamerGroupResponseDescription } from "./dreamerGroupResponseDescription";
+import type { DreamerInGroup } from "./dreamerInGroup";
 
 export interface DreamerGroupResponse {
-  /** グループ名 */
-  name: string;
-  /** グループ説明 */
-  description?: DreamerGroupResponseDescription;
-  /** 所属dreamer */
-  dreamers?: DreamerInGroup[];
+	/** グループ名 */
+	name: string;
+	/** グループ説明 */
+	description?: DreamerGroupResponseDescription;
+	/** 所属dreamer */
+	dreamers?: DreamerInGroup[];
 }

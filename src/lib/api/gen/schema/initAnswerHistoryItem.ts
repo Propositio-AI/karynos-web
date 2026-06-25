@@ -6,11 +6,11 @@
  */
 
 export interface InitAnswerHistoryItem {
-  answer_id: string;
-  question_id: string;
-  question_text: string;
-  option_id: string;
-  option_text: string;
-  question_version: number;
-  answered_at: string;
+	answer_id: string;
+	question_id: string;
+	question_text: string;
+	option_id: string;
+	option_text: string;
+	question_version: number;
+	answered_at: string;
 }

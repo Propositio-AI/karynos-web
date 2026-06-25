@@ -5,57 +5,74 @@
  * OpenAPI spec version: 0.1.0
  */
 import type {
-  GetInitQuestionsResponse,
-  GetQuestionsApiV1OnboardingQuestionsGetParams,
-  InitAnswerHistoryItem,
-  InitAnswersSubmitResponse,
-  SubmitInitAnswersRequest
-} from '.././schema';
+	GetInitQuestionsResponse,
+	GetQuestionsApiV1OnboardingQuestionsGetParams,
+	InitAnswerHistoryItem,
+	InitAnswersSubmitResponse,
+	SubmitInitAnswersRequest,
+} from ".././schema";
 
-import { customInstance } from '../../mutator';
-
+import { customInstance } from "../../mutator";
 
 type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
 
-
-  export const getOnboarding = () => {
-/**
- * @summary Get Questions
- */
-const getQuestionsApiV1OnboardingQuestionsGet = (
-    params?: GetQuestionsApiV1OnboardingQuestionsGetParams,
- options?: SecondParameter<typeof customInstance<GetInitQuestionsResponse>>,) => {
-      return customInstance<GetInitQuestionsResponse>(
-      {url: `/api/v1/onboarding/questions`, method: 'GET',
-        params
-    },
-      options);
-    }
-  /**
- * @summary Submit Answers
- */
-const submitAnswersApiV1OnboardingAnswersPost = (
-    submitInitAnswersRequest: SubmitInitAnswersRequest,
- options?: SecondParameter<typeof customInstance<InitAnswersSubmitResponse>>,) => {
-      return customInstance<InitAnswersSubmitResponse>(
-      {url: `/api/v1/onboarding/answers`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
-      data: submitInitAnswersRequest
-    },
-      options);
-    }
-  /**
- * @summary Get Answer History
- */
-const getAnswerHistoryApiV1OnboardingAnswersHistoryGet = (
-    
- options?: SecondParameter<typeof customInstance<InitAnswerHistoryItem[]>>,) => {
-      return customInstance<InitAnswerHistoryItem[]>(
-      {url: `/api/v1/onboarding/answers/history`, method: 'GET'
-    },
-      options);
-    }
-  return {getQuestionsApiV1OnboardingQuestionsGet,submitAnswersApiV1OnboardingAnswersPost,getAnswerHistoryApiV1OnboardingAnswersHistoryGet}};
-export type GetQuestionsApiV1OnboardingQuestionsGetResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getOnboarding>['getQuestionsApiV1OnboardingQuestionsGet']>>>
-export type SubmitAnswersApiV1OnboardingAnswersPostResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getOnboarding>['submitAnswersApiV1OnboardingAnswersPost']>>>
-export type GetAnswerHistoryApiV1OnboardingAnswersHistoryGetResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getOnboarding>['getAnswerHistoryApiV1OnboardingAnswersHistoryGet']>>>
+export const getOnboarding = () => {
+	/**
+	 * @summary Get Questions
+	 */
+	const getQuestionsApiV1OnboardingQuestionsGet = (
+		params?: GetQuestionsApiV1OnboardingQuestionsGetParams,
+		options?: SecondParameter<typeof customInstance<GetInitQuestionsResponse>>,
+	) => {
+		return customInstance<GetInitQuestionsResponse>(
+			{ url: `/api/v1/onboarding/questions`, method: "GET", params },
+			options,
+		);
+	};
+	/**
+	 * @summary Submit Answers
+	 */
+	const submitAnswersApiV1OnboardingAnswersPost = (
+		submitInitAnswersRequest: SubmitInitAnswersRequest,
+		options?: SecondParameter<typeof customInstance<InitAnswersSubmitResponse>>,
+	) => {
+		return customInstance<InitAnswersSubmitResponse>(
+			{
+				url: `/api/v1/onboarding/answers`,
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				data: submitInitAnswersRequest,
+			},
+			options,
+		);
+	};
+	/**
+	 * @summary Get Answer History
+	 */
+	const getAnswerHistoryApiV1OnboardingAnswersHistoryGet = (
+		options?: SecondParameter<typeof customInstance<InitAnswerHistoryItem[]>>,
+	) => {
+		return customInstance<InitAnswerHistoryItem[]>(
+			{ url: `/api/v1/onboarding/answers/history`, method: "GET" },
+			options,
+		);
+	};
+	return {
+		getQuestionsApiV1OnboardingQuestionsGet,
+		submitAnswersApiV1OnboardingAnswersPost,
+		getAnswerHistoryApiV1OnboardingAnswersHistoryGet,
+	};
+};
+export type GetQuestionsApiV1OnboardingQuestionsGetResult = NonNullable<
+	Awaited<ReturnType<ReturnType<typeof getOnboarding>["getQuestionsApiV1OnboardingQuestionsGet"]>>
+>;
+export type SubmitAnswersApiV1OnboardingAnswersPostResult = NonNullable<
+	Awaited<ReturnType<ReturnType<typeof getOnboarding>["submitAnswersApiV1OnboardingAnswersPost"]>>
+>;
+export type GetAnswerHistoryApiV1OnboardingAnswersHistoryGetResult = NonNullable<
+	Awaited<
+		ReturnType<
+			ReturnType<typeof getOnboarding>["getAnswerHistoryApiV1OnboardingAnswersHistoryGet"]
+		>
+	>
+>;

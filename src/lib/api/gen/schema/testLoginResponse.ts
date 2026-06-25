@@ -6,6 +6,6 @@
  */
 
 export interface TestLoginResponse {
-  /** dreamer ID */
-  dreamer_id: string;
+	/** dreamer ID */
+	dreamer_id: string;
 }

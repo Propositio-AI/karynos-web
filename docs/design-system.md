@@ -11,28 +11,34 @@ Tailwind CSS v4 ユーティリティファーストでスタイルを適用す�
 ### ボタンカラーバリアント (`src/types/ui/color.ts`)
 
 ```ts
-export type ColorVariantKey = 'slate' | 'white' | 'emerald' | 'blue'
+export type ColorVariantKey = "slate" | "white" | "emerald" | "blue";
 ```
 
-| バリアント | 背景 | テキスト | ホバー | 用途 |
-|---|---|---|---|---|
-| `slate` | `bg-slate-900` | white | `bg-slate-800` | プライマリアクション |
-| `white` | `bg-white` | `text-zinc-500` | `bg-zinc-200` | セカンダリ・アウトライン |
-| `emerald` | `bg-emerald-500` | white | `bg-emerald-600` | ナビアクティブ・成功 |
-| `blue` | `bg-blue-500` | white | `bg-blue-400` | アクセント |
+| バリアント | 背景             | テキスト        | ホバー           | 用途                     |
+| ---------- | ---------------- | --------------- | ---------------- | ------------------------ |
+| `slate`    | `bg-slate-900`   | white           | `bg-slate-800`   | プライマリアクション     |
+| `white`    | `bg-white`       | `text-zinc-500` | `bg-zinc-200`    | セカンダリ・アウトライン |
+| `emerald`  | `bg-emerald-500` | white           | `bg-emerald-600` | ナビアクティブ・成功     |
+| `blue`     | `bg-blue-500`    | white           | `bg-blue-400`    | アクセント               |
 
 `globals.css` でカスタムクラスとして定義:
 
 ```css
-.bg-slate  { @apply bg-slate-900 text-white hover:bg-slate-800; }
-.bg-emerald { @apply bg-emerald-500 text-white hover:bg-emerald-600; }
-.bg-blue   { @apply bg-blue-500 text-white hover:bg-blue-400; }
+.bg-slate {
+	@apply bg-slate-900 text-white hover:bg-slate-800;
+}
+.bg-emerald {
+	@apply bg-emerald-500 text-white hover:bg-emerald-600;
+}
+.bg-blue {
+	@apply bg-blue-500 text-white hover:bg-blue-400;
+}
 ```
 
 ### タグカラー (`src/components/ui/atoms/Text.tsx`)
 
 ```ts
-type TagColor = 'slate' | 'red' | 'orange' | 'yellow' | 'green' | 'blue' | 'purple'
+type TagColor = "slate" | "red" | "orange" | "yellow" | "green" | "blue" | "purple";
 ```
 
 各色は `bg-{color}-100` / `hover:bg-{color}-200` / `text-{color}-800` の組み合わせ。
@@ -41,12 +47,12 @@ type TagColor = 'slate' | 'red' | 'orange' | 'yellow' | 'green' | 'blue' | 'purp
 
 ボタンの `isLoading` 時、スピナーは `LoadingColorVariants` で制御:
 
-| ボタンカラー | スピナー色 |
-|---|---|
-| slate | `border-white` |
-| white | `border-black` |
-| emerald | `border-white` |
-| blue | `border-white` |
+| ボタンカラー | スピナー色     |
+| ------------ | -------------- |
+| slate        | `border-white` |
+| white        | `border-black` |
+| emerald      | `border-white` |
+| blue         | `border-white` |
 
 ---
 
@@ -54,14 +60,14 @@ type TagColor = 'slate' | 'red' | 'orange' | 'yellow' | 'green' | 'blue' | 'purp
 
 `globals.css` の `@layer base` でデフォルトスタイルを定義:
 
-| 要素 | スタイル |
-|---|---|
-| `h1` | `text-3xl font-black` |
-| `h2` | `text-3xl font-bold` |
-| `h3` | `text-xl font-semibold` |
-| `h4` | `font-semibold` |
-| `small` | `text-sm` |
-| `body` | `text-slate-900` |
+| 要素    | スタイル                |
+| ------- | ----------------------- |
+| `h1`    | `text-3xl font-black`   |
+| `h2`    | `text-3xl font-bold`    |
+| `h3`    | `text-xl font-semibold` |
+| `h4`    | `font-semibold`         |
+| `small` | `text-sm`               |
+| `body`  | `text-slate-900`        |
 
 KaTeX を使用する画面では数式レンダリングのため `katex/dist/katex.min.css` を `layout.tsx` でインポートしている。
 
@@ -102,14 +108,15 @@ Text          Modal
 
 Motion v12（Framer Motion）を使用:
 
-| 用途 | 実装 |
-|---|---|
-| ボタンローディングスピナー | `motion.div` + `animate: { rotate: 360 }` |
-| お気に入りボタン | `motion.button` + scale/rotate + パーティクル |
-| フェードイン表示 | `FadeInAnimation` コンポーネント (`opacity: 0 → 1`) |
-| スワイプカード | `useMotionValue` + `useTransform` + `drag="x"` |
+| 用途                       | 実装                                                |
+| -------------------------- | --------------------------------------------------- |
+| ボタンローディングスピナー | `motion.div` + `animate: { rotate: 360 }`           |
+| お気に入りボタン           | `motion.button` + scale/rotate + パーティクル       |
+| フェードイン表示           | `FadeInAnimation` コンポーネント (`opacity: 0 → 1`) |
+| スワイプカード             | `useMotionValue` + `useTransform` + `drag="x"`      |
 
 Tailwind CSS アニメーションも一部使用:
+
 - `animate-ping` — ローディングドット (`SimpleAnimatePing`, `GeneratingPing`)
 
 ---
@@ -118,11 +125,11 @@ Tailwind CSS アニメーションも一部使用:
 
 2 ライブラリを使用（混在しているが統一を検討）:
 
-| ライブラリ | 用途 |
-|---|---|
-| Font Awesome (`@fortawesome/react-fontawesome`) | NavBar・サイドバー・ボタンアイコン |
-| React Icons (`react-icons`) | `FiHeart`（お気に入りボタン） |
-| Lucide React (`lucide-react`) | インストール済みだが実装箇所を確認中（TODO） |
+| ライブラリ                                      | 用途                                         |
+| ----------------------------------------------- | -------------------------------------------- |
+| Font Awesome (`@fortawesome/react-fontawesome`) | NavBar・サイドバー・ボタンアイコン           |
+| React Icons (`react-icons`)                     | `FiHeart`（お気に入りボタン）                |
+| Lucide React (`lucide-react`)                   | インストール済みだが実装箇所を確認中（TODO） |
 
 ---
 

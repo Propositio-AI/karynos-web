@@ -6,6 +6,6 @@
  */
 
 export interface Company {
-  company_id: number;
-  name: string;
+	company_id: number;
+	name: string;
 }

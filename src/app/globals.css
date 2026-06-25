@@ -2,126 +2,145 @@
 
 /* Karynos design tokens: Quiet Trust — deep emerald, near-black ink, warm neutrals */
 @theme {
-    --font-sans: var(--font-noto-sans-jp), ui-sans-serif, system-ui, "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
-    --font-display: var(--font-jakarta), var(--font-noto-sans-jp), ui-sans-serif, system-ui, sans-serif;
+	--font-sans:
+		var(--font-noto-sans-jp), ui-sans-serif, system-ui, "Hiragino Kaku Gothic ProN",
+		"Yu Gothic", Meiryo, sans-serif;
+	--font-display:
+		var(--font-jakarta), var(--font-noto-sans-jp), ui-sans-serif, system-ui, sans-serif;
 
-    --color-brand-50: #eefdf6;
-    --color-brand-100: #d6fae9;
-    --color-brand-200: #a9f3d0;
-    --color-brand-300: #6fe7b3;
-    --color-brand-400: #3dd694;
-    --color-brand-500: #1fbe7e;
-    --color-brand-600: #16a36a;
-    --color-brand-700: #0f8557;
-    --color-brand-800: #0c6b46;
-    --color-brand-900: #0a5238;
+	--color-brand-50: #eefdf6;
+	--color-brand-100: #d6fae9;
+	--color-brand-200: #a9f3d0;
+	--color-brand-300: #6fe7b3;
+	--color-brand-400: #3dd694;
+	--color-brand-500: #1fbe7e;
+	--color-brand-600: #16a36a;
+	--color-brand-700: #0f8557;
+	--color-brand-800: #0c6b46;
+	--color-brand-900: #0a5238;
 
-    --color-accent-50: #fdf8ec;
-    --color-accent-100: #f7ecd0;
-    --color-accent-300: #e8c069;
-    --color-accent-400: #ddaa42;
-    --color-accent-500: #cc9230;
-    --color-accent-600: #a8772a;
+	--color-accent-50: #fdf8ec;
+	--color-accent-100: #f7ecd0;
+	--color-accent-300: #e8c069;
+	--color-accent-400: #ddaa42;
+	--color-accent-500: #cc9230;
+	--color-accent-600: #a8772a;
 
-    --color-ink: #0c0f14;
-    --color-canvas: #faf9f7;
-    --color-surface: #ffffff;
-    --color-line: #e6e4e0;
-    --color-muted: #5c5a56;
-    --color-subtle: #9b9893;
+	--color-ink: #0c0f14;
+	--color-canvas: #faf9f7;
+	--color-surface: #ffffff;
+	--color-line: #e6e4e0;
+	--color-muted: #5c5a56;
+	--color-subtle: #9b9893;
 
-    --radius-sm: 0.5rem;
-    --radius-md: 0.75rem;
-    --radius-lg: 1.25rem;
+	--radius-sm: 0.5rem;
+	--radius-md: 0.75rem;
+	--radius-lg: 1.25rem;
 
-    --shadow-soft: 0 1px 2px rgba(12, 15, 20, 0.04);
-    --shadow-lift: 0 12px 32px -16px rgba(12, 15, 20, 0.16);
-    --shadow-brand: 0 1px 2px rgba(12, 15, 20, 0.04);
+	--shadow-soft: 0 1px 2px rgba(12, 15, 20, 0.04);
+	--shadow-lift: 0 12px 32px -16px rgba(12, 15, 20, 0.16);
+	--shadow-brand: 0 1px 2px rgba(12, 15, 20, 0.04);
 }
 
 @layer base {
-    html {
-        -webkit-text-size-adjust: 100%;
-        background: var(--color-canvas);
-        /* Base bump: every rem-based Tailwind text size scales up from here. */
-        font-size: 118.75%;
-    }
+	html {
+		-webkit-text-size-adjust: 100%;
+		background: var(--color-canvas);
+		/* Base bump: every rem-based Tailwind text size scales up from here. */
+		font-size: 118.75%;
+	}
 
-    body {
-        min-height: 100vh;
-        background: var(--color-canvas);
-        color: var(--color-ink);
-        font-family: var(--font-sans);
-        -webkit-font-smoothing: antialiased;
-        text-rendering: optimizeLegibility;
-    }
+	body {
+		min-height: 100vh;
+		background: var(--color-canvas);
+		color: var(--color-ink);
+		font-family: var(--font-sans);
+		-webkit-font-smoothing: antialiased;
+		text-rendering: optimizeLegibility;
+	}
 
-    h1,
-    h2,
-    h3,
-    h4 {
-        font-family: var(--font-display);
-        letter-spacing: -0.01em;
-    }
+	h1,
+	h2,
+	h3,
+	h4 {
+		font-family: var(--font-display);
+		letter-spacing: -0.01em;
+	}
 
-    h1 { @apply text-3xl font-bold leading-tight; }
-    h2 { @apply text-2xl font-semibold leading-tight; }
-    h3 { @apply text-lg font-semibold leading-snug; }
-    h4 { @apply text-base font-semibold leading-snug; }
-    p { @apply leading-relaxed; }
-    small { @apply text-sm; }
+	h1 {
+		@apply text-3xl font-bold leading-tight;
+	}
+	h2 {
+		@apply text-2xl font-semibold leading-tight;
+	}
+	h3 {
+		@apply text-lg font-semibold leading-snug;
+	}
+	h4 {
+		@apply text-base font-semibold leading-snug;
+	}
+	p {
+		@apply leading-relaxed;
+	}
+	small {
+		@apply text-sm;
+	}
 
-    ::selection {
-        background-color: var(--color-brand-200);
-        color: var(--color-brand-900);
-    }
+	::selection {
+		background-color: var(--color-brand-200);
+		color: var(--color-brand-900);
+	}
 }
 
 @layer components {
-    .bg-ink-btn {
-        background-color: var(--color-ink);
-        color: white;
-    }
+	.bg-ink-btn {
+		background-color: var(--color-ink);
+		color: white;
+	}
 
-    .bg-slate {
-        background-color: var(--color-ink);
-        color: white;
-    }
+	.bg-slate {
+		background-color: var(--color-ink);
+		color: white;
+	}
 
-    .bg-whie {
-        border: 1px solid var(--color-line);
-        background-color: var(--color-surface);
-        color: var(--color-ink);
-    }
+	.bg-whie {
+		border: 1px solid var(--color-line);
+		background-color: var(--color-surface);
+		color: var(--color-ink);
+	}
 
-    .bg-emerald,
-    .bg-blue {
-        background-color: var(--color-brand-500);
-        color: white;
-    }
+	.bg-emerald,
+	.bg-blue {
+		background-color: var(--color-brand-500);
+		color: white;
+	}
 
-    .border-emerald,
-    .border-blue {
-        border-color: var(--color-brand-500);
-    }
+	.border-emerald,
+	.border-blue {
+		border-color: var(--color-brand-500);
+	}
 }
 
 @utility bg-brand-gradient {
-    background-image: linear-gradient(135deg, var(--color-brand-500) 0%, var(--color-brand-600) 100%);
+	background-image: linear-gradient(
+		135deg,
+		var(--color-brand-500) 0%,
+		var(--color-brand-600) 100%
+	);
 }
 
 @utility scrollbar-soft {
-    scrollbar-width: thin;
-    scrollbar-color: var(--color-line) transparent;
+	scrollbar-width: thin;
+	scrollbar-color: var(--color-line) transparent;
 }
 
 @media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-        animation-duration: 0.001ms !important;
-        animation-iteration-count: 1 !important;
-        scroll-behavior: auto !important;
-        transition-duration: 0.001ms !important;
-    }
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.001ms !important;
+		animation-iteration-count: 1 !important;
+		scroll-behavior: auto !important;
+		transition-duration: 0.001ms !important;
+	}
 }

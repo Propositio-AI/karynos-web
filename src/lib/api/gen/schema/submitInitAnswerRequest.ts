@@ -6,7 +6,7 @@
  */
 
 export interface SubmitInitAnswerRequest {
-  question_id: string;
-  option_id: string;
-  question_version: number;
+	question_id: string;
+	option_id: string;
+	question_version: number;
 }

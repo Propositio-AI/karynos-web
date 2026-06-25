@@ -6,6 +6,6 @@
  */
 
 export type GetViewingHistoryApiV1JobHistoryGetParams = {
-limit?: number;
-offset?: number;
+	limit?: number;
+	offset?: number;
 };

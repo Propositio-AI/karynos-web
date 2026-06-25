@@ -4,9 +4,9 @@
  * Karynos-Backend
  * OpenAPI spec version: 0.1.0
  */
-import type { InitAnswerResponse } from './initAnswerResponse';
+import type { InitAnswerResponse } from "./initAnswerResponse";
 
 export interface InitAnswersSubmitResponse {
-  total_saved: number;
-  answers: InitAnswerResponse[];
+	total_saved: number;
+	answers: InitAnswerResponse[];
 }

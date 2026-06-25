@@ -6,7 +6,7 @@
  */
 
 export interface InitQuestionOptionResponse {
-  option_id: string;
-  option_text: string;
-  option_order: number;
+	option_id: string;
+	option_text: string;
+	option_order: number;
 }

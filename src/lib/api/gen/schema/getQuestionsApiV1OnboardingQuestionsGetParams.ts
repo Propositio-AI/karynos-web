@@ -6,5 +6,5 @@
  */
 
 export type GetQuestionsApiV1OnboardingQuestionsGetParams = {
-version?: number;
+	version?: number;
 };

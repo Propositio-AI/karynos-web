@@ -6,10 +6,10 @@
  */
 
 export interface MatchingUserDataSummary {
-  dreamer_id: string;
-  init_answers_count: number;
-  good_jobs_count: number;
-  bad_jobs_count: number;
-  saved_jobs_count: number;
-  total_jobs_viewed: number;
+	dreamer_id: string;
+	init_answers_count: number;
+	good_jobs_count: number;
+	bad_jobs_count: number;
+	saved_jobs_count: number;
+	total_jobs_viewed: number;
 }

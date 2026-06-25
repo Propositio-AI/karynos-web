@@ -6,7 +6,7 @@
  */
 
 export interface Skill {
-  skill_id: number;
-  name: string;
-  is_required: boolean;
+	skill_id: number;
+	name: string;
+	is_required: boolean;
 }

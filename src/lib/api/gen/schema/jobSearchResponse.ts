@@ -4,11 +4,11 @@
  * Karynos-Backend
  * OpenAPI spec version: 0.1.0
  */
-import type { JobSearchResult } from './jobSearchResult';
+import type { JobSearchResult } from "./jobSearchResult";
 
 export interface JobSearchResponse {
-  query: string;
-  total_count: number;
-  items: JobSearchResult[];
-  created_at: string;
+	query: string;
+	total_count: number;
+	items: JobSearchResult[];
+	created_at: string;
 }

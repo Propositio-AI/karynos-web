@@ -6,10 +6,10 @@
  */
 
 export interface InitAnswerResponse {
-  answer_id: string;
-  dreamer_id: string;
-  question_id: string;
-  option_id: string;
-  question_version: number;
-  answered_at: string;
+	answer_id: string;
+	dreamer_id: string;
+	question_id: string;
+	option_id: string;
+	question_version: number;
+	answered_at: string;
 }

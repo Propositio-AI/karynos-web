@@ -35,9 +35,7 @@ export default function DreamerGroupEditPageContent() {
 						<VerticalStackContainer space={4}>
 							<h2 className="text-lg font-semibold text-ink">基本情報</h2>
 							<VerticalStackContainer space={2} className="flex-1">
-								<label className="font-medium text-sm text-ink">
-									グループ名 *
-								</label>
+								<label className="font-medium text-sm text-ink">グループ名 *</label>
 								<BaseInputText value="3年A組" />
 							</VerticalStackContainer>
 							<VerticalStackContainer space={2} className="flex-1">
