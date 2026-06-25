@@ -74,6 +74,7 @@ const clearMockAuth = () => {
 
     window.localStorage.removeItem(MOCK_AUTH_KEY);
     window.localStorage.removeItem(DREAMER_ID_KEY);
+    window.sessionStorage.removeItem("karynos.currentJobCard");
     emitAuthChanged();
 };
 

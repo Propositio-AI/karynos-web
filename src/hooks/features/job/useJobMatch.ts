@@ -7,6 +7,41 @@ import { captureAnalyticsEvent } from "@/lib/analytics/posthog";
 type SwipeDirection = "center" | "left" | "right";
 type SwipeEventDirection = "good" | "bad" | "save";
 
+const CURRENT_JOB_CACHE_KEY = "karynos.currentJobCard";
+const CURRENT_JOB_CACHE_MAX_AGE_MS = 30 * 60 * 1000; // 30分
+
+type CurrentJobCache = {
+    job: JobRecommendation;
+    cardIndex: number;
+    savedAt: number;
+};
+
+const readCurrentJobCache = (): CurrentJobCache | null => {
+    if (typeof window === "undefined") return null;
+    try {
+        const raw = window.sessionStorage.getItem(CURRENT_JOB_CACHE_KEY);
+        if (!raw) return null;
+        const parsed = JSON.parse(raw) as CurrentJobCache;
+        if (Date.now() - parsed.savedAt > CURRENT_JOB_CACHE_MAX_AGE_MS) {
+            return null;
+        }
+        return parsed;
+    } catch {
+        return null;
+    }
+};
+
+const writeCurrentJobCache = (job: JobRecommendation, cardIndex: number) => {
+    if (typeof window === "undefined") return;
+    const payload: CurrentJobCache = { job, cardIndex, savedAt: Date.now() };
+    window.sessionStorage.setItem(CURRENT_JOB_CACHE_KEY, JSON.stringify(payload));
+};
+
+const clearCurrentJobCache = () => {
+    if (typeof window === "undefined") return;
+    window.sessionStorage.removeItem(CURRENT_JOB_CACHE_KEY);
+};
+
 export const useJobMatch = () => {
     const [expanded, setExpanded] = useState(false);
     const [imageFullscreen, setImageFullscreen] = useState(false);
@@ -46,8 +81,25 @@ export const useJobMatch = () => {
     }, []);
 
     useEffect(() => {
+        // 詳細画面から「戻る」で戻ってきた場合、直前に表示していたカードを
+        // そのまま復元する（再度 recommend() を呼ぶと新しい職業に進んでしまうため）。
+        const cached = readCurrentJobCache();
+        if (cached) {
+            cardIndexRef.current = cached.cardIndex;
+            setCardIndex(cached.cardIndex);
+            setCurrentJob(cached.job);
+            return;
+        }
+
         fetchRecommendations();
-    }, [fetchRecommendations]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    useEffect(() => {
+        if (currentJob) {
+            writeCurrentJobCache(currentJob, cardIndexRef.current);
+        }
+    }, [currentJob]);
 
     useEffect(() => {
         if (!currentJob) {
