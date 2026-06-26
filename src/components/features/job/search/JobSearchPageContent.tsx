@@ -1,98 +1,111 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import useSearch from "@/hooks/features/job/useSearch";
 import { useJobHistory } from "@/hooks/features/job/useJobHistory";
-import { VerticalStackContainer } from "@/components/ui/molecules/Container";
+import { BaseButton } from "@/components/ui/atoms/Button";
 import { Card } from "@/components/ui/molecules/Card";
 import { JobHistoryList } from "@/components/features/job/search/JobHistoryList";
 import { SearchResults } from "@/components/features/job/search/SearchResults";
-import { BaseButton } from "@/components/ui/atoms/Button";
 
 export default function JobSearchPageContent() {
-	const searchParams = useSearchParams();
-	const initialQuery = searchParams.get("q") || "";
-	const [searchKeyword, setSearchKeyword] = useState(initialQuery);
-	const { search, results, isLoading, error, hasSearched, clearResults } = useSearch();
-	const { histories, isLoading: historyLoading, error: historyError } = useJobHistory();
+    const searchParams = useSearchParams();
+    const initialQuery = searchParams.get("q") || "";
+    const [searchKeyword, setSearchKeyword] = useState(initialQuery);
+    const { search, results, isLoading, error, hasSearched, clearResults } = useSearch();
+    const { histories, isLoading: historyLoading, error: historyError } = useJobHistory();
 
-	useEffect(() => {
-		if (initialQuery) {
-			search(initialQuery);
-		}
-	}, [initialQuery, search]);
+    useEffect(() => {
+        if (initialQuery) {
+            search(initialQuery);
+        }
+    }, [initialQuery, search]);
 
-	const handleSearch = () => {
-		if (searchKeyword.trim()) {
-			search(searchKeyword);
-		}
-	};
+    const handleSearch = () => {
+        if (searchKeyword.trim()) {
+            search(searchKeyword);
+        }
+    };
 
-	const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-		if (e.key === "Enter") {
-			handleSearch();
-		}
-	};
+    const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === "Enter") {
+            handleSearch();
+        }
+    };
 
-	const handleClear = () => {
-		setSearchKeyword("");
-		clearResults();
-	};
+    const handleClear = () => {
+        setSearchKeyword("");
+        clearResults();
+    };
 
-	return (
-		<div className="min-h-screen bg-slate-50 p-8">
-			<VerticalStackContainer space={8} className="max-w-6xl mx-auto">
-				<div>
-					<h1 className="text-3xl font-bold text-slate-900 mb-2">職業検索</h1>
-					<p className="text-slate-600">キーワードで職業を検索</p>
-				</div>
+    return (
+        <main className="min-h-screen bg-canvas px-4 pb-28 pt-6 sm:px-6 sm:pt-10">
+            <div className="mx-auto w-full max-w-5xl">
+                <section className="mb-5">
+                    <p className="mb-3 inline-flex rounded-full bg-brand-50 px-3 py-1 text-xs font-bold text-brand-700">
+                        Explore
+                    </p>
+                    <h1 className="text-2xl font-extrabold text-ink sm:text-3xl">
+                        職業を探す
+                    </h1>
+                    <p className="mt-3 text-sm leading-7 text-muted">
+                        気になる言葉から、まだ知らない仕事を見つけます。
+                    </p>
+                </section>
 
-				<Card className="p-6">
-					<div className="flex gap-3">
-						<input
-							type="text"
-							value={searchKeyword}
-							onChange={(e) => setSearchKeyword(e.target.value)}
-							onKeyDown={handleKeyPress}
-							placeholder="人と関わる仕事、創造的な仕事など..."
-							className="flex-1 px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-						/>
-						<BaseButton color="blue" onClick={handleSearch}>
-							検索
-						</BaseButton>
-						{hasSearched && (
-							<BaseButton color="white" onClick={handleClear}>
-								クリア
-							</BaseButton>
-						)}
-					</div>
-				</Card>
+                <Card className="mb-8 p-4 sm:p-5">
+                    <div className="flex flex-col gap-3 sm:flex-row">
+                        <input
+                            type="text"
+                            value={searchKeyword}
+                            onChange={(e) => setSearchKeyword(e.target.value)}
+                            onKeyDown={handleKeyPress}
+                            placeholder="人と関わる仕事、ものづくり、自然、医療..."
+                            className="min-h-12 flex-1 rounded-lg border border-line bg-surface px-4 py-3 text-sm text-ink outline-none transition placeholder:text-subtle focus:border-brand-500 focus:ring-4 focus:ring-brand-100"
+                        />
+                        <div className="grid grid-cols-2 gap-3 sm:flex">
+                            <BaseButton color="emerald" className="w-full sm:w-auto" onClick={handleSearch}>
+                                検索
+                            </BaseButton>
+                            {hasSearched && (
+                                <BaseButton color="white" className="w-full sm:w-auto" onClick={handleClear}>
+                                    クリア
+                                </BaseButton>
+                            )}
+                        </div>
+                    </div>
+                </Card>
 
-				{hasSearched && (
-					<div>
-						<h2 className="text-2xl font-semibold text-slate-900 mb-4">検索結果</h2>
-						<SearchResults
-							results={results}
-							isLoading={isLoading}
-							error={error}
-							hasSearched={hasSearched}
-							query={searchKeyword}
-						/>
-					</div>
-				)}
-
-				{!hasSearched && (
-					<div>
-						<h2 className="text-2xl font-semibold text-slate-900 mb-4">閲覧履歴</h2>
-						<JobHistoryList
-							histories={histories}
-							isLoading={historyLoading}
-							error={historyError}
-						/>
-					</div>
-				)}
-			</VerticalStackContainer>
-		</div>
-	);
+                {hasSearched ? (
+                    <section>
+                        <div className="mb-4 flex items-end justify-between gap-3">
+                            <div>
+                                <h2 className="text-xl font-bold text-ink">検索結果</h2>
+                                <p className="mt-1 text-xs font-bold text-subtle">
+                                    {searchKeyword}
+                                </p>
+                            </div>
+                        </div>
+                        <SearchResults
+                            results={results}
+                            isLoading={isLoading}
+                            error={error}
+                            hasSearched={hasSearched}
+                            query={searchKeyword}
+                        />
+                    </section>
+                ) : (
+                    <section>
+                        <h2 className="mb-4 text-xl font-bold text-ink">閲覧履歴</h2>
+                        <JobHistoryList
+                            histories={histories}
+                            isLoading={historyLoading}
+                            error={historyError}
+                        />
+                    </section>
+                )}
+            </div>
+        </main>
+    );
 }

@@ -1,133 +1,114 @@
-import { HorizontalStackContainer, VerticalStackContainer } from "../molecules/Container"
-import { useState, type ReactNode } from "react"
-import { motion } from "framer-motion"
+import { type ReactNode, useState } from "react";
+import { motion } from "framer-motion";
 import { FiHeart } from "react-icons/fi";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
+import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 
-import { BaseButtonType } from "@/types/ui/atoms/Button";
-import { ColorVariants, LoadingColorVariants } from "@/types/ui/color";
+import { HorizontalStackContainer } from "../molecules/Container";
+import type { BaseButtonType } from "@/types/ui/atoms/Button";
+import type { ColorVariantKey } from "@/types/ui/color";
 
-/**
+const buttonClasses: Record<ColorVariantKey, string> = {
+    slate: "bg-ink text-white shadow-soft hover:bg-stone-900",
+    white: "border border-line bg-surface text-ink shadow-soft hover:border-brand-200 hover:bg-brand-50",
+    emerald: "bg-brand-500 text-white shadow-brand hover:bg-brand-600",
+    blue: "bg-brand-500 text-white shadow-brand hover:bg-brand-600",
+};
 
-BaseButton コンポーネント
+const spinnerClasses: Record<ColorVariantKey, string> = {
+    slate: "border-white",
+    white: "border-ink",
+    emerald: "border-white",
+    blue: "border-white",
+};
 
-共通のボタンコンポーネント
-
-props:
-- color: ボタンのカラーバリアント
-- children: ボタン内に表示するコンテンツ
-- className: 追加のCSSクラス
-- isLoading: ローディング状態かどうか
-- onClick: クリック時のコールバック関数
- 
-**/
-export const BaseButton =  ({
-    color = 'white',
+export const BaseButton = ({
+    color = "white",
     children,
-    className = '',
-    isLoading = false, 
-    onClick 
+    className = "",
+    isLoading = false,
+    onClick,
 }: BaseButtonType) => {
-    return(
-        <button className={`p-2 ${ColorVariants[color]} rounded-lg cursor-pointer ${className}`} onClick={onClick} disabled={isLoading}>
+    return (
+        <motion.button
+            className={`inline-flex min-h-11 cursor-pointer items-center justify-center rounded-lg px-4 py-2.5 text-sm font-bold transition duration-200 disabled:cursor-not-allowed disabled:opacity-60 ${buttonClasses[color]} ${className}`}
+            onClick={onClick}
+            disabled={isLoading}
+            whileHover={isLoading ? undefined : { y: -1 }}
+            whileTap={isLoading ? undefined : { scale: 0.98 }}
+        >
             {isLoading ? (
                 <motion.div
-                    className={`mx-auto h-4 w-4 border-2 border-t-transparent ${LoadingColorVariants[color]} rounded-full`}
+                    className={`mx-auto h-4 w-4 rounded-full border-2 border-t-transparent ${spinnerClasses[color]}`}
                     animate={{ rotate: 360 }}
                     transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
                 />
             ) : (
-                <span className={`w-full text-center ${isLoading ? "opacity-50" : "opacity-100"}`}>
+                <span className="w-full text-center">
                     {children}
                 </span>
             )}
-        </button>
-    )
-}
+        </motion.button>
+    );
+};
 
-
-/** 
-
-IconButton コンポーネント
-
-アイコン付きのボタンコンポーネント
-
-props
-- color: ボタンのカラーバリアント
-- children: ボタン内に表示するコンテンツ
-- className: 追加のCSSクラス
-- isLoading: ローディング状態かどうか
-- onClick: クリック時のコールバック関数
-- icon: ボタンに表示するアイコンコンポーネント
-
-**/
 export const IconButton = ({
-    color = 'white',
+    color = "white",
     children,
-    className = '',
-    isLoading, 
-    onClick, 
+    className = "",
+    isLoading,
+    onClick,
     icon,
-}: BaseButtonType & {icon?: IconDefinition | ReactNode}) => {
-    const isIconDefinition = (i: any): i is IconDefinition => {
-        return i && typeof i === 'object' && 'prefix' in i && 'iconName' in i && 'icon' in i
-    }
+}: BaseButtonType & { icon?: IconDefinition | ReactNode }) => {
+    const isIconDefinition = (i: unknown): i is IconDefinition => {
+        return !!i && typeof i === "object" && "prefix" in i && "iconName" in i && "icon" in i;
+    };
 
-    return(
+    return (
         <BaseButton color={color} className={className} isLoading={isLoading} onClick={onClick}>
-            <HorizontalStackContainer space={2} className="mx-auto">
+            <HorizontalStackContainer space={2} className="mx-auto justify-center">
                 {isIconDefinition(icon)
-                    ? <FontAwesomeIcon icon={icon} className="h-8 aspect-square mr-2 flex justify-center items-center"/>
+                    ? <FontAwesomeIcon icon={icon} className="h-4 w-4" />
                     : icon}
                 {children}
             </HorizontalStackContainer>
         </BaseButton>
-    )
-}
+    );
+};
 
-/**
-
-FabButton コンポーネント
-
-props:
-- className: 追加のCSSクラス
-- onClick: クリック時のコールバック関数 
-
-**/
 type FavoriteButtonType = {
-    className?: string
-    onToggle?: (isFavorite: boolean) => void
-}
-export const FavoriteButton = ({className = "", onToggle}: FavoriteButtonType) => {
-    const [isFavorite, setIsFavorite] = useState(false)
+    className?: string;
+    onToggle?: (isFavorite: boolean) => void;
+};
+
+export const FavoriteButton = ({ className = "", onToggle }: FavoriteButtonType) => {
+    const [isFavorite, setIsFavorite] = useState(false);
 
     const handleClick = () => {
-        const newState = !isFavorite
-        setIsFavorite(newState)
-        onToggle?.(newState)
-    }
+        const newState = !isFavorite;
+        setIsFavorite(newState);
+        onToggle?.(newState);
+    };
 
-    return(
+    return (
         <motion.button
             onClick={handleClick}
-            className={`relative w-5 h-5 rounded-full transition-colors ${className}`}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
+            className={`relative flex h-9 w-9 items-center justify-center rounded-full border border-line bg-surface text-muted shadow-soft transition-colors hover:border-red-200 hover:text-red-400 ${className}`}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.92 }}
         >
             <motion.div
-                animate = {{
+                animate={{
                     scale: isFavorite ? [1, 1.2, 1] : 1,
                     rotate: isFavorite ? [0, -5, 5, 0] : 0,
                 }}
-
                 transition={{
                     duration: 0.4,
                     ease: "easeInOut",
                 }}
             >
-                <FiHeart 
-                    className={`h-5 w-5 transition-colors duration-200 cursor-pointer ${isFavorite ? "fill-red-500 text-red-500" : " hover:text-red-300"}`}
+                <FiHeart
+                    className={`h-5 w-5 transition-colors duration-200 ${isFavorite ? "fill-red-500 text-red-500" : ""}`}
                 />
             </motion.div>
 
@@ -135,72 +116,69 @@ export const FavoriteButton = ({className = "", onToggle}: FavoriteButtonType) =
                 <>
                     {[...Array(4)].map((_, i) => (
                         <motion.div
-                        key={i}
-                        className="absolute w-0.5 h-0.5 bg-red-400 rounded-full"
-                        initial={{
-                            opacity: 0,
-                            scale: 0,
-                            x: 0,
-                            y: 0,
-                        }}
-                        animate={{
-                            opacity: [0, 1, 0],
-                            scale: [0, 1, 0],
-                            x: Math.cos((i * Math.PI * 2) / 4) * 15,
-                            y: Math.sin((i * Math.PI * 2) / 4) * 15,
-                        }}
-                        transition={{
-                            duration: 0.6,
-                            ease: "easeOut",
-                            delay: 0.1,
-                        }}
-                        style={{
-                            left: "50%",
-                            top: "50%",
-                        }}
+                            key={i}
+                            className="absolute h-1 w-1 rounded-full bg-accent-400"
+                            initial={{
+                                opacity: 0,
+                                scale: 0,
+                                x: 0,
+                                y: 0,
+                            }}
+                            animate={{
+                                opacity: [0, 1, 0],
+                                scale: [0, 1, 0],
+                                x: Math.cos((i * Math.PI * 2) / 4) * 16,
+                                y: Math.sin((i * Math.PI * 2) / 4) * 16,
+                            }}
+                            transition={{
+                                duration: 0.6,
+                                ease: "easeOut",
+                                delay: 0.1,
+                            }}
                         />
                     ))}
                 </>
             )}
         </motion.button>
-    )
-}
+    );
+};
 
-/**
-
-NavIcon コンポーネント
-
-props:
-- type: ナビゲーションの種類
-- active: アクティブ状態かどうか    
-
-**/
-export const NavIcon = ({icon, label, active}: {icon: IconDefinition, label: string, active: boolean}) => {
+export const NavIcon = ({ icon, label, active }: { icon: IconDefinition; label: string; active: boolean }) => {
     return (
-            (active) ? (
-            <VerticalStackContainer space={0} className="w-16 h-16 text-center mx-auto">
-                <FontAwesomeIcon icon={icon} className="p-2 bg-emerald-500 text-white rounded-lg mx-auto cursor-pointer"/>
-                <p className="font-semibold text-sm text-emerald-500">{label}</p>
-            </VerticalStackContainer>
-        ) : (
-            <VerticalStackContainer space={0} className="w-16 h-16 text-center mx-auto">
-                <FontAwesomeIcon icon={icon} className="p-2 hover:bg-zinc-200 text-zinc-500 rounded-lg mx-auto cursor-pointer"/>
-                <p className="font-semibold text-sm text-zinc-500">{label}</p>
-            </VerticalStackContainer>
-        )
-    )
-}
+        <div className="mx-auto flex h-16 w-16 flex-col items-center justify-center gap-1 text-center">
+            <FontAwesomeIcon
+                icon={icon}
+                className={`h-4 w-4 rounded-lg p-2 transition duration-200 ${
+                    active
+                        ? "bg-brand-500 text-white shadow-brand"
+                        : "text-subtle hover:bg-brand-50 hover:text-brand-600"
+                }`}
+            />
+            <p className={`text-xs font-bold ${active ? "text-brand-600" : "text-subtle"}`}>
+                {label}
+            </p>
+        </div>
+    );
+};
 
 export const SideBarButton = ({
-    color = 'white',
+    color = "white",
     children,
-    className = '',
-    isLoading, 
-    onClick, 
+    className = "",
+    isLoading,
+    onClick,
     icon,
-    active = false
-}: BaseButtonType & {icon: IconDefinition, active: boolean}) => {
-    return(
-        <IconButton color={color} children={children} icon={icon} onClick={onClick} className={`w-full hover:text-blue-500 !border-none text-md font-medium ${className} ${active ? '!bg-blue-500 !text-white' : ''}`}/>
-    )
-}
+    active = false,
+}: BaseButtonType & { icon: IconDefinition; active: boolean }) => {
+    return (
+        <IconButton
+            color={color}
+            icon={icon}
+            onClick={onClick}
+            isLoading={isLoading}
+            className={`w-full border-none text-sm font-bold ${className} ${active ? "!bg-brand-500 !text-white" : ""}`}
+        >
+            {children}
+        </IconButton>
+    );
+};

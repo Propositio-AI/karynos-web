@@ -7,6 +7,7 @@ const Login = () => {
     const {
         step,
         email,
+        confirmationCode,
         isLoading,
         onChangeEmail,
         handleLogin,
@@ -19,6 +20,7 @@ const Login = () => {
         <LoginForm
             step = {step}
             email = {email}
+            confirmationCode = {confirmationCode}
             isLoading = {isLoading}
             onChangeEmail = {onChangeEmail}
             handleLogin = {handleLogin}

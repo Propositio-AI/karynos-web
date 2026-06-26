@@ -1,9 +1,9 @@
 "use client";
 
-import type { ViewingHistoryItem } from "@/lib/api/gen/schema";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import type { ViewingHistoryItem } from "@/lib/api/gen/schema";
 import { BaseButton } from "@/components/ui/atoms/Button";
 
 type JobHistoryListProps = {
@@ -15,7 +15,7 @@ type JobHistoryListProps = {
 export const JobHistoryList = ({ histories, isLoading, error }: JobHistoryListProps) => {
     if (isLoading) {
         return (
-            <div className="text-center py-12 text-slate-500">
+            <div className="rounded-lg border border-line bg-surface px-6 py-12 text-center text-sm font-bold text-muted shadow-soft">
                 読み込み中...
             </div>
         );
@@ -23,7 +23,7 @@ export const JobHistoryList = ({ histories, isLoading, error }: JobHistoryListPr
 
     if (error) {
         return (
-            <div className="text-center py-12 text-red-500">
+            <div className="rounded-lg border border-red-200 bg-red-50 px-6 py-12 text-center text-sm font-bold text-red-600 shadow-soft">
                 エラーが発生しました: {error}
             </div>
         );
@@ -31,75 +31,68 @@ export const JobHistoryList = ({ histories, isLoading, error }: JobHistoryListPr
 
     if (!histories || histories.length === 0) {
         return (
-            <div className="text-center py-12 text-slate-500">
-                閲覧履歴がありません
+            <div className="rounded-lg border border-line bg-surface px-6 py-12 text-center text-sm font-bold text-muted shadow-soft">
+                閲覧履歴がありません。
             </div>
         );
     }
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {histories.map((history, index) => (
-                <motion.div
+                <motion.article
                     key={history.history_id}
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 16 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.05 }}
-                    className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow border border-slate-200 overflow-hidden"
+                    transition={{ delay: index * 0.04 }}
+                    className="overflow-hidden rounded-lg border border-line bg-surface shadow-soft transition hover:-translate-y-0.5 hover:shadow-lift"
                 >
-                    {/* Image */}
                     {history.job_imgs && history.job_imgs.length > 0 && history.job_imgs[0] && (
-                        <div className="relative w-full h-48 bg-slate-100 flex items-center justify-center">
+                        <div className="relative flex aspect-[4/3] w-full items-center justify-center bg-brand-50">
                             <Image
                                 src={history.job_imgs[0]}
                                 alt={history.job_name}
                                 fill
-                                className="object-contain"
+                                className="object-contain p-3"
+                                sizes="(max-width: 640px) 100vw, 33vw"
                             />
                         </div>
                     )}
 
-                    {/* Content */}
-                    <div className="p-4 space-y-3">
-                        <h3 className="font-semibold text-slate-900 line-clamp-2">
+                    <div className="space-y-3 p-4">
+                        <h3 className="line-clamp-2 text-base font-bold leading-6 text-ink">
                             {history.job_name}
                         </h3>
 
-                        {/* Status badges */}
-                        <div className="flex gap-2 flex-wrap">
+                        <div className="flex flex-wrap gap-2">
                             {history.good && (
-                                <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded">
-                                    👍 いいね
+                                <span className="rounded-full bg-brand-50 px-2.5 py-1 text-xs font-bold text-brand-700">
+                                    いいね
                                 </span>
                             )}
                             {history.bad && (
-                                <span className="text-xs bg-red-100 text-red-700 px-2 py-1 rounded">
-                                    ❌ パス
+                                <span className="rounded-full bg-red-50 px-2.5 py-1 text-xs font-bold text-red-600">
+                                    パス
                                 </span>
                             )}
                             {history.save && (
-                                <span className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">
-                                    💾 保存
+                                <span className="rounded-full bg-accent-50 px-2.5 py-1 text-xs font-bold text-accent-600">
+                                    保存
                                 </span>
                             )}
                         </div>
 
-                        {/* Date */}
-                        <p className="text-xs text-slate-500">
+                        <p className="text-xs font-bold text-subtle">
                             {new Date(history.created_at).toLocaleDateString("ja-JP")}
                         </p>
 
-                        {/* Link button */}
                         <Link href={`/job/detail/${history.job_id}`}>
-                            <BaseButton
-                                color="blue"
-                                className="w-full text-sm"
-                            >
+                            <BaseButton color="emerald" className="w-full text-sm">
                                 詳細を見る
                             </BaseButton>
                         </Link>
                     </div>
-                </motion.div>
+                </motion.article>
             ))}
         </div>
     );

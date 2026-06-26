@@ -1,8 +1,8 @@
-import { motion } from "framer-motion";
 import Link from "next/link";
 import { useState } from "react";
-import { CircularProgress } from "@/components/ui/molecules/CircularProgress";
+import { motion } from "framer-motion";
 import { BaseButton } from "@/components/ui/atoms/Button";
+import { CircularProgress } from "@/components/ui/molecules/CircularProgress";
 import { useJobChat } from "@/hooks/features/job/useJobChat";
 
 type JobDetailSectionProps = {
@@ -10,11 +10,14 @@ type JobDetailSectionProps = {
     expanded: boolean;
     onDragEnd: (event: any, info: any) => void;
     jobId?: number;
+    historyId?: string;
+    cardIndex?: number;
     jobName?: string;
     averageSalary?: number | null;
     similarityScore?: number | null;
     averageAge?: number | null;
     description?: string;
+    onSave?: () => void;
 };
 
 export const JobDetailSection = ({
@@ -22,11 +25,14 @@ export const JobDetailSection = ({
     expanded,
     onDragEnd,
     jobId = 0,
+    historyId,
+    cardIndex = 0,
     jobName = "",
     averageSalary = null,
     similarityScore = null,
     averageAge = null,
-    description = "Webアプリケーションやモバイルアプリの設計・開発・保守を行います。チームでの協働やコードレビュー、新技術の導入なども重要な業務です。",
+    description = "職業説明はまだありません。",
+    onSave,
 }: JobDetailSectionProps) => {
     const { startChatForJob, isCreating } = useJobChat();
     const [isCreatingChat, setIsCreatingChat] = useState(false);
@@ -40,27 +46,34 @@ export const JobDetailSection = ({
     const salaryValue = averageSalary ?? 0;
     const similarityValue = similarityScore ?? 0;
     const ageValue = averageAge ?? 0;
+    const detailHref = historyId
+        ? {
+              pathname: `/job/detail/${jobId}`,
+              query: {
+                  history_id: historyId,
+                  card_index: cardIndex,
+              },
+          }
+        : `/job/detail/${jobId}`;
 
     return (
         <motion.div
-            className="absolute p-4 bottom-0 w-full bg-white rounded-t-2xl z-20"
+            className="absolute bottom-0 z-20 w-full rounded-t-lg border-t border-line bg-surface p-4 shadow-lift"
             drag="y"
             dragConstraints={{ top: 0, bottom: 0 }}
             onDragEnd={onDragEnd}
             initial="collapsed"
-            animate={
-                imageFullscreen ? "hidden" : expanded ? "expanded" : "collapsed"
-            }
+            animate={imageFullscreen ? "hidden" : expanded ? "expanded" : "collapsed"}
             variants={{
                 collapsed: {
-                    height: "40%",
+                    height: "55%",
                     opacity: 1,
                     overflowY: "hidden",
                 },
                 expanded: {
-                    height: "80%",
+                    height: "82%",
                     opacity: 1,
-                    overflowY: "scroll",
+                    overflowY: "auto",
                 },
                 hidden: { height: "0%", opacity: 0 },
             }}
@@ -73,28 +86,28 @@ export const JobDetailSection = ({
                 pointerEvents: imageFullscreen ? "none" : "auto",
             }}
         >
-            {/* ドラッグバー */}
-            <div className="w-1/4 bg-zinc-200 h-1 rounded-full m-3 mx-auto"></div>
+            <div className="mx-auto mb-4 h-1 w-16 rounded-full bg-line" />
 
-            {/* 職業名 */}
             {jobName && (
-                <div className="px-2 pb-2">
-                    <h2 className="text-lg font-semibold text-zinc-800">
+                <div className="px-1 pb-3">
+                    <p className="mb-2 inline-flex rounded-full bg-brand-50 px-3 py-1 text-xs font-bold text-brand-700">
+                        Match #{cardIndex + 1}
+                    </p>
+                    <h2 className="text-xl font-extrabold text-ink">
                         {jobName}
                     </h2>
                 </div>
             )}
 
-            {/* 統計情報（展開前に見せる） */}
-            <div className="grid grid-cols-3 gap-2 px-2 py-2">
+            <div className="grid grid-cols-3 gap-2 px-1 py-1">
                 <CircularProgress
-                    label="平均年収"
+                    label="年収"
                     value={salaryValue}
                     max={1000}
-                    unit="万"
+                    unit="万円"
                     color="#f59e0b"
-                    size={90}
-                    strokeWidth={10}
+                    size={64}
+                    strokeWidth={7}
                 />
                 <CircularProgress
                     label="適合度"
@@ -102,47 +115,49 @@ export const JobDetailSection = ({
                     max={100}
                     unit="%"
                     color="#10b981"
-                    size={90}
-                    strokeWidth={10}
+                    size={64}
+                    strokeWidth={7}
                 />
                 <CircularProgress
-                    label="平均年齢"
+                    label="年齢"
                     value={ageValue}
                     max={60}
                     unit="歳"
-                    color="#3b82f6"
-                    size={90}
-                    strokeWidth={10}
+                    color="#0b1120"
+                    size={64}
+                    strokeWidth={7}
                 />
             </div>
 
-            {/* 詳細情報 */}
             {expanded && (
-                <div className="my-4 px-2">
-                    <h3>業務内容</h3>
-                    <p className="my-2 text-zinc-500">{description}</p>
-                </div>
-            )}
-
-            {/* ボタン（展開後に見せる） */}
-            {expanded && (
-                <div className="flex gap-2 px-2 py-4 fixed bottom-0 left-0 right-0 bg-white">
-                    <Link href={`/job/detail/${jobId}`} className="flex-1">
-                        <BaseButton
-                            color="slate"
-                            className="!rounded-full w-full py-3"
-                        >
-                            詳細を見る
+                <div className="mt-5 grid grid-cols-3 gap-2 rounded-lg border border-line bg-stone-50 p-2">
+                    <Link href={detailHref}>
+                        <BaseButton color="slate" className="w-full">
+                            詳細
                         </BaseButton>
                     </Link>
                     <BaseButton
-                        color="blue"
-                        className="!rounded-full w-full py-3 flex-1"
+                        color="white"
+                        className="w-full"
+                        onClick={onSave}
+                    >
+                        保存
+                    </BaseButton>
+                    <BaseButton
+                        color="emerald"
+                        className="w-full"
                         onClick={handleChatClick}
                         isLoading={isCreatingChat || isCreating}
                     >
-                        チャットで質問する
+                        相談
                     </BaseButton>
+                </div>
+            )}
+
+            {expanded && (
+                <div className="my-5 px-1 pb-4">
+                    <h3 className="text-base font-bold text-ink">仕事内容</h3>
+                    <p className="mt-3 text-sm leading-7 text-muted">{description}</p>
                 </div>
             )}
         </motion.div>

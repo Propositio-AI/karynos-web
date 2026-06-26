@@ -16,7 +16,7 @@ export const JobImageSection = ({
 }: JobImageSectionProps) => {
     return (
         <motion.div
-            className="absolute w-full z-10"
+            className="absolute z-10 w-full"
             drag="y"
             dragConstraints={{ top: 0, bottom: 0 }}
             onDragEnd={onDragEnd}
@@ -29,8 +29,8 @@ export const JobImageSection = ({
                       : "collapsed"
             }
             variants={{
-                collapsed: { height: "60%" },
-                expanded: { height: "20%" },
+                collapsed: { height: "45%" },
+                expanded: { height: "18%" },
                 fullscreen: { height: "100%" },
             }}
             transition={{
@@ -39,13 +39,13 @@ export const JobImageSection = ({
                 damping: 15,
             }}
         >
-            <div className="relative h-full w-full bg-zinc-100">
+            <div className="relative h-full w-full bg-[linear-gradient(180deg,#ecfdf5_0%,#ffffff_100%)]">
                 <Image
                     src={imageUrl}
                     alt="Job Matching"
                     fill
                     priority
-                    className="object-contain object-center pointer-events-none"
+                    className="pointer-events-none object-contain object-center"
                     sizes="(max-width: 768px) 100vw, 720px"
                 />
             </div>

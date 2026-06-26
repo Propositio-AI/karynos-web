@@ -1,26 +1,30 @@
-import React from 'react';
-import { ArrowLeft } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { ArrowLeft } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 type Props = {
-  title: string;
+    title: string;
 };
 
-export const ChatHeader: React.FC<Props> = ({ title }) => {
-  const router = useRouter();
+export const ChatHeader = ({ title }: Props) => {
+    const router = useRouter();
 
-  return (
-    <header className="fixed top-0 left-0 w-full h-14 bg-white border-b border-zinc-200 flex items-center px-4 z-20">
-      <button 
-        onClick={() => router.back()} 
-        className="mr-3 p-1 rounded-full hover:bg-zinc-100 transition-colors"
-        aria-label="戻る"
-      >
-        <ArrowLeft className="w-6 h-6 text-slate-900" />
-      </button>
-      <h1 className="text-lg font-bold text-slate-900 truncate">
-        {title}
-      </h1>
-    </header>
-  );
+    return (
+        <header className="fixed left-0 top-0 z-30 flex h-16 w-full items-center border-b border-line bg-surface/95 px-4 shadow-sm backdrop-blur">
+            <div className="mx-auto flex w-full max-w-3xl items-center">
+                <button
+                    onClick={() => router.back()}
+                    className="mr-3 flex h-10 w-10 items-center justify-center rounded-lg text-ink transition hover:bg-brand-50"
+                    aria-label="戻る"
+                >
+                    <ArrowLeft className="h-5 w-5" />
+                </button>
+                <div className="min-w-0">
+                    <p className="text-xs font-bold text-subtle">Career chat</p>
+                    <h1 className="truncate text-base font-extrabold text-ink sm:text-lg">
+                        {title || "チャット"}
+                    </h1>
+                </div>
+            </div>
+        </header>
+    );
 };

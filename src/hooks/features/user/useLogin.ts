@@ -1,51 +1,53 @@
-import { confirmSignIn, signIn } from "@aws-amplify/auth";
+import { confirmLogin, startLogin } from "@/lib/auth/session";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export const useLogin = () => {
-    const [step, setStep] = useState<"LOGIN" | "CONFIRM" | "CREATE_ACCOUNT">("CREATE_ACCOUNT");
-        
+    const router = useRouter();
+    const [step, setStep] = useState<"LOGIN" | "CONFIRM">("LOGIN");
     const [email, setEmail] = useState<string>("");
     const [confirmationCode, setConfirmationCode] = useState<string>("");
-
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [error, setError] = useState<string>("");    
+    const [error, setError] = useState<string>("");
+
+    const redirectAfterLogin = () => {
+        router.replace("/job/match");
+    };
 
     const handleLogin = async () => {
         setIsLoading(true);
         setError("");
 
         try {
-            const {isSignedIn} = await signIn({
-                username: email,
-                options: {
-                    authFlowType: "USER_AUTH",
-                    preferredChallenge: 'EMAIL_OTP',
-                },
-            });
+            const result = await startLogin(email);
+            if (result.step === "DONE") {
+                redirectAfterLogin();
+                return;
+            }
 
             setStep("CONFIRM");
-
-        } catch (err: any) {
-            console.log(err);
-            setError(err.message || "ログイン中にエラーが発生しました。");
+        } catch (err: unknown) {
+            setError(err instanceof Error ? err.message : "Sign in failed.");
         } finally {
             setIsLoading(false);
         }
-    }
+    };
 
     const handleConfirmLogin = async () => {
-        try {
-            const { nextStep: confirmSignInNextStep } = await confirmSignIn({
-                challengeResponse: confirmationCode,
-            });
+        setIsLoading(true);
+        setError("");
 
-            if (confirmSignInNextStep.signInStep === "DONE") {
-                setError("");
+        try {
+            const result = await confirmLogin(confirmationCode);
+            if (result.step === "DONE") {
+                redirectAfterLogin();
             }
-        } catch (err) {
-            setError("サインイン中にエラーが発生しました");
+        } catch (err: unknown) {
+            setError(err instanceof Error ? err.message : "Verification failed.");
+        } finally {
+            setIsLoading(false);
         }
-    }
+    };
 
     const onChangeEmail = (v: string) => setEmail(v);
     const onChangeConfirmationCode = (v: string) => setConfirmationCode(v);
@@ -53,6 +55,7 @@ export const useLogin = () => {
     return {
         step,
         email,
+        confirmationCode,
         isLoading,
         setEmail,
         onChangeEmail,
@@ -61,5 +64,5 @@ export const useLogin = () => {
         onChangeConfirmationCode,
         handleConfirmLogin,
         error,
-    }
-}
+    };
+};

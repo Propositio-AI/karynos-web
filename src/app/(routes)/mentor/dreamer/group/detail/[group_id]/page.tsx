@@ -44,11 +44,7 @@ const dummyDreamers = [
 	},
 ];
 
-export default function DreamerGroupDetailPage({
-	params,
-	}: {
-	params: { group_id: string };
-	}) {
+export default function DreamerGroupDetailPage() {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	return (

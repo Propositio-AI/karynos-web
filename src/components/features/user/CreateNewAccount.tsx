@@ -1,8 +1,8 @@
 "use client";
 
-import { CenterContainer, VerticalStackContainer } from "@/components/ui/molecules/Container"
-import { BaseInputText } from "@/components/ui/atoms/Input"
 import { BaseButton } from "@/components/ui/atoms/Button";
+import { BaseInputText } from "@/components/ui/atoms/Input";
+import { CenterContainer, VerticalStackContainer } from "@/components/ui/molecules/Container";
 
 type Props = {
     familyName: string;
@@ -24,47 +24,54 @@ const CreateNewAccount = ({
     onSubmit,
 }: Props) => {
     return (
-        <CenterContainer className="h-screen">
-            <VerticalStackContainer className="w-96 shadow-2xl p-8 lg:p-12 border-emerald border-t-16">
-                <h3>新しいアカウントを作成</h3>
+        <CenterContainer className="min-h-screen overflow-hidden bg-canvas px-5 py-10">
+            <div className="absolute inset-x-0 top-0 h-48 bg-[linear-gradient(135deg,#ecfdf5_0%,#fafaf9_56%,#fffbeb_100%)]" />
+            <VerticalStackContainer className="relative z-10 w-full max-w-md rounded-lg border border-line bg-surface/95 p-8 shadow-lift backdrop-blur" space={8}>
+                <div>
+                    <p className="mb-3 inline-flex rounded-full bg-brand-50 px-3 py-1 text-xs font-bold text-brand-700">
+                        Profile
+                    </p>
+                    <h1>プロフィールを作成</h1>
+                    <p className="mt-3 text-sm leading-6 text-muted">
+                        表示名に使うお名前を入力してください。
+                    </p>
+                </div>
 
                 <VerticalStackContainer className="w-full" space={4}>
-                    <div>
-                        <label className="font-semibold">苗字</label>
-                        <BaseInputText
-                            className="w-full"
-                            value={familyName}
-                            onChange={(e) => onChangeFamilyName(e.target.value)}
-                        />
-                    </div>
+                    <BaseInputText
+                        className="w-full"
+                        label="姓"
+                        value={familyName}
+                        placeholder="山田"
+                        onChange={(e) => onChangeFamilyName(e.target.value)}
+                    />
 
-                    <div>
-                        <label className="font-semibold">名前</label>
-                        <BaseInputText
-                            className="w-full"
-                            value={givenName}
-                            onChange={(e) => onChangeGivenName(e.target.value)}
-                        />
-                    </div>
+                    <BaseInputText
+                        className="w-full"
+                        label="名"
+                        value={givenName}
+                        placeholder="太郎"
+                        onChange={(e) => onChangeGivenName(e.target.value)}
+                    />
                 </VerticalStackContainer>
 
                 {error && (
-                    <div className="mb-4 bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded">
-                    {error}
+                    <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600">
+                        {error}
                     </div>
                 )}
 
                 <BaseButton
                     color="emerald"
-                    className="w-1/2 mx-auto"
+                    className="w-full"
                     isLoading={isLoading}
                     onClick={onSubmit}
                 >
-                    アカウント作成
+                    アカウントを作成
                 </BaseButton>
             </VerticalStackContainer>
         </CenterContainer>
     );
-}
+};
 
 export default CreateNewAccount;

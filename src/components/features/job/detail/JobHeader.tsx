@@ -1,19 +1,18 @@
-import Image from "next/image"
-import { Card } from "@/components/ui/molecules/Card"
-import { VerticalStackContainer, HorizontalStackContainer } from "@/components/ui/molecules/Container"
-import { Tag } from "@/components/ui/atoms/Text"
-import { BaseButton } from "@/components/ui/atoms/Button"
+import Image from "next/image";
+import { Card } from "@/components/ui/molecules/Card";
+import { Tag } from "@/components/ui/atoms/Text";
+import { BaseButton } from "@/components/ui/atoms/Button";
 
 type JobHeaderProps = {
-    jobId: number
-    name: string
-    description: string
-    imgs: string[]
-    level: number
-    uniform: boolean
-    focusOnEducation: boolean
-    focusOnAchievements: boolean
-}
+    jobId: number;
+    name: string;
+    description: string;
+    imgs: string[];
+    level: number;
+    uniform: boolean;
+    focusOnEducation: boolean;
+    focusOnAchievements: boolean;
+};
 
 export const JobHeader = ({
     jobId,
@@ -23,39 +22,46 @@ export const JobHeader = ({
     level,
     uniform,
     focusOnEducation,
-    focusOnAchievements
+    focusOnAchievements,
 }: JobHeaderProps) => {
     return (
-        <Card className="p-6 mb-6">
-            <VerticalStackContainer space={4}>
-                {imgs.length > 0 && (
-                    <div className="w-full h-64 relative bg-gray-200 rounded-lg overflow-hidden flex items-center justify-center">
-                        <Image
-                            src={imgs[0] ?? ''}
-                            alt="職業画像" 
-                            fill
-                            className="object-contain"
-                        />
+        <Card className="mb-5 overflow-hidden">
+            {imgs.length > 0 && (
+                <div className="relative flex aspect-[4/3] w-full items-center justify-center bg-brand-50 sm:aspect-[16/7]">
+                    <Image
+                        src={imgs[0] ?? ""}
+                        alt={name}
+                        fill
+                        className="object-contain p-4"
+                        sizes="(max-width: 640px) 100vw, 1152px"
+                    />
+                </div>
+            )}
+
+            <div className="p-5 sm:p-7">
+                <div className="mb-4 flex flex-wrap gap-2">
+                    <Tag text={`レベル ${level}`} color="blue" />
+                    {uniform && <Tag text="制服あり" color="slate" />}
+                    {focusOnEducation && <Tag text="学歴重視" color="green" />}
+                    {focusOnAchievements && <Tag text="実績重視" color="orange" />}
+                </div>
+
+                <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
+                    <div>
+                        <p className="mb-2 text-xs font-bold text-subtle">Job #{jobId}</p>
+                        <h1 className="text-2xl font-extrabold leading-tight text-ink sm:text-4xl">
+                            {name}
+                        </h1>
+                        <p className="mt-4 text-sm leading-7 text-muted sm:text-base">
+                            {description}
+                        </p>
                     </div>
-                )}
-                
-                <HorizontalStackContainer className="justify-between items-start">
-                    <VerticalStackContainer space={2}>
-                        <h1 className="text-3xl font-bold">{name}</h1>
-                        <p className="text-gray-600 text-base">{description}</p>
-                        <HorizontalStackContainer space={4}>
-                            <Tag text={`レベル ${level}`} color="blue" />
-                            {uniform && <Tag text="制服あり" color="purple" />}
-                            {focusOnEducation && <Tag text="学歴重視" color="green" />}
-                            {focusOnAchievements && <Tag text="実績重視" color="orange" />}
-                        </HorizontalStackContainer>
-                    </VerticalStackContainer>
-                    
-                    <BaseButton color="blue" className="px-6 py-3">
-                        お気に入りに追加
+
+                    <BaseButton color="white" className="w-full sm:w-auto">
+                        気になる
                     </BaseButton>
-                </HorizontalStackContainer>
-            </VerticalStackContainer>
+                </div>
+            </div>
         </Card>
-    )
-}
+    );
+};

@@ -1,4 +1,4 @@
-import { motion, AnimatePresence, easeIn, MotionValue, useTransform } from "framer-motion";
+import { easeIn, motion, MotionValue, useTransform } from "framer-motion";
 import { ReactNode } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp, faXmark } from "@fortawesome/free-solid-svg-icons";
@@ -24,24 +24,13 @@ export const SwipeCard = ({
     onDragEnd,
     children,
 }: SwipeCardProps) => {
-    // ドラッグ中の動的フィードバック
-    const scale = useTransform(x, [-300, -200, 0, 200, 300], [0.95, 0.9, 1, 0.9, 0.95]);
-    const backgroundColor = useTransform(
-        x,
-        [-300, -200, 0, 200, 300],
-        ["rgba(239, 68, 68, 0.4)", "rgba(239, 68, 68, 0.2)", "rgba(255, 255, 255, 0)", "rgba(34, 197, 94, 0.2)", "rgba(34, 197, 94, 0.4)"]
-    );
-    
-    // いいねアイコン表示
-    const likeOpacity = useTransform(x, [0, 100, 200], [0, 0, 1]);
-    const likeScale = useTransform(x, [0, 100, 200], [0.5, 0.7, 1]);
-    
-    // パスアイコン表示
-    const passOpacity = useTransform(x, [-200, -100, 0], [1, 0.5, 0]);
-    const passScale = useTransform(x, [-200, -100, 0], [1, 0.8, 0.5]);
+    const likeOpacity = useTransform(x, [0, 100, 200], [0, 0.2, 1]);
+    const likeScale = useTransform(x, [0, 100, 200], [0.7, 0.9, 1]);
+    const passOpacity = useTransform(x, [-200, -100, 0], [1, 0.2, 0]);
+    const passScale = useTransform(x, [-200, -100, 0], [1, 0.9, 0.7]);
 
     return (
-        <div className="relative w-full h-full flex items-center justify-center">
+        <div className="relative flex h-full w-full items-center justify-center">
             {swipeDirection === "center" && (
                 <motion.div
                     key="main-card"
@@ -53,7 +42,7 @@ export const SwipeCard = ({
                         opacity,
                         willChange: "transform, opacity",
                     }}
-                    className="relative w-5/6 max-w-[720px] h-[70vh] min-h-[520px] bg-white shadow-2xl rounded-3xl overflow-hidden cursor-grab active:cursor-grabbing border border-zinc-100"
+                    className="relative h-[62vh] min-h-[520px] w-full max-w-[720px] cursor-grab overflow-hidden rounded-lg border border-line bg-surface shadow-lift active:cursor-grabbing"
                     drag="x"
                     dragConstraints={{ left: 0, right: 0 }}
                     onDragEnd={onDragEnd}
@@ -62,7 +51,7 @@ export const SwipeCard = ({
                     variants={{
                         center: {
                             x: 0,
-                            height: "66%",
+                            height: "62vh",
                             scale: 1,
                             transition: {
                                 type: "spring",
@@ -71,7 +60,7 @@ export const SwipeCard = ({
                             },
                         },
                         expanded: {
-                            height: "90%",
+                            height: "calc(100vh - 8rem)",
                             scale: 1,
                             transition: {
                                 type: "spring",
@@ -91,46 +80,29 @@ export const SwipeCard = ({
                         }),
                     }}
                 >
-                    {/* 子要素 */}
                     {children}
-                    
-                    {/* オーバーレイ */}
+
                     <motion.div
-                        className="absolute inset-0 pointer-events-none rounded-3xl"
-                        style={{
-                            backgroundColor: backgroundColor as any,
-                        }}
-                    />
-                    
-                    {/* いいねアイコン（右スワイプ） */}
-                    <motion.div
-                        className="absolute right-8 top-1/2 -translate-y-1/2 pointer-events-none"
+                        className="pointer-events-none absolute right-8 top-1/2 -translate-y-1/2"
                         style={{
                             opacity: likeOpacity as any,
                             scale: likeScale as any,
                         }}
                     >
-                        <div className="inline-block p-4 rounded-full bg-green-100">
-                            <FontAwesomeIcon
-                                icon={faThumbsUp}
-                                className="text-4xl text-green-500"
-                            />
+                        <div className="flex h-20 w-20 items-center justify-center rounded-full border border-brand-200 bg-brand-50 text-brand-600 shadow-soft">
+                            <FontAwesomeIcon icon={faThumbsUp} className="text-4xl" />
                         </div>
                     </motion.div>
-                    
-                    {/* パスアイコン（左スワイプ） */}
+
                     <motion.div
-                        className="absolute left-8 top-1/2 -translate-y-1/2 pointer-events-none"
+                        className="pointer-events-none absolute left-8 top-1/2 -translate-y-1/2"
                         style={{
                             opacity: passOpacity as any,
                             scale: passScale as any,
                         }}
                     >
-                        <div className="inline-block p-4 rounded-full bg-red-100">
-                            <FontAwesomeIcon
-                                icon={faXmark}
-                                className="text-4xl text-red-500"
-                            />
+                        <div className="flex h-20 w-20 items-center justify-center rounded-full border border-red-200 bg-red-50 text-red-500 shadow-soft">
+                            <FontAwesomeIcon icon={faXmark} className="text-4xl" />
                         </div>
                     </motion.div>
                 </motion.div>

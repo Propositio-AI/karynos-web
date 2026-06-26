@@ -1,17 +1,23 @@
-import { useState, useEffect, useCallback } from 'react';
-import { useMotionValue, useTransform } from 'framer-motion';
-import { api } from '@/lib/api/client';
-import type { RecommendResponse, JobRecommendation } from '@/types/api/job';
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useMotionValue, useTransform } from "framer-motion";
+import { api } from "@/lib/api/client";
+import type { JobRecommendation, RecommendResponse } from "@/types/api/job";
+import { captureAnalyticsEvent } from "@/lib/analytics/posthog";
 
-type SwipeDirection = 'center' | 'left' | 'right';
+type SwipeDirection = "center" | "left" | "right";
+type SwipeEventDirection = "good" | "bad" | "save";
 
 export const useJobMatch = () => {
     const [expanded, setExpanded] = useState(false);
     const [imageFullscreen, setImageFullscreen] = useState(false);
-    const [swipeDirection, setSwipeDirection] = useState<SwipeDirection>('center');
+    const [swipeDirection, setSwipeDirection] = useState<SwipeDirection>("center");
     const [currentJob, setCurrentJob] = useState<JobRecommendation | null>(null);
+    const [cardIndex, setCardIndex] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const cardIndexRef = useRef(0);
+    const lastSwipeAtRef = useRef<number | null>(null);
+    const shownJobKeysRef = useRef<Set<string>>(new Set());
 
     const x = useMotionValue(0);
     const rotate = useTransform(x, [-200, 200], [-20, 20]);
@@ -21,22 +27,20 @@ export const useJobMatch = () => {
         setIsLoading(true);
         setError(null);
 
-        const timeoutId = setTimeout(() => {
-            setError('APIの応答が遅延しています。再読み込みしてください。');
+        const timeoutId = window.setTimeout(() => {
+            setError("APIの応答が遅れています。もう一度読み込み直してください。");
             setIsLoading(false);
         }, 10000);
 
         try {
             const response = await api.recommendJobsApiV1MatchingRecommendGet();
-            console.log('API response:', response);
-            // NOTE: OpenAPI spec (TopRecommendedJobMatch) doesn't match actual response shape.
-            // Using manual RecommendResponse type until the spec is updated.
+            // NOTE: OpenAPI spec (TopRecommendedJobMatch) does not match actual response shape.
             const payload = response as unknown as RecommendResponse;
             setCurrentJob(payload?.recommendation ?? null);
         } catch (err) {
-            setError(err instanceof Error ? err.message : 'おすすめ取得に失敗しました');
+            setError(err instanceof Error ? err.message : "おすすめ取得に失敗しました。");
         } finally {
-            clearTimeout(timeoutId);
+            window.clearTimeout(timeoutId);
             setIsLoading(false);
         }
     }, []);
@@ -45,11 +49,30 @@ export const useJobMatch = () => {
         fetchRecommendations();
     }, [fetchRecommendations]);
 
+    useEffect(() => {
+        if (!currentJob) {
+            return;
+        }
+
+        const key = `${currentJob.history_id}:${cardIndex}`;
+        if (shownJobKeysRef.current.has(key)) {
+            return;
+        }
+
+        shownJobKeysRef.current.add(key);
+        captureAnalyticsEvent("job_card_shown", {
+            job_id: currentJob.job_id,
+            history_id: currentJob.history_id,
+            similarity_score: currentJob.similarity_score,
+            card_index: cardIndex,
+        });
+    }, [cardIndex, currentJob]);
+
     const markAsGood = useCallback(async (targetId: string) => {
         try {
             await api.markGoodApiV1JobGoodHistoryIdPut(encodeURIComponent(targetId));
         } catch (err) {
-            console.error('Failed to mark as good:', err);
+            console.error("Failed to mark as good:", err);
         }
     }, []);
 
@@ -57,7 +80,7 @@ export const useJobMatch = () => {
         try {
             await api.markBadApiV1JobBadHistoryIdPut(encodeURIComponent(targetId));
         } catch (err) {
-            console.error('Failed to mark as bad:', err);
+            console.error("Failed to mark as bad:", err);
         }
     }, []);
 
@@ -65,16 +88,43 @@ export const useJobMatch = () => {
         try {
             await api.markSaveApiV1JobSaveHistoryIdPut(encodeURIComponent(targetId));
         } catch (err) {
-            console.error('Failed to mark as save:', err);
+            console.error("Failed to mark as save:", err);
         }
     }, []);
 
-    const resetSwipe = () => {
+    const resetSwipe = useCallback(() => {
         x.set(0);
-        setSwipeDirection('center');
+        setSwipeDirection("center");
         setExpanded(false);
         setImageFullscreen(false);
-    };
+    }, [x]);
+
+    const advanceCard = useCallback(() => {
+        cardIndexRef.current += 1;
+        setCardIndex(cardIndexRef.current);
+        fetchRecommendations();
+        resetSwipe();
+    }, [fetchRecommendations, resetSwipe]);
+
+    const captureSwipe = useCallback(
+        (direction: SwipeEventDirection, job: JobRecommendation) => {
+            const now = Date.now();
+            const timeSinceLastSwipe =
+                lastSwipeAtRef.current === null
+                    ? null
+                    : now - lastSwipeAtRef.current;
+
+            lastSwipeAtRef.current = now;
+            captureAnalyticsEvent("job_card_swiped", {
+                job_id: job.job_id,
+                history_id: job.history_id,
+                direction,
+                card_index: cardIndexRef.current,
+                time_since_last_swipe_ms: timeSinceLastSwipe,
+            });
+        },
+        [],
+    );
 
     const handleDragEndMain = useCallback(
         (_: unknown, info: { offset: { x: number }; velocity: { x: number } }) => {
@@ -82,24 +132,24 @@ export const useJobMatch = () => {
             const velocityThreshold = 500;
 
             if (info.offset.x > threshold || info.velocity.x > velocityThreshold) {
-                setSwipeDirection('right');
+                setSwipeDirection("right");
                 if (currentJob) {
+                    captureSwipe("good", currentJob);
                     markAsGood(currentJob.history_id);
-                    fetchRecommendations();
-                    resetSwipe();
+                    advanceCard();
                 }
             } else if (info.offset.x < -threshold || info.velocity.x < -velocityThreshold) {
-                setSwipeDirection('left');
+                setSwipeDirection("left");
                 if (currentJob) {
+                    captureSwipe("bad", currentJob);
                     markAsBad(currentJob.history_id);
-                    fetchRecommendations();
-                    resetSwipe();
+                    advanceCard();
                 }
             } else {
-                setSwipeDirection('center');
+                setSwipeDirection("center");
             }
         },
-        [currentJob, fetchRecommendations, markAsGood, markAsBad],
+        [advanceCard, captureSwipe, currentJob, markAsBad, markAsGood],
     );
 
     const handleImageDragEnd = (_: unknown, info: { offset: { y: number } }) => {
@@ -117,10 +167,16 @@ export const useJobMatch = () => {
     };
 
     const handleSave = useCallback(() => {
-        if (currentJob) markAsSave(currentJob.history_id);
-    }, [currentJob, markAsSave]);
+        if (!currentJob) {
+            return;
+        }
 
-    const customDirection = swipeDirection === 'right' ? 1 : -1;
+        captureSwipe("save", currentJob);
+        markAsSave(currentJob.history_id);
+        advanceCard();
+    }, [advanceCard, captureSwipe, currentJob, markAsSave]);
+
+    const customDirection = swipeDirection === "right" ? 1 : -1;
 
     return {
         expanded,
@@ -136,6 +192,7 @@ export const useJobMatch = () => {
         resetSwipe,
         handleSave,
         currentJob,
+        cardIndex,
         isLoading,
         error,
         fetchRecommendations,
