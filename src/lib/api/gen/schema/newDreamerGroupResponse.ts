@@ -6,6 +6,6 @@
  */
 
 export interface NewDreamerGroupResponse {
-  /** グループID */
-  group_id: string;
+	/** グループID */
+	group_id: string;
 }

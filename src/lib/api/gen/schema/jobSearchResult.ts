@@ -6,12 +6,12 @@
  */
 
 export interface JobSearchResult {
-  job_id: number;
-  name: string;
-  description: string;
-  imgs: string[];
-  personality_traits: string;
-  appeal_points: string;
-  growth_opportunities: string;
-  similarity_score: number;
+	job_id: number;
+	name: string;
+	description: string;
+	imgs: string[];
+	personality_traits: string;
+	appeal_points: string;
+	growth_opportunities: string;
+	similarity_score: number;
 }

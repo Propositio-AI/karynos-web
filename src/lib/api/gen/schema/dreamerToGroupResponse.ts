@@ -6,6 +6,6 @@
  */
 
 export interface DreamerToGroupResponse {
-  /** 更新後dreamer ID */
-  dreamers: string[];
+	/** 更新後dreamer ID */
+	dreamers: string[];
 }

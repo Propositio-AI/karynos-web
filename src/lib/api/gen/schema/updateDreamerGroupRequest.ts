@@ -6,8 +6,8 @@
  */
 
 export interface UpdateDreamerGroupRequest {
-  /** グループ名 */
-  name?: string;
-  /** グループ説明 */
-  description?: string;
+	/** グループ名 */
+	name?: string;
+	/** グループ説明 */
+	description?: string;
 }

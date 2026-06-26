@@ -5,4 +5,9 @@
  * OpenAPI spec version: 0.1.0
  */
 
-export type TopRecommendedJobMatchReason = string | null;
+export interface TestLoginRequest {
+	/** お名前 */
+	name: string;
+	/** 学年 */
+	grade: string;
+}

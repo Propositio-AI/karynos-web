@@ -4,13 +4,13 @@
  * Karynos-Backend
  * OpenAPI spec version: 0.1.0
  */
-import type { InitQuestionOptionResponse } from './initQuestionOptionResponse';
+import type { InitQuestionOptionResponse } from "./initQuestionOptionResponse";
 
 export interface InitQuestionResponse {
-  question_id: string;
-  category: string;
-  question_text: string;
-  question_order: number;
-  version: number;
-  options?: InitQuestionOptionResponse[];
+	question_id: string;
+	category: string;
+	question_text: string;
+	question_order: number;
+	version: number;
+	options?: InitQuestionOptionResponse[];
 }

@@ -4,17 +4,17 @@
  * Karynos-Backend
  * OpenAPI spec version: 0.1.0
  */
-import type { DreamerGroupSummary } from './dreamerGroupSummary';
+import type { DreamerGroupSummary } from "./dreamerGroupSummary";
 
 export interface DreamerResponse {
-  /** ログイン用ID */
-  login_id: string;
-  /** 団体ID */
-  organization_id: number;
-  /** 苗字 */
-  name_family: string;
-  /** 名前 */
-  name_given: string;
-  /** 所属グループ */
-  groups?: DreamerGroupSummary[];
+	/** ログイン用ID */
+	login_id: string;
+	/** 団体ID */
+	organization_id: number;
+	/** 苗字 */
+	name_family: string;
+	/** 名前 */
+	name_given: string;
+	/** 所属グループ */
+	groups?: DreamerGroupSummary[];
 }

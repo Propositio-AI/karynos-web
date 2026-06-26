@@ -6,5 +6,5 @@
  */
 
 export interface CreateConversationRequest {
-  job_id: string;
+	job_id: string;
 }

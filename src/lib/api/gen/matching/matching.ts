@@ -4,46 +4,42 @@
  * Karynos-Backend
  * OpenAPI spec version: 0.1.0
  */
-import type { JobSuggestionResponse, SuggestionDebugResponse } from '.././schema';
+import type { MatchingDebugResponse, MatchingResponse } from ".././schema";
 
-import { customInstance } from '../../mutator';
+import { customInstance } from "../../mutator";
 
 type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
 
 export const getMatching = () => {
-  /**
-   * @summary Recommend Jobs
-   */
-  const recommendJobsApiV1MatchingRecommendGet = (
-    options?: SecondParameter<typeof customInstance<JobSuggestionResponse>>,
-  ) => {
-    return customInstance<JobSuggestionResponse>(
-      { url: `/api/v1/matching/recommend`, method: 'GET' },
-      options,
-    );
-  };
-
-  /**
-   * @summary Recommend Jobs Debug
-   */
-  const recommendJobsDebugApiV1MatchingRecommendDebugGet = (
-    options?: SecondParameter<typeof customInstance<SuggestionDebugResponse>>,
-  ) => {
-    return customInstance<SuggestionDebugResponse>(
-      { url: `/api/v1/matching/recommend/debug`, method: 'GET' },
-      options,
-    );
-  };
-
-  return {
-    recommendJobsApiV1MatchingRecommendGet,
-    recommendJobsDebugApiV1MatchingRecommendDebugGet,
-  };
+	/**
+	 * @summary Recommend
+	 */
+	const recommendApiV1MatchingRecommendGet = (
+		options?: SecondParameter<typeof customInstance<MatchingResponse>>,
+	) => {
+		return customInstance<MatchingResponse>(
+			{ url: `/api/v1/matching/recommend`, method: "GET" },
+			options,
+		);
+	};
+	/**
+	 * @summary Recommend Debug
+	 */
+	const recommendDebugApiV1MatchingRecommendDebugGet = (
+		options?: SecondParameter<typeof customInstance<MatchingDebugResponse>>,
+	) => {
+		return customInstance<MatchingDebugResponse>(
+			{ url: `/api/v1/matching/recommend/debug`, method: "GET" },
+			options,
+		);
+	};
+	return { recommendApiV1MatchingRecommendGet, recommendDebugApiV1MatchingRecommendDebugGet };
 };
-
-export type RecommendJobsApiV1MatchingRecommendGetResult = NonNullable<
-  Awaited<ReturnType<ReturnType<typeof getMatching>['recommendJobsApiV1MatchingRecommendGet']>>
+export type RecommendApiV1MatchingRecommendGetResult = NonNullable<
+	Awaited<ReturnType<ReturnType<typeof getMatching>["recommendApiV1MatchingRecommendGet"]>>
 >;
-export type RecommendJobsDebugApiV1MatchingRecommendDebugGetResult = NonNullable<
-  Awaited<ReturnType<ReturnType<typeof getMatching>['recommendJobsDebugApiV1MatchingRecommendDebugGet']>>
+export type RecommendDebugApiV1MatchingRecommendDebugGetResult = NonNullable<
+	Awaited<
+		ReturnType<ReturnType<typeof getMatching>["recommendDebugApiV1MatchingRecommendDebugGet"]>
+	>
 >;

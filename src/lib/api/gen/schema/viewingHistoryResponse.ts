@@ -4,10 +4,10 @@
  * Karynos-Backend
  * OpenAPI spec version: 0.1.0
  */
-import type { ViewingHistoryItem } from './viewingHistoryItem';
+import type { ViewingHistoryItem } from "./viewingHistoryItem";
 
 export interface ViewingHistoryResponse {
-  total_count: number;
-  items: ViewingHistoryItem[];
-  created_at: string;
+	total_count: number;
+	items: ViewingHistoryItem[];
+	created_at: string;
 }

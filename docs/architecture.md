@@ -17,11 +17,11 @@
 
 ## レンダリング戦略
 
-| 種別 | ファイルパターン | 役割 |
-|---|---|---|
-| Server Component | `src/app/**/page.tsx` | ページのエントリポイント。Client Component をラップするのみ。 |
+| 種別             | ファイルパターン                              | 役割                                                                          |
+| ---------------- | --------------------------------------------- | ----------------------------------------------------------------------------- |
+| Server Component | `src/app/**/page.tsx`                         | ページのエントリポイント。Client Component をラップするのみ。                 |
 | Client Component | `src/components/features/**/*PageContent.tsx` | 全インタラクション・データ取得・表示ロジックを担当。`'use client'` 宣言必須。 |
-| Server Action | `src/lib/auth/logout.ts` | Cookie 削除（ログアウト処理）のみ。 |
+| Server Action    | `src/lib/auth/logout.ts`                      | Cookie 削除（ログアウト処理）のみ。                                           |
 
 Server Component でのデータプリフェッチ（`fetch` in page.tsx）は現時点では実装されていない。全データ取得はクライアントサイドの `useEffect` 内で行われる。
 
@@ -51,17 +51,17 @@ Server Component でのデータプリフェッチ（`fetch` in page.tsx）は�
 
 ## API 通信
 
-| 通信方式 | 実装 | 用途 |
-|---|---|---|
-| REST/JSON | `src/lib/api/mutator.ts` (axios) | 全 CRUD・検索・マッチング |
+| 通信方式           | 実装                                | 用途                         |
+| ------------------ | ----------------------------------- | ---------------------------- |
+| REST/JSON          | `src/lib/api/mutator.ts` (axios)    | 全 CRUD・検索・マッチング    |
 | SSE ストリーミング | `src/lib/api/stream.ts` (Fetch API) | チャットメッセージの AI 応答 |
-| WebSocket | `src/lib/api/websocket.ts` | 実装済み・現時点では未使用 |
+| WebSocket          | `src/lib/api/websocket.ts`          | 実装済み・現時点では未使用   |
 
 全 REST エンドポイントは Orval が OpenAPI spec から自動生成したクライアントを使用する。手動実装はストリーミングのみ。詳細は [api-integration.md](api-integration.md) を参照。
 
 ## 認証
 
-AWS Cognito を EMAIL\_OTP（パスワードレス）フローで使用。
+AWS Cognito を EMAIL_OTP（パスワードレス）フローで使用。
 
 - サインアップ: メールアドレス登録 → 確認コード入力
 - ログイン: メール送信 → OTP 入力

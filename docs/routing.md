@@ -2,26 +2,26 @@
 
 ## 画面一覧
 
-| URL | ページコンポーネント | 概要 |
-|---|---|---|
-| `/` | `src/app/page.tsx` | ホーム（現在はコンポーネント開発用デモ画面） |
-| `/login` | `src/app/(routes)/login/page.tsx` | ログイン（EMAIL\_OTP） |
-| `/signup` | `src/app/(routes)/signup/page.tsx` | サインアップ |
-| `/signup/create-account` | `src/app/(routes)/signup/create-account/page.tsx` | Dreamer プロフィール作成 |
-| `/job/match` | `src/app/(routes)/job/match/page.tsx` | ジョブマッチング（スワイプ UI） |
-| `/job/match/question` | `src/app/(routes)/job/match/question/page.tsx` | オンボーディング質問フォーム |
-| `/job/search` | `src/app/(routes)/job/search/page.tsx` | 求人検索 |
-| `/job/detail/[job_id]` | `src/app/(routes)/job/detail/[job_id]/page.tsx` | 求人詳細 |
-| `/chat` | `src/app/(routes)/chat/page.tsx` | チャット一覧 |
-| `/chat/[conversation_id]` | `src/app/(routes)/chat/[conversation_id]/page.tsx` | チャット詳細 |
-| `/mentor/dreamer` | `src/app/(routes)/mentor/dreamer/page.tsx` | Dreamer 一覧（管理者） |
-| `/mentor/dreamer/new` | `src/app/(routes)/mentor/dreamer/new/page.tsx` | Dreamer 新規作成 |
-| `/mentor/dreamer/detail/[dreamer_id]` | `src/app/(routes)/mentor/dreamer/detail/[dreamer_id]/page.tsx` | Dreamer 詳細 |
-| `/mentor/dreamer/detail/[dreamer_id]/edit` | `src/app/(routes)/mentor/dreamer/detail/[dreamer_id]/edit/page.tsx` | Dreamer 編集 |
-| `/mentor/dreamer/group` | `src/app/(routes)/mentor/dreamer/group/page.tsx` | グループ一覧 |
-| `/mentor/dreamer/group/new` | `src/app/(routes)/mentor/dreamer/group/new/page.tsx` | グループ新規作成 |
-| `/mentor/dreamer/group/edit` | `src/app/(routes)/mentor/dreamer/group/edit/page.tsx` | グループ編集 |
-| `/mentor/dreamer/group/detail/[group_id]` | `src/app/(routes)/mentor/dreamer/group/detail/[group_id]/page.tsx` | グループ詳細 |
+| URL                                        | ページコンポーネント                                                | 概要                                         |
+| ------------------------------------------ | ------------------------------------------------------------------- | -------------------------------------------- |
+| `/`                                        | `src/app/page.tsx`                                                  | ホーム（現在はコンポーネント開発用デモ画面） |
+| `/login`                                   | `src/app/(routes)/login/page.tsx`                                   | ログイン（EMAIL_OTP）                        |
+| `/signup`                                  | `src/app/(routes)/signup/page.tsx`                                  | サインアップ                                 |
+| `/signup/create-account`                   | `src/app/(routes)/signup/create-account/page.tsx`                   | Dreamer プロフィール作成                     |
+| `/job/match`                               | `src/app/(routes)/job/match/page.tsx`                               | ジョブマッチング（スワイプ UI）              |
+| `/job/match/question`                      | `src/app/(routes)/job/match/question/page.tsx`                      | オンボーディング質問フォーム                 |
+| `/job/search`                              | `src/app/(routes)/job/search/page.tsx`                              | 求人検索                                     |
+| `/job/detail/[job_id]`                     | `src/app/(routes)/job/detail/[job_id]/page.tsx`                     | 求人詳細                                     |
+| `/chat`                                    | `src/app/(routes)/chat/page.tsx`                                    | チャット一覧                                 |
+| `/chat/[conversation_id]`                  | `src/app/(routes)/chat/[conversation_id]/page.tsx`                  | チャット詳細                                 |
+| `/mentor/dreamer`                          | `src/app/(routes)/mentor/dreamer/page.tsx`                          | Dreamer 一覧（管理者）                       |
+| `/mentor/dreamer/new`                      | `src/app/(routes)/mentor/dreamer/new/page.tsx`                      | Dreamer 新規作成                             |
+| `/mentor/dreamer/detail/[dreamer_id]`      | `src/app/(routes)/mentor/dreamer/detail/[dreamer_id]/page.tsx`      | Dreamer 詳細                                 |
+| `/mentor/dreamer/detail/[dreamer_id]/edit` | `src/app/(routes)/mentor/dreamer/detail/[dreamer_id]/edit/page.tsx` | Dreamer 編集                                 |
+| `/mentor/dreamer/group`                    | `src/app/(routes)/mentor/dreamer/group/page.tsx`                    | グループ一覧                                 |
+| `/mentor/dreamer/group/new`                | `src/app/(routes)/mentor/dreamer/group/new/page.tsx`                | グループ新規作成                             |
+| `/mentor/dreamer/group/edit`               | `src/app/(routes)/mentor/dreamer/group/edit/page.tsx`               | グループ編集                                 |
+| `/mentor/dreamer/group/detail/[group_id]`  | `src/app/(routes)/mentor/dreamer/group/detail/[group_id]/page.tsx`  | グループ詳細                                 |
 
 ---
 
@@ -44,6 +44,7 @@ Next.js 15 App Router を使用。
 ### レイアウト
 
 `src/app/layout.tsx` がルートレイアウト。全ページに適用:
+
 - `lang="ja"`
 - `min-h-screen pb-24`（NavBar 分の下部余白）
 - `<NavBar />` をフッターとして固定配置
@@ -74,10 +75,10 @@ Next.js 15 App Router を使用。
 
 ```ts
 // オンボーディング完了後
-router.push('/job/match');
+router.push("/job/match");
 
 // サインアップ確認後
-router.push('/login/');
+router.push("/login/");
 
 // チャット作成後
 router.push(`/chat/${conversation.conversation_id}`);

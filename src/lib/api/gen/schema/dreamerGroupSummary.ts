@@ -6,8 +6,8 @@
  */
 
 export interface DreamerGroupSummary {
-  /** グループ名 */
-  name: string;
-  /** グループID */
-  group_id: string;
+	/** グループ名 */
+	name: string;
+	/** グループID */
+	group_id: string;
 }

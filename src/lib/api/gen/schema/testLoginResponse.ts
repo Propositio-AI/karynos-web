@@ -5,7 +5,7 @@
  * OpenAPI spec version: 0.1.0
  */
 
-export interface SuggestionProfileResponse {
-  profile_text: string;
-  generated_at: string;
+export interface TestLoginResponse {
+	/** dreamer ID */
+	dreamer_id: string;
 }

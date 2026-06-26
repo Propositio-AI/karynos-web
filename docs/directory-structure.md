@@ -34,6 +34,7 @@ karynos-web/
 **役割**: Next.js App Router のエントリポイント。ルーティング・レイアウトのみを担当。
 
 **編集時の注意**:
+
 - `page.tsx` にビジネスロジックを書かない。`*PageContent` コンポーネントを return するだけにする。
 - `layout.tsx` は全ページに適用される。スタイル・共通 UI の変更時に注意。
 - グループルート `(routes)/` はURLに影響しない。
@@ -72,6 +73,7 @@ src/app/
 **役割**: React コンポーネント。`ui/` と `features/` の2層で構成。
 
 **依存ルール**:
+
 - `ui/` は `features/` に依存しない
 - `features/A/` は `features/B/` に依存しない
 - `features/` は `ui/` を参照してよい
@@ -101,6 +103,7 @@ src/components/
 **役割**: データ取得・状態管理・副作用の集約。コンポーネントから API 呼び出しを切り離す。
 
 **編集時の注意**:
+
 - フックは `use` プレフィックス必須
 - 1フックにつき1機能の責務（混在させない）
 - フック間での状態共有は行わない（状態はフックのライフサイクルに閉じる）
@@ -186,8 +189,8 @@ src/types/
 
 **役割**: ビルド・開発補助スクリプト。
 
-| ファイル | 説明 |
-|---|---|
+| ファイル               | 説明                                                   |
+| ---------------------- | ------------------------------------------------------ |
 | `check-api-compat.mjs` | OpenAPI spec の破壊的変更検出。`prebuild` で自動実行。 |
 
 ---
@@ -208,13 +211,13 @@ src/types/
 
 コンテナ内で `npm run xxx` を実行するラッパーとして機能する。
 
-| コマンド | 内容 |
-|---|---|
+| コマンド               | 内容                       |
+| ---------------------- | -------------------------- |
 | `make up/down/restart` | コンテナ起動・停止・再起動 |
-| `make logs` | ログストリーム |
-| `make shell` | コンテナシェル |
-| `make lint` | ESLint |
-| `make format` | Prettier write |
-| `make format-check` | Prettier check |
-| `make orval` | API クライアント生成 |
-| `make ci` | format-check + lint |
+| `make logs`            | ログストリーム             |
+| `make shell`           | コンテナシェル             |
+| `make lint`            | ESLint                     |
+| `make format`          | Prettier write             |
+| `make format-check`    | Prettier check             |
+| `make orval`           | API クライアント生成       |
+| `make ci`              | format-check + lint        |

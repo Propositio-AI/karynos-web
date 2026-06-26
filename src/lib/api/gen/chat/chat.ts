@@ -4,93 +4,138 @@
  * Karynos-Backend
  * OpenAPI spec version: 0.1.0
  */
-import type {
-  CreateConversationRequest,
-  NewMessageRequest
-} from '.././schema';
+import type { CreateConversationRequest, NewMessageRequest } from ".././schema";
 
-import { customInstance } from '../../mutator';
-
+import { customInstance } from "../../mutator";
 
 type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
 
-
-  export const getChat = () => {
-/**
- * @summary Create New Conversation
- */
-const createNewConversationApiV1ChatPost = (
-    createConversationRequest: CreateConversationRequest,
- options?: SecondParameter<typeof customInstance<unknown>>,) => {
-      return customInstance<unknown>(
-      {url: `/api/v1/chat/`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
-      data: createConversationRequest
-    },
-      options);
-    }
-  /**
- * @summary Get Conversation History
- */
-const getConversationHistoryApiV1ChatHistoryGet = (
-    
- options?: SecondParameter<typeof customInstance<unknown>>,) => {
-      return customInstance<unknown>(
-      {url: `/api/v1/chat/history`, method: 'GET'
-    },
-      options);
-    }
-  /**
- * @summary Get Conversation Details
- */
-const getConversationDetailsApiV1ChatConversationConversationIdGet = (
-    conversationId: string,
- options?: SecondParameter<typeof customInstance<unknown>>,) => {
-      return customInstance<unknown>(
-      {url: `/api/v1/chat/conversation/${conversationId}`, method: 'GET'
-    },
-      options);
-    }
-  /**
- * @summary Delete Conversation
- */
-const deleteConversationApiV1ChatConversationConversationIdDelete = (
-    conversationId: string,
- options?: SecondParameter<typeof customInstance<unknown>>,) => {
-      return customInstance<unknown>(
-      {url: `/api/v1/chat/conversation/${conversationId}`, method: 'DELETE'
-    },
-      options);
-    }
-  /**
- * @summary Create New Ai Response
- */
-const createNewAiResponseApiV1ChatMessageConversationIdPost = (
-    conversationId: string,
-    newMessageRequest: NewMessageRequest,
- options?: SecondParameter<typeof customInstance<unknown>>,) => {
-      return customInstance<unknown>(
-      {url: `/api/v1/chat/message/${conversationId}`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
-      data: newMessageRequest
-    },
-      options);
-    }
-  /**
- * @summary Delete Messages In Conversation
- */
-const deleteMessagesInConversationApiV1ChatMessageMessageIdDelete = (
-    messageId: string,
- options?: SecondParameter<typeof customInstance<unknown>>,) => {
-      return customInstance<unknown>(
-      {url: `/api/v1/chat/message/${messageId}`, method: 'DELETE'
-    },
-      options);
-    }
-  return {createNewConversationApiV1ChatPost,getConversationHistoryApiV1ChatHistoryGet,getConversationDetailsApiV1ChatConversationConversationIdGet,deleteConversationApiV1ChatConversationConversationIdDelete,createNewAiResponseApiV1ChatMessageConversationIdPost,deleteMessagesInConversationApiV1ChatMessageMessageIdDelete}};
-export type CreateNewConversationApiV1ChatPostResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getChat>['createNewConversationApiV1ChatPost']>>>
-export type GetConversationHistoryApiV1ChatHistoryGetResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getChat>['getConversationHistoryApiV1ChatHistoryGet']>>>
-export type GetConversationDetailsApiV1ChatConversationConversationIdGetResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getChat>['getConversationDetailsApiV1ChatConversationConversationIdGet']>>>
-export type DeleteConversationApiV1ChatConversationConversationIdDeleteResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getChat>['deleteConversationApiV1ChatConversationConversationIdDelete']>>>
-export type CreateNewAiResponseApiV1ChatMessageConversationIdPostResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getChat>['createNewAiResponseApiV1ChatMessageConversationIdPost']>>>
-export type DeleteMessagesInConversationApiV1ChatMessageMessageIdDeleteResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getChat>['deleteMessagesInConversationApiV1ChatMessageMessageIdDelete']>>>
+export const getChat = () => {
+	/**
+	 * @summary Create New Conversation
+	 */
+	const createNewConversationApiV1ChatPost = (
+		createConversationRequest: CreateConversationRequest,
+		options?: SecondParameter<typeof customInstance<unknown>>,
+	) => {
+		return customInstance<unknown>(
+			{
+				url: `/api/v1/chat/`,
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				data: createConversationRequest,
+			},
+			options,
+		);
+	};
+	/**
+	 * @summary Get Conversation History
+	 */
+	const getConversationHistoryApiV1ChatHistoryGet = (
+		options?: SecondParameter<typeof customInstance<unknown>>,
+	) => {
+		return customInstance<unknown>({ url: `/api/v1/chat/history`, method: "GET" }, options);
+	};
+	/**
+	 * @summary Get Conversation Details
+	 */
+	const getConversationDetailsApiV1ChatConversationConversationIdGet = (
+		conversationId: string,
+		options?: SecondParameter<typeof customInstance<unknown>>,
+	) => {
+		return customInstance<unknown>(
+			{ url: `/api/v1/chat/conversation/${conversationId}`, method: "GET" },
+			options,
+		);
+	};
+	/**
+	 * @summary Delete Conversation
+	 */
+	const deleteConversationApiV1ChatConversationConversationIdDelete = (
+		conversationId: string,
+		options?: SecondParameter<typeof customInstance<unknown>>,
+	) => {
+		return customInstance<unknown>(
+			{ url: `/api/v1/chat/conversation/${conversationId}`, method: "DELETE" },
+			options,
+		);
+	};
+	/**
+	 * @summary Create New Ai Response
+	 */
+	const createNewAiResponseApiV1ChatMessageConversationIdPost = (
+		conversationId: string,
+		newMessageRequest: NewMessageRequest,
+		options?: SecondParameter<typeof customInstance<unknown>>,
+	) => {
+		return customInstance<unknown>(
+			{
+				url: `/api/v1/chat/message/${conversationId}`,
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				data: newMessageRequest,
+			},
+			options,
+		);
+	};
+	/**
+	 * @summary Delete Messages In Conversation
+	 */
+	const deleteMessagesInConversationApiV1ChatMessageMessageIdDelete = (
+		messageId: string,
+		options?: SecondParameter<typeof customInstance<unknown>>,
+	) => {
+		return customInstance<unknown>(
+			{ url: `/api/v1/chat/message/${messageId}`, method: "DELETE" },
+			options,
+		);
+	};
+	return {
+		createNewConversationApiV1ChatPost,
+		getConversationHistoryApiV1ChatHistoryGet,
+		getConversationDetailsApiV1ChatConversationConversationIdGet,
+		deleteConversationApiV1ChatConversationConversationIdDelete,
+		createNewAiResponseApiV1ChatMessageConversationIdPost,
+		deleteMessagesInConversationApiV1ChatMessageMessageIdDelete,
+	};
+};
+export type CreateNewConversationApiV1ChatPostResult = NonNullable<
+	Awaited<ReturnType<ReturnType<typeof getChat>["createNewConversationApiV1ChatPost"]>>
+>;
+export type GetConversationHistoryApiV1ChatHistoryGetResult = NonNullable<
+	Awaited<ReturnType<ReturnType<typeof getChat>["getConversationHistoryApiV1ChatHistoryGet"]>>
+>;
+export type GetConversationDetailsApiV1ChatConversationConversationIdGetResult = NonNullable<
+	Awaited<
+		ReturnType<
+			ReturnType<
+				typeof getChat
+			>["getConversationDetailsApiV1ChatConversationConversationIdGet"]
+		>
+	>
+>;
+export type DeleteConversationApiV1ChatConversationConversationIdDeleteResult = NonNullable<
+	Awaited<
+		ReturnType<
+			ReturnType<
+				typeof getChat
+			>["deleteConversationApiV1ChatConversationConversationIdDelete"]
+		>
+	>
+>;
+export type CreateNewAiResponseApiV1ChatMessageConversationIdPostResult = NonNullable<
+	Awaited<
+		ReturnType<
+			ReturnType<typeof getChat>["createNewAiResponseApiV1ChatMessageConversationIdPost"]
+		>
+	>
+>;
+export type DeleteMessagesInConversationApiV1ChatMessageMessageIdDeleteResult = NonNullable<
+	Awaited<
+		ReturnType<
+			ReturnType<
+				typeof getChat
+			>["deleteMessagesInConversationApiV1ChatMessageMessageIdDelete"]
+		>
+	>
+>;

@@ -5,6 +5,7 @@
  * OpenAPI spec version: 0.1.0
  */
 
-export type GetInitQuestionsApiV1DreamerInitQuestionsGetParams = {
-version?: number;
-};
+export interface MatchingProfileSummary {
+	profile_text: string;
+	generated_at: string;
+}

@@ -6,6 +6,6 @@
  */
 
 export interface NewDreamerResponse {
-  /** dreamer ID */
-  dreamer_id: string;
+	/** dreamer ID */
+	dreamer_id: string;
 }

@@ -6,10 +6,10 @@
  */
 
 export interface UpdateDreamerRequest {
-  /** 団体ID */
-  organization_id?: number;
-  /** 苗字 */
-  name_family?: string;
-  /** 名前 */
-  name_given?: string;
+	/** 団体ID */
+	organization_id?: number;
+	/** 苗字 */
+	name_family?: string;
+	/** 名前 */
+	name_given?: string;
 }

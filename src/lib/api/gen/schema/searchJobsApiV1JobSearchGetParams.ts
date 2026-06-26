@@ -6,7 +6,7 @@
  */
 
 export type SearchJobsApiV1JobSearchGetParams = {
-q: string;
-limit?: number;
-offset?: number;
+	q: string;
+	limit?: number;
+	offset?: number;
 };

@@ -21,10 +21,10 @@ cp .env.local.example .env.local
 
 ### 環境変数
 
-| キー | 説明 | 必須 |
-|---|---|---|
-| `NEXT_PUBLIC_API_BASE_URL` | バックエンド REST API のベース URL | ○ |
-| `OPENAPI_URL` | OpenAPI spec URL（orval・prebuild で使用） | ○ |
+| キー                       | 説明                                       | 必須 |
+| -------------------------- | ------------------------------------------ | ---- |
+| `NEXT_PUBLIC_API_BASE_URL` | バックエンド REST API のベース URL         | ○    |
+| `OPENAPI_URL`              | OpenAPI spec URL（orval・prebuild で使用） | ○    |
 
 ---
 
@@ -45,6 +45,7 @@ make restart       # 再起動
 ```
 
 `docker-compose.yml` の設定:
+
 - コンテナ名: `karynos-web-dev`
 - ポート: `3000:3000`
 - ホットリロード: `CHOKIDAR_USEPOLLING=true` / `WATCHPACK_POLLING=true`
@@ -61,8 +62,8 @@ npm run build
 ビルドは 2 フェーズ:
 
 1. **`prebuild`**（自動実行）
-   - `scripts/check-api-compat.mjs` — リモート OpenAPI spec を取得、`openapi.json` との破壊的変更を検出
-   - `npm run orval` — OpenAPI spec から API クライアントを生成
+    - `scripts/check-api-compat.mjs` — リモート OpenAPI spec を取得、`openapi.json` との破壊的変更を検出
+    - `npm run orval` — OpenAPI spec から API クライアントを生成
 2. **`next build`** — TypeScript コンパイル + Next.js 本番ビルド
 
 > バックエンドが起動していない状態では `prebuild` が失敗します。
@@ -98,6 +99,7 @@ make lint-fix
 ```
 
 **設定** (`.eslintrc.json`):
+
 - `next/core-web-vitals` + `next/typescript` + `prettier`
 - `@typescript-eslint/no-explicit-any`: off
 - 無視: `.next/`, `node_modules/`, `storybook-static/`, `coverage/`, `src/app/gen/`
@@ -118,12 +120,12 @@ make format-check
 
 ```json
 {
-  "semi": true,
-  "singleQuote": false,
-  "trailingComma": "all",
-  "useTabs": true,
-  "tabWidth": 4,
-  "printWidth": 100
+	"semi": true,
+	"singleQuote": false,
+	"trailingComma": "all",
+	"useTabs": true,
+	"tabWidth": 4,
+	"printWidth": 100
 }
 ```
 
@@ -131,6 +133,7 @@ make format-check
 > `Makefile` と CI (`code-quality.yml`) は `npm run format:check` を呼ぶが、`package.json` には存在しない。
 >
 > **修正方法**: `package.json` の `scripts` に以下を追加する:
+>
 > ```json
 > "format": "prettier --write .",
 > "format:check": "prettier --check ."
@@ -145,6 +148,7 @@ npx tsc --noEmit
 ```
 
 `tsconfig.json` の設定:
+
 - `strict: true`
 - `noImplicitReturns: true`
 - `noUncheckedIndexedAccess: true`
@@ -197,10 +201,10 @@ npm run build-storybook # ビルド
 
 CI を通過するためには以下の条件を満たす必要がある:
 
-| チェック | コマンド | 状態 |
-|---|---|---|
+| チェック          | コマンド               | 状態                          |
+| ----------------- | ---------------------- | ----------------------------- |
 | Prettier チェック | `npm run format:check` | ⚠️ スクリプト未定義（要修正） |
-| ESLint | `npm run lint` | ✅ 定義済み |
+| ESLint            | `npm run lint`         | ✅ 定義済み                   |
 
 TypeScript 型チェック・テスト・Storybook ビルドは CI に含まれていない。
 

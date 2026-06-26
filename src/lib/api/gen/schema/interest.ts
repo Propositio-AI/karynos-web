@@ -6,7 +6,7 @@
  */
 
 export interface Interest {
-  interest_id: number;
-  name: string;
-  is_required: boolean;
+	interest_id: number;
+	name: string;
+	is_required: boolean;
 }

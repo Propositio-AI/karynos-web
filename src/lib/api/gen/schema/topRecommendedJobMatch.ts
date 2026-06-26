@@ -4,14 +4,14 @@
  * Karynos-Backend
  * OpenAPI spec version: 0.1.0
  */
-import type { TopRecommendedJobMatchJobId } from './topRecommendedJobMatchJobId';
-import type { TopRecommendedJobMatchJobName } from './topRecommendedJobMatchJobName';
-import type { TopRecommendedJobMatchScore } from './topRecommendedJobMatchScore';
-import type { TopRecommendedJobMatchReason } from './topRecommendedJobMatchReason';
 
 export interface TopRecommendedJobMatch {
-  job_id?: TopRecommendedJobMatchJobId;
-  job_name?: TopRecommendedJobMatchJobName;
-  score?: TopRecommendedJobMatchScore;
-  reason?: TopRecommendedJobMatchReason;
+	job_id: number;
+	imgs: string[];
+	name: string;
+	salary: number;
+	similarity_score: number;
+	age: number;
+	description: string;
+	history_id: string;
 }

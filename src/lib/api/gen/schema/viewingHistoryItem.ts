@@ -6,12 +6,12 @@
  */
 
 export interface ViewingHistoryItem {
-  history_id: string;
-  job_id: number;
-  job_name: string;
-  job_imgs: string[];
-  good: boolean;
-  bad: boolean;
-  save: boolean;
-  created_at: string;
+	history_id: string;
+	job_id: number;
+	job_name: string;
+	job_imgs: string[];
+	good: boolean;
+	bad: boolean;
+	save: boolean;
+	created_at: string;
 }

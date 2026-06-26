@@ -6,8 +6,8 @@
  */
 
 export interface DreamerInGroup {
-  /** dreamer名 */
-  name: string;
-  /** dreamer ID */
-  dreamer_id: string;
+	/** dreamer名 */
+	name: string;
+	/** dreamer ID */
+	dreamer_id: string;
 }

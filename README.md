@@ -16,17 +16,17 @@ Karynos のフロントエンドアプリケーション。Next.js 15 (App Route
 
 ## 技術スタック
 
-| カテゴリ | ライブラリ・バージョン |
-|---|---|
-| フレームワーク | Next.js 15 (App Router, Turbopack) |
-| 言語 | TypeScript 5 (strict) |
-| スタイリング | Tailwind CSS v4 |
-| 認証 | AWS Amplify v6 / Cognito (EMAIL\_OTP) |
-| API クライアント | Axios + Orval v7 (OpenAPI 自動生成) |
-| アニメーション | Motion v12 (Framer Motion) |
-| アイコン | Font Awesome, React Icons |
-| UI プリミティブ | Radix UI |
-| コンテナ | Docker / Docker Compose |
+| カテゴリ         | ライブラリ・バージョン               |
+| ---------------- | ------------------------------------ |
+| フレームワーク   | Next.js 15 (App Router, Turbopack)   |
+| 言語             | TypeScript 5 (strict)                |
+| スタイリング     | Tailwind CSS v4                      |
+| 認証             | AWS Amplify v6 / Cognito (EMAIL_OTP) |
+| API クライアント | Axios + Orval v7 (OpenAPI 自動生成)  |
+| アニメーション   | Motion v12 (Framer Motion)           |
+| アイコン         | Font Awesome, React Icons            |
+| UI プリミティブ  | Radix UI                             |
+| コンテナ         | Docker / Docker Compose              |
 
 ---
 
@@ -87,16 +87,16 @@ src/
 
 ## ドキュメント一覧
 
-| ドキュメント | 内容 |
-|---|---|
-| [architecture.md](docs/architecture.md) | アーキテクチャ概要・データフロー・設計思想 |
-| [api-integration.md](docs/api-integration.md) | APIクライアント・認証・ストリーミング |
-| [components.md](docs/components.md) | コンポーネント一覧・Props・責務 |
-| [design-system.md](docs/design-system.md) | カラー・タイポグラフィ・スタイルルール |
-| [development.md](docs/development.md) | 環境構築・CI/CD・各種コマンド |
-| [directory-structure.md](docs/directory-structure.md) | ディレクトリ役割・依存関係 |
-| [routing.md](docs/routing.md) | 画面一覧・URL設計・ナビゲーション |
-| [state-management.md](docs/state-management.md) | 状態管理パターン・フック設計 |
+| ドキュメント                                          | 内容                                       |
+| ----------------------------------------------------- | ------------------------------------------ |
+| [architecture.md](docs/architecture.md)               | アーキテクチャ概要・データフロー・設計思想 |
+| [api-integration.md](docs/api-integration.md)         | APIクライアント・認証・ストリーミング      |
+| [components.md](docs/components.md)                   | コンポーネント一覧・Props・責務            |
+| [design-system.md](docs/design-system.md)             | カラー・タイポグラフィ・スタイルルール     |
+| [development.md](docs/development.md)                 | 環境構築・CI/CD・各種コマンド              |
+| [directory-structure.md](docs/directory-structure.md) | ディレクトリ役割・依存関係                 |
+| [routing.md](docs/routing.md)                         | 画面一覧・URL設計・ナビゲーション          |
+| [state-management.md](docs/state-management.md)       | 状態管理パターン・フック設計               |
 
 ---
 
