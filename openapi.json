@@ -7,9 +7,7 @@
 	"paths": {
 		"/api/v1/chat/": {
 			"post": {
-				"tags": [
-					"Chat"
-				],
+				"tags": ["Chat"],
 				"summary": "Create New Conversation",
 				"operationId": "create_new_conversation_api_v1_chat__post",
 				"parameters": [
@@ -64,9 +62,7 @@
 		},
 		"/api/v1/chat/history": {
 			"get": {
-				"tags": [
-					"Chat"
-				],
+				"tags": ["Chat"],
 				"summary": "Get Conversation History",
 				"operationId": "get_conversation_history_api_v1_chat_history_get",
 				"parameters": [
@@ -111,9 +107,7 @@
 		},
 		"/api/v1/chat/conversation/{conversation_id}": {
 			"get": {
-				"tags": [
-					"Chat"
-				],
+				"tags": ["Chat"],
 				"summary": "Get Conversation Details",
 				"operationId": "get_conversation_details_api_v1_chat_conversation__conversation_id__get",
 				"parameters": [
@@ -149,9 +143,7 @@
 				}
 			},
 			"delete": {
-				"tags": [
-					"Chat"
-				],
+				"tags": ["Chat"],
 				"summary": "Delete Conversation",
 				"operationId": "delete_conversation_api_v1_chat_conversation__conversation_id__delete",
 				"parameters": [
@@ -189,9 +181,7 @@
 		},
 		"/api/v1/chat/message/{conversation_id}": {
 			"post": {
-				"tags": [
-					"Chat"
-				],
+				"tags": ["Chat"],
 				"summary": "Create New Ai Response",
 				"operationId": "create_new_ai_response_api_v1_chat_message__conversation_id__post",
 				"parameters": [
@@ -255,9 +245,7 @@
 		},
 		"/api/v1/chat/message/{message_id}": {
 			"delete": {
-				"tags": [
-					"Chat"
-				],
+				"tags": ["Chat"],
 				"summary": "Delete Messages In Conversation",
 				"operationId": "delete_messages_in_conversation_api_v1_chat_message__message_id__delete",
 				"parameters": [
@@ -295,9 +283,7 @@
 		},
 		"/api/v1/dreamer/test-login": {
 			"post": {
-				"tags": [
-					"Dreamer"
-				],
+				"tags": ["Dreamer"],
 				"summary": "Test Login",
 				"operationId": "test_login_api_v1_dreamer_test_login_post",
 				"requestBody": {
@@ -336,9 +322,7 @@
 		},
 		"/api/v1/dreamer/admin/new": {
 			"post": {
-				"tags": [
-					"Dreamer"
-				],
+				"tags": ["Dreamer"],
 				"summary": "Create Dreamer",
 				"operationId": "create_dreamer_api_v1_dreamer_admin_new_post",
 				"requestBody": {
@@ -377,9 +361,7 @@
 		},
 		"/api/v1/dreamer/admin/{dreamer_id}": {
 			"get": {
-				"tags": [
-					"Dreamer"
-				],
+				"tags": ["Dreamer"],
 				"summary": "Get Dreamer",
 				"operationId": "get_dreamer_api_v1_dreamer_admin__dreamer_id__get",
 				"parameters": [
@@ -417,9 +399,7 @@
 				}
 			},
 			"put": {
-				"tags": [
-					"Dreamer"
-				],
+				"tags": ["Dreamer"],
 				"summary": "Update Dreamer",
 				"operationId": "update_dreamer_api_v1_dreamer_admin__dreamer_id__put",
 				"parameters": [
@@ -467,9 +447,7 @@
 				}
 			},
 			"delete": {
-				"tags": [
-					"Dreamer"
-				],
+				"tags": ["Dreamer"],
 				"summary": "Delete Dreamer",
 				"operationId": "delete_dreamer_api_v1_dreamer_admin__dreamer_id__delete",
 				"parameters": [
@@ -509,9 +487,7 @@
 		},
 		"/api/v1/dreamer/groups/new": {
 			"post": {
-				"tags": [
-					"Dreamer"
-				],
+				"tags": ["Dreamer"],
 				"summary": "Create Group",
 				"operationId": "create_group_api_v1_dreamer_groups_new_post",
 				"requestBody": {
@@ -550,9 +526,7 @@
 		},
 		"/api/v1/dreamer/groups/{group_id}": {
 			"get": {
-				"tags": [
-					"Dreamer"
-				],
+				"tags": ["Dreamer"],
 				"summary": "Get Group",
 				"operationId": "get_group_api_v1_dreamer_groups__group_id__get",
 				"parameters": [
@@ -590,9 +564,7 @@
 				}
 			},
 			"put": {
-				"tags": [
-					"Dreamer"
-				],
+				"tags": ["Dreamer"],
 				"summary": "Update Group",
 				"operationId": "update_group_api_v1_dreamer_groups__group_id__put",
 				"parameters": [
@@ -640,9 +612,7 @@
 				}
 			},
 			"delete": {
-				"tags": [
-					"Dreamer"
-				],
+				"tags": ["Dreamer"],
 				"summary": "Delete Group",
 				"operationId": "delete_group_api_v1_dreamer_groups__group_id__delete",
 				"parameters": [
@@ -682,9 +652,7 @@
 		},
 		"/api/v1/dreamer/groups/{group_id}/add_dreamer": {
 			"put": {
-				"tags": [
-					"Dreamer"
-				],
+				"tags": ["Dreamer"],
 				"summary": "Add Dreamer To Group",
 				"operationId": "add_dreamer_to_group_api_v1_dreamer_groups__group_id__add_dreamer_put",
 				"parameters": [
@@ -734,9 +702,7 @@
 		},
 		"/api/v1/dreamer/groups/{group_id}/remove_dreamer": {
 			"delete": {
-				"tags": [
-					"Dreamer"
-				],
+				"tags": ["Dreamer"],
 				"summary": "Remove Dreamer From Group",
 				"operationId": "remove_dreamer_from_group_api_v1_dreamer_groups__group_id__remove_dreamer_delete",
 				"parameters": [
@@ -786,9 +752,7 @@
 		},
 		"/api/v1/job/detail/{job_id}": {
 			"get": {
-				"tags": [
-					"Job"
-				],
+				"tags": ["Job"],
 				"summary": "Get Job Detail",
 				"operationId": "get_job_detail_api_v1_job_detail__job_id__get",
 				"parameters": [
@@ -828,9 +792,7 @@
 		},
 		"/api/v1/job/history": {
 			"get": {
-				"tags": [
-					"Job"
-				],
+				"tags": ["Job"],
 				"summary": "Get Viewing History",
 				"operationId": "get_viewing_history_api_v1_job_history_get",
 				"parameters": [
@@ -897,9 +859,7 @@
 		},
 		"/api/v1/job/search": {
 			"get": {
-				"tags": [
-					"Job"
-				],
+				"tags": ["Job"],
 				"summary": "Search Jobs",
 				"operationId": "search_jobs_api_v1_job_search_get",
 				"parameters": [
@@ -959,9 +919,7 @@
 		},
 		"/api/v1/job/good/{history_id}": {
 			"put": {
-				"tags": [
-					"Job"
-				],
+				"tags": ["Job"],
 				"summary": "Mark Good",
 				"operationId": "mark_good_api_v1_job_good__history_id__put",
 				"parameters": [
@@ -1000,9 +958,7 @@
 		},
 		"/api/v1/job/bad/{history_id}": {
 			"put": {
-				"tags": [
-					"Job"
-				],
+				"tags": ["Job"],
 				"summary": "Mark Bad",
 				"operationId": "mark_bad_api_v1_job_bad__history_id__put",
 				"parameters": [
@@ -1041,9 +997,7 @@
 		},
 		"/api/v1/job/save/{history_id}": {
 			"put": {
-				"tags": [
-					"Job"
-				],
+				"tags": ["Job"],
 				"summary": "Mark Save",
 				"operationId": "mark_save_api_v1_job_save__history_id__put",
 				"parameters": [
@@ -1082,9 +1036,7 @@
 		},
 		"/api/v1/job/admin/sync-vectordb": {
 			"post": {
-				"tags": [
-					"Job"
-				],
+				"tags": ["Job"],
 				"summary": "Sync Jobs To Vectordb",
 				"operationId": "sync_jobs_to_vectordb_api_v1_job_admin_sync_vectordb_post",
 				"responses": {
@@ -1101,9 +1053,7 @@
 		},
 		"/api/v1/job/admin/sync-vectordb/rebuild": {
 			"post": {
-				"tags": [
-					"Job"
-				],
+				"tags": ["Job"],
 				"summary": "Rebuild Vectordb",
 				"operationId": "rebuild_vectordb_api_v1_job_admin_sync_vectordb_rebuild_post",
 				"responses": {
@@ -1120,9 +1070,7 @@
 		},
 		"/api/v1/onboarding/questions": {
 			"get": {
-				"tags": [
-					"Onboarding"
-				],
+				"tags": ["Onboarding"],
 				"summary": "Get Questions",
 				"operationId": "get_questions_api_v1_onboarding_questions_get",
 				"parameters": [
@@ -1163,9 +1111,7 @@
 		},
 		"/api/v1/onboarding/answers": {
 			"post": {
-				"tags": [
-					"Onboarding"
-				],
+				"tags": ["Onboarding"],
 				"summary": "Submit Answers",
 				"operationId": "submit_answers_api_v1_onboarding_answers_post",
 				"parameters": [
@@ -1222,9 +1168,7 @@
 		},
 		"/api/v1/onboarding/answers/history": {
 			"get": {
-				"tags": [
-					"Onboarding"
-				],
+				"tags": ["Onboarding"],
 				"summary": "Get Answer History",
 				"operationId": "get_answer_history_api_v1_onboarding_answers_history_get",
 				"parameters": [
@@ -1275,9 +1219,7 @@
 		},
 		"/api/v1/matching/recommend": {
 			"get": {
-				"tags": [
-					"Matching"
-				],
+				"tags": ["Matching"],
 				"summary": "Recommend",
 				"operationId": "recommend_api_v1_matching_recommend_get",
 				"parameters": [
@@ -1324,9 +1266,7 @@
 		},
 		"/api/v1/matching/recommend/debug": {
 			"get": {
-				"tags": [
-					"Matching"
-				],
+				"tags": ["Matching"],
 				"summary": "Recommend Debug",
 				"operationId": "recommend_debug_api_v1_matching_recommend_debug_get",
 				"parameters": [
@@ -1390,11 +1330,7 @@
 					}
 				},
 				"type": "object",
-				"required": [
-					"certification_id",
-					"name",
-					"is_required"
-				],
+				"required": ["certification_id", "name", "is_required"],
 				"title": "Certification"
 			},
 			"Company": {
@@ -1409,10 +1345,7 @@
 					}
 				},
 				"type": "object",
-				"required": [
-					"company_id",
-					"name"
-				],
+				"required": ["company_id", "name"],
 				"title": "Company"
 			},
 			"CreateConversationRequest": {
@@ -1423,9 +1356,7 @@
 					}
 				},
 				"type": "object",
-				"required": [
-					"job_id"
-				],
+				"required": ["job_id"],
 				"title": "CreateConversationRequest"
 			},
 			"DreamerGroupResponse": {
@@ -1457,9 +1388,7 @@
 					}
 				},
 				"type": "object",
-				"required": [
-					"name"
-				],
+				"required": ["name"],
 				"title": "DreamerGroupResponse"
 			},
 			"DreamerGroupSummary": {
@@ -1477,10 +1406,7 @@
 					}
 				},
 				"type": "object",
-				"required": [
-					"name",
-					"group_id"
-				],
+				"required": ["name", "group_id"],
 				"title": "DreamerGroupSummary"
 			},
 			"DreamerInGroup": {
@@ -1498,10 +1424,7 @@
 					}
 				},
 				"type": "object",
-				"required": [
-					"name",
-					"dreamer_id"
-				],
+				"required": ["name", "dreamer_id"],
 				"title": "DreamerInGroup"
 			},
 			"DreamerResponse": {
@@ -1536,12 +1459,7 @@
 					}
 				},
 				"type": "object",
-				"required": [
-					"login_id",
-					"organization_id",
-					"name_family",
-					"name_given"
-				],
+				"required": ["login_id", "organization_id", "name_family", "name_given"],
 				"title": "DreamerResponse"
 			},
 			"DreamerToGroupRequest": {
@@ -1557,9 +1475,7 @@
 					}
 				},
 				"type": "object",
-				"required": [
-					"dreamers"
-				],
+				"required": ["dreamers"],
 				"title": "DreamerToGroupRequest"
 			},
 			"DreamerToGroupResponse": {
@@ -1575,9 +1491,7 @@
 					}
 				},
 				"type": "object",
-				"required": [
-					"dreamers"
-				],
+				"required": ["dreamers"],
 				"title": "DreamerToGroupResponse"
 			},
 			"GetInitQuestionsResponse": {
@@ -1599,11 +1513,7 @@
 					}
 				},
 				"type": "object",
-				"required": [
-					"questions",
-					"version",
-					"total_questions"
-				],
+				"required": ["questions", "version", "total_questions"],
 				"title": "GetInitQuestionsResponse"
 			},
 			"HTTPValidationError": {
@@ -1722,10 +1632,7 @@
 					}
 				},
 				"type": "object",
-				"required": [
-					"total_saved",
-					"answers"
-				],
+				"required": ["total_saved", "answers"],
 				"title": "InitAnswersSubmitResponse"
 			},
 			"InitQuestionOptionResponse": {
@@ -1745,11 +1652,7 @@
 					}
 				},
 				"type": "object",
-				"required": [
-					"option_id",
-					"option_text",
-					"option_order"
-				],
+				"required": ["option_id", "option_text", "option_order"],
 				"title": "InitQuestionOptionResponse"
 			},
 			"InitQuestionResponse": {
@@ -1809,11 +1712,7 @@
 					}
 				},
 				"type": "object",
-				"required": [
-					"interest_id",
-					"name",
-					"is_required"
-				],
+				"required": ["interest_id", "name", "is_required"],
 				"title": "Interest"
 			},
 			"JobDetailResponse": {
@@ -2030,12 +1929,7 @@
 					}
 				},
 				"type": "object",
-				"required": [
-					"query",
-					"total_count",
-					"items",
-					"created_at"
-				],
+				"required": ["query", "total_count", "items", "created_at"],
 				"title": "JobSearchResponse"
 			},
 			"JobSearchResult": {
@@ -2109,12 +2003,7 @@
 					}
 				},
 				"type": "object",
-				"required": [
-					"dreamer_id",
-					"user_data_summary",
-					"profile",
-					"recommendations"
-				],
+				"required": ["dreamer_id", "user_data_summary", "profile", "recommendations"],
 				"title": "MatchingDebugResponse"
 			},
 			"MatchingProfileSummary": {
@@ -2129,10 +2018,7 @@
 					}
 				},
 				"type": "object",
-				"required": [
-					"profile_text",
-					"generated_at"
-				],
+				"required": ["profile_text", "generated_at"],
 				"title": "MatchingProfileSummary"
 			},
 			"MatchingResponse": {
@@ -2146,10 +2032,7 @@
 					}
 				},
 				"type": "object",
-				"required": [
-					"recommendation",
-					"analysis_completed_at"
-				],
+				"required": ["recommendation", "analysis_completed_at"],
 				"title": "MatchingResponse"
 			},
 			"MatchingUserDataSummary": {
@@ -2221,9 +2104,7 @@
 					}
 				},
 				"type": "object",
-				"required": [
-					"name"
-				],
+				"required": ["name"],
 				"title": "NewDreamerGroupRequest"
 			},
 			"NewDreamerGroupResponse": {
@@ -2236,9 +2117,7 @@
 					}
 				},
 				"type": "object",
-				"required": [
-					"group_id"
-				],
+				"required": ["group_id"],
 				"title": "NewDreamerGroupResponse"
 			},
 			"NewDreamerRequest": {
@@ -2260,11 +2139,7 @@
 					}
 				},
 				"type": "object",
-				"required": [
-					"organization_id",
-					"name_family",
-					"name_given"
-				],
+				"required": ["organization_id", "name_family", "name_given"],
 				"title": "NewDreamerRequest"
 			},
 			"NewDreamerResponse": {
@@ -2277,9 +2152,7 @@
 					}
 				},
 				"type": "object",
-				"required": [
-					"dreamer_id"
-				],
+				"required": ["dreamer_id"],
 				"title": "NewDreamerResponse"
 			},
 			"NewMessageRequest": {
@@ -2294,10 +2167,7 @@
 					}
 				},
 				"type": "object",
-				"required": [
-					"role",
-					"text_content"
-				],
+				"required": ["role", "text_content"],
 				"title": "NewMessageRequest"
 			},
 			"Skill": {
@@ -2316,11 +2186,7 @@
 					}
 				},
 				"type": "object",
-				"required": [
-					"skill_id",
-					"name",
-					"is_required"
-				],
+				"required": ["skill_id", "name", "is_required"],
 				"title": "Skill"
 			},
 			"SubmitInitAnswerRequest": {
@@ -2341,11 +2207,7 @@
 					}
 				},
 				"type": "object",
-				"required": [
-					"question_id",
-					"option_id",
-					"question_version"
-				],
+				"required": ["question_id", "option_id", "question_version"],
 				"title": "SubmitInitAnswerRequest"
 			},
 			"SubmitInitAnswersRequest": {
@@ -2359,9 +2221,7 @@
 					}
 				},
 				"type": "object",
-				"required": [
-					"answers"
-				],
+				"required": ["answers"],
 				"title": "SubmitInitAnswersRequest"
 			},
 			"Talent": {
@@ -2380,11 +2240,7 @@
 					}
 				},
 				"type": "object",
-				"required": [
-					"talent_id",
-					"name",
-					"is_required"
-				],
+				"required": ["talent_id", "name", "is_required"],
 				"title": "Talent"
 			},
 			"TestLoginRequest": {
@@ -2401,10 +2257,7 @@
 					}
 				},
 				"type": "object",
-				"required": [
-					"name",
-					"grade"
-				],
+				"required": ["name", "grade"],
 				"title": "TestLoginRequest"
 			},
 			"TestLoginResponse": {
@@ -2417,9 +2270,7 @@
 					}
 				},
 				"type": "object",
-				"required": [
-					"dreamer_id"
-				],
+				"required": ["dreamer_id"],
 				"title": "TestLoginResponse"
 			},
 			"TopRecommendedJobMatch": {
@@ -2543,11 +2394,7 @@
 					}
 				},
 				"type": "object",
-				"required": [
-					"loc",
-					"msg",
-					"type"
-				],
+				"required": ["loc", "msg", "type"],
 				"title": "ValidationError"
 			},
 			"ViewingHistoryItem": {
@@ -2621,11 +2468,7 @@
 					}
 				},
 				"type": "object",
-				"required": [
-					"total_count",
-					"items",
-					"created_at"
-				],
+				"required": ["total_count", "items", "created_at"],
 				"title": "ViewingHistoryResponse"
 			}
 		}
