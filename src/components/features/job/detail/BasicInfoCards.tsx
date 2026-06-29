@@ -41,7 +41,7 @@ export const BasicInfoCards = ({
 	return (
 		<section className="mb-5 grid grid-cols-2 gap-3 lg:grid-cols-4">
 			<InfoCard title="年収" icon={faYenSign} value={`${salaryMan}万円`} />
-			<InfoCard title="年間休日" icon={faCalendar} value={`${holiday}日`} />
+			<InfoCard title="年間休日" icon={faCalendar} value={`${Math.round(holiday)}日`} />
 			<InfoCard title="終業時刻" icon={faClock} value={formattedEndTime} />
 			<InfoCard title="残業時間" icon={faBriefcase} value={`${overtimeHours}時間/月`} />
 		</section>

@@ -36,7 +36,7 @@ export const WorkEnvironment = ({
 			<h2 className="mb-4 text-xl font-bold text-ink">職場環境</h2>
 			<div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4">
 				<EnvironmentItem label="平均年齢" value={`${age}歳`} />
-				<EnvironmentItem label="平均勤続年数" value={`${tenureYears}年`} />
+				<EnvironmentItem label="平均勤続年数" value={`${Math.round(tenureYears)}年`} />
 				<EnvironmentItem label="平均結婚年齢" value={`${marriageAge}歳`} />
 				<EnvironmentItem label="男女比" value={`${genderRatio.toFixed(0)}%`} />
 				<EnvironmentItem label="社内恋愛率" value={`${romanceRate.toFixed(0)}%`} />
