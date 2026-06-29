@@ -10,15 +10,33 @@
 				"tags": ["Chat"],
 				"summary": "Create New Conversation",
 				"operationId": "create_new_conversation_api_v1_chat__post",
+				"parameters": [
+					{
+						"name": "X-Dreamer-Id",
+						"in": "header",
+						"required": false,
+						"schema": {
+							"anyOf": [
+								{
+									"type": "string"
+								},
+								{
+									"type": "null"
+								}
+							],
+							"title": "X-Dreamer-Id"
+						}
+					}
+				],
 				"requestBody": {
+					"required": true,
 					"content": {
 						"application/json": {
 							"schema": {
 								"$ref": "#/components/schemas/CreateConversationRequest"
 							}
 						}
-					},
-					"required": true
+					}
 				},
 				"responses": {
 					"200": {
@@ -47,12 +65,40 @@
 				"tags": ["Chat"],
 				"summary": "Get Conversation History",
 				"operationId": "get_conversation_history_api_v1_chat_history_get",
+				"parameters": [
+					{
+						"name": "X-Dreamer-Id",
+						"in": "header",
+						"required": false,
+						"schema": {
+							"anyOf": [
+								{
+									"type": "string"
+								},
+								{
+									"type": "null"
+								}
+							],
+							"title": "X-Dreamer-Id"
+						}
+					}
+				],
 				"responses": {
 					"200": {
 						"description": "Successful Response",
 						"content": {
 							"application/json": {
 								"schema": {}
+							}
+						}
+					},
+					"422": {
+						"description": "Validation Error",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/HTTPValidationError"
+								}
 							}
 						}
 					}
@@ -147,6 +193,22 @@
 							"type": "string",
 							"title": "Conversation Id"
 						}
+					},
+					{
+						"name": "X-Dreamer-Id",
+						"in": "header",
+						"required": false,
+						"schema": {
+							"anyOf": [
+								{
+									"type": "string"
+								},
+								{
+									"type": "null"
+								}
+							],
+							"title": "X-Dreamer-Id"
+						}
 					}
 				],
 				"requestBody": {
@@ -203,6 +265,45 @@
 						"content": {
 							"application/json": {
 								"schema": {}
+							}
+						}
+					},
+					"422": {
+						"description": "Validation Error",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/HTTPValidationError"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v1/dreamer/test-login": {
+			"post": {
+				"tags": ["Dreamer"],
+				"summary": "Test Login",
+				"operationId": "test_login_api_v1_dreamer_test_login_post",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/TestLoginRequest"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "Successful Response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/TestLoginResponse"
+								}
 							}
 						}
 					},
@@ -649,109 +750,6 @@
 				}
 			}
 		},
-		"/api/v1/dreamer/init-questions": {
-			"get": {
-				"tags": ["Dreamer"],
-				"summary": "Get Init Questions",
-				"operationId": "get_init_questions_api_v1_dreamer_init_questions_get",
-				"parameters": [
-					{
-						"name": "version",
-						"in": "query",
-						"required": false,
-						"schema": {
-							"type": "integer",
-							"default": 1,
-							"title": "Version"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Successful Response",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/GetInitQuestionsResponse"
-								}
-							}
-						}
-					},
-					"422": {
-						"description": "Validation Error",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/HTTPValidationError"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/api/v1/dreamer/init-answers": {
-			"post": {
-				"tags": ["Dreamer"],
-				"summary": "Submit Init Answers",
-				"operationId": "submit_init_answers_api_v1_dreamer_init_answers_post",
-				"requestBody": {
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/SubmitInitAnswersRequest"
-							}
-						}
-					},
-					"required": true
-				},
-				"responses": {
-					"200": {
-						"description": "Successful Response",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/InitAnswersSubmitResponse"
-								}
-							}
-						}
-					},
-					"422": {
-						"description": "Validation Error",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/HTTPValidationError"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/api/v1/dreamer/init-answers/history": {
-			"get": {
-				"tags": ["Dreamer"],
-				"summary": "Get Init Answers History",
-				"operationId": "get_init_answers_history_api_v1_dreamer_init_answers_history_get",
-				"responses": {
-					"200": {
-						"description": "Successful Response",
-						"content": {
-							"application/json": {
-								"schema": {
-									"items": {
-										"$ref": "#/components/schemas/UserInitialAnswerHistoryResponse"
-									},
-									"type": "array",
-									"title": "Response Get Init Answers History Api V1 Dreamer Init Answers History Get"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
 		"/api/v1/job/detail/{job_id}": {
 			"get": {
 				"tags": ["Job"],
@@ -816,6 +814,22 @@
 							"type": "integer",
 							"default": 0,
 							"title": "Offset"
+						}
+					},
+					{
+						"name": "X-Dreamer-Id",
+						"in": "header",
+						"required": false,
+						"schema": {
+							"anyOf": [
+								{
+									"type": "string"
+								},
+								{
+									"type": "null"
+								}
+							],
+							"title": "X-Dreamer-Id"
 						}
 					}
 				],
@@ -1020,55 +1034,277 @@
 				}
 			}
 		},
-		"/api/v1/job/recommend": {
-			"get": {
-				"tags": ["Job"],
-				"summary": "Recommend Jobs",
-				"operationId": "recommend_jobs_api_v1_job_recommend_get",
-				"responses": {
-					"200": {
-						"description": "Successful Response",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/JobSuggestionResponse"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/api/v1/job/recommend/debug": {
-			"get": {
-				"tags": ["Job"],
-				"summary": "Recommend Jobs Debug",
-				"operationId": "recommend_jobs_debug_api_v1_job_recommend_debug_get",
-				"responses": {
-					"200": {
-						"description": "Successful Response",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/SuggestionDebugResponse"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/api/v1/job/admin/sync-chromadb": {
+		"/api/v1/job/admin/sync-vectordb": {
 			"post": {
 				"tags": ["Job"],
-				"summary": "Sync Jobs To Chromadb",
-				"operationId": "sync_jobs_to_chromadb_api_v1_job_admin_sync_chromadb_post",
+				"summary": "Sync Jobs To Vectordb",
+				"operationId": "sync_jobs_to_vectordb_api_v1_job_admin_sync_vectordb_post",
 				"responses": {
 					"200": {
 						"description": "Successful Response",
 						"content": {
 							"application/json": {
 								"schema": {}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v1/job/admin/sync-vectordb/rebuild": {
+			"post": {
+				"tags": ["Job"],
+				"summary": "Rebuild Vectordb",
+				"operationId": "rebuild_vectordb_api_v1_job_admin_sync_vectordb_rebuild_post",
+				"responses": {
+					"200": {
+						"description": "Successful Response",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v1/onboarding/questions": {
+			"get": {
+				"tags": ["Onboarding"],
+				"summary": "Get Questions",
+				"operationId": "get_questions_api_v1_onboarding_questions_get",
+				"parameters": [
+					{
+						"name": "version",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "integer",
+							"default": 1,
+							"title": "Version"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful Response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/GetInitQuestionsResponse"
+								}
+							}
+						}
+					},
+					"422": {
+						"description": "Validation Error",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/HTTPValidationError"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v1/onboarding/answers": {
+			"post": {
+				"tags": ["Onboarding"],
+				"summary": "Submit Answers",
+				"operationId": "submit_answers_api_v1_onboarding_answers_post",
+				"parameters": [
+					{
+						"name": "X-Dreamer-Id",
+						"in": "header",
+						"required": false,
+						"schema": {
+							"anyOf": [
+								{
+									"type": "string"
+								},
+								{
+									"type": "null"
+								}
+							],
+							"title": "X-Dreamer-Id"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SubmitInitAnswersRequest"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Successful Response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/InitAnswersSubmitResponse"
+								}
+							}
+						}
+					},
+					"422": {
+						"description": "Validation Error",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/HTTPValidationError"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v1/onboarding/answers/history": {
+			"get": {
+				"tags": ["Onboarding"],
+				"summary": "Get Answer History",
+				"operationId": "get_answer_history_api_v1_onboarding_answers_history_get",
+				"parameters": [
+					{
+						"name": "X-Dreamer-Id",
+						"in": "header",
+						"required": false,
+						"schema": {
+							"anyOf": [
+								{
+									"type": "string"
+								},
+								{
+									"type": "null"
+								}
+							],
+							"title": "X-Dreamer-Id"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful Response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/InitAnswerHistoryItem"
+									},
+									"title": "Response Get Answer History Api V1 Onboarding Answers History Get"
+								}
+							}
+						}
+					},
+					"422": {
+						"description": "Validation Error",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/HTTPValidationError"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v1/matching/recommend": {
+			"get": {
+				"tags": ["Matching"],
+				"summary": "Recommend",
+				"operationId": "recommend_api_v1_matching_recommend_get",
+				"parameters": [
+					{
+						"name": "X-Dreamer-Id",
+						"in": "header",
+						"required": false,
+						"schema": {
+							"anyOf": [
+								{
+									"type": "string"
+								},
+								{
+									"type": "null"
+								}
+							],
+							"title": "X-Dreamer-Id"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful Response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/MatchingResponse"
+								}
+							}
+						}
+					},
+					"422": {
+						"description": "Validation Error",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/HTTPValidationError"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v1/matching/recommend/debug": {
+			"get": {
+				"tags": ["Matching"],
+				"summary": "Recommend Debug",
+				"operationId": "recommend_debug_api_v1_matching_recommend_debug_get",
+				"parameters": [
+					{
+						"name": "X-Dreamer-Id",
+						"in": "header",
+						"required": false,
+						"schema": {
+							"anyOf": [
+								{
+									"type": "string"
+								},
+								{
+									"type": "null"
+								}
+							],
+							"title": "X-Dreamer-Id"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful Response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/MatchingDebugResponse"
+								}
+							}
+						}
+					},
+					"422": {
+						"description": "Validation Error",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/HTTPValidationError"
+								}
 							}
 						}
 					}
@@ -1292,6 +1528,52 @@
 				},
 				"type": "object",
 				"title": "HTTPValidationError"
+			},
+			"InitAnswerHistoryItem": {
+				"properties": {
+					"answer_id": {
+						"type": "string",
+						"format": "uuid",
+						"title": "Answer Id"
+					},
+					"question_id": {
+						"type": "string",
+						"format": "uuid",
+						"title": "Question Id"
+					},
+					"question_text": {
+						"type": "string",
+						"title": "Question Text"
+					},
+					"option_id": {
+						"type": "string",
+						"format": "uuid",
+						"title": "Option Id"
+					},
+					"option_text": {
+						"type": "string",
+						"title": "Option Text"
+					},
+					"question_version": {
+						"type": "integer",
+						"title": "Question Version"
+					},
+					"answered_at": {
+						"type": "string",
+						"title": "Answered At"
+					}
+				},
+				"type": "object",
+				"required": [
+					"answer_id",
+					"question_id",
+					"question_text",
+					"option_id",
+					"option_text",
+					"question_version",
+					"answered_at"
+				],
+				"title": "InitAnswerHistoryItem"
 			},
 			"InitAnswerResponse": {
 				"properties": {
@@ -1701,17 +1983,48 @@
 				],
 				"title": "JobSearchResult"
 			},
-			"JobSuggestionResponse": {
+			"MatchingDebugResponse": {
+				"properties": {
+					"dreamer_id": {
+						"type": "string",
+						"format": "uuid",
+						"title": "Dreamer Id"
+					},
+					"user_data_summary": {
+						"$ref": "#/components/schemas/MatchingUserDataSummary"
+					},
+					"profile": {
+						"$ref": "#/components/schemas/MatchingProfileSummary"
+					},
+					"recommendations": {
+						"items": {},
+						"type": "array",
+						"title": "Recommendations"
+					}
+				},
+				"type": "object",
+				"required": ["dreamer_id", "user_data_summary", "profile", "recommendations"],
+				"title": "MatchingDebugResponse"
+			},
+			"MatchingProfileSummary": {
+				"properties": {
+					"profile_text": {
+						"type": "string",
+						"title": "Profile Text"
+					},
+					"generated_at": {
+						"type": "string",
+						"title": "Generated At"
+					}
+				},
+				"type": "object",
+				"required": ["profile_text", "generated_at"],
+				"title": "MatchingProfileSummary"
+			},
+			"MatchingResponse": {
 				"properties": {
 					"recommendation": {
-						"anyOf": [
-							{
-								"$ref": "#/components/schemas/TopRecommendedJobMatch"
-							},
-							{
-								"type": "null"
-							}
-						]
+						"$ref": "#/components/schemas/TopRecommendedJobMatch"
 					},
 					"analysis_completed_at": {
 						"type": "string",
@@ -1719,8 +2032,47 @@
 					}
 				},
 				"type": "object",
-				"required": ["analysis_completed_at"],
-				"title": "JobSuggestionResponse"
+				"required": ["recommendation", "analysis_completed_at"],
+				"title": "MatchingResponse"
+			},
+			"MatchingUserDataSummary": {
+				"properties": {
+					"dreamer_id": {
+						"type": "string",
+						"format": "uuid",
+						"title": "Dreamer Id"
+					},
+					"init_answers_count": {
+						"type": "integer",
+						"title": "Init Answers Count"
+					},
+					"good_jobs_count": {
+						"type": "integer",
+						"title": "Good Jobs Count"
+					},
+					"bad_jobs_count": {
+						"type": "integer",
+						"title": "Bad Jobs Count"
+					},
+					"saved_jobs_count": {
+						"type": "integer",
+						"title": "Saved Jobs Count"
+					},
+					"total_jobs_viewed": {
+						"type": "integer",
+						"title": "Total Jobs Viewed"
+					}
+				},
+				"type": "object",
+				"required": [
+					"dreamer_id",
+					"init_answers_count",
+					"good_jobs_count",
+					"bad_jobs_count",
+					"saved_jobs_count",
+					"total_jobs_viewed"
+				],
+				"title": "MatchingUserDataSummary"
 			},
 			"NewDreamerGroupRequest": {
 				"properties": {
@@ -1872,44 +2224,6 @@
 				"required": ["answers"],
 				"title": "SubmitInitAnswersRequest"
 			},
-			"SuggestionDebugResponse": {
-				"properties": {
-					"dreamer_id": {
-						"type": "string",
-						"format": "uuid",
-						"title": "Dreamer Id"
-					},
-					"user_data_summary": {
-						"$ref": "#/components/schemas/UserDataSummary"
-					},
-					"profile": {
-						"$ref": "#/components/schemas/SuggestionProfileResponse"
-					},
-					"recommendations": {
-						"items": {},
-						"type": "array",
-						"title": "Recommendations"
-					}
-				},
-				"type": "object",
-				"required": ["dreamer_id", "user_data_summary", "profile", "recommendations"],
-				"title": "SuggestionDebugResponse"
-			},
-			"SuggestionProfileResponse": {
-				"properties": {
-					"profile_text": {
-						"type": "string",
-						"title": "Profile Text"
-					},
-					"generated_at": {
-						"type": "string",
-						"title": "Generated At"
-					}
-				},
-				"type": "object",
-				"required": ["profile_text", "generated_at"],
-				"title": "SuggestionProfileResponse"
-			},
 			"Talent": {
 				"properties": {
 					"talent_id": {
@@ -1929,54 +2243,85 @@
 				"required": ["talent_id", "name", "is_required"],
 				"title": "Talent"
 			},
-			"TopRecommendedJobMatch": {
+			"TestLoginRequest": {
 				"properties": {
-					"job_id": {
-						"anyOf": [
-							{
-								"type": "integer"
-							},
-							{
-								"type": "null"
-							}
-						],
-						"title": "Job Id"
+					"name": {
+						"type": "string",
+						"title": "Name",
+						"description": "お名前"
 					},
-					"job_name": {
-						"anyOf": [
-							{
-								"type": "string"
-							},
-							{
-								"type": "null"
-							}
-						],
-						"title": "Job Name"
-					},
-					"score": {
-						"anyOf": [
-							{
-								"type": "number"
-							},
-							{
-								"type": "null"
-							}
-						],
-						"title": "Score"
-					},
-					"reason": {
-						"anyOf": [
-							{
-								"type": "string"
-							},
-							{
-								"type": "null"
-							}
-						],
-						"title": "Reason"
+					"grade": {
+						"type": "string",
+						"title": "Grade",
+						"description": "学年"
 					}
 				},
 				"type": "object",
+				"required": ["name", "grade"],
+				"title": "TestLoginRequest"
+			},
+			"TestLoginResponse": {
+				"properties": {
+					"dreamer_id": {
+						"type": "string",
+						"format": "uuid",
+						"title": "Dreamer Id",
+						"description": "dreamer ID"
+					}
+				},
+				"type": "object",
+				"required": ["dreamer_id"],
+				"title": "TestLoginResponse"
+			},
+			"TopRecommendedJobMatch": {
+				"properties": {
+					"job_id": {
+						"type": "integer",
+						"title": "Job Id"
+					},
+					"imgs": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array",
+						"title": "Imgs"
+					},
+					"name": {
+						"type": "string",
+						"title": "Name"
+					},
+					"salary": {
+						"type": "integer",
+						"title": "Salary"
+					},
+					"similarity_score": {
+						"type": "number",
+						"title": "Similarity Score"
+					},
+					"age": {
+						"type": "integer",
+						"title": "Age"
+					},
+					"description": {
+						"type": "string",
+						"title": "Description"
+					},
+					"history_id": {
+						"type": "string",
+						"title": "History Id"
+					}
+				},
+				"type": "object",
+				"required": [
+					"job_id",
+					"imgs",
+					"name",
+					"salary",
+					"similarity_score",
+					"age",
+					"description",
+					"history_id"
+				],
 				"title": "TopRecommendedJobMatch"
 			},
 			"UpdateDreamerGroupRequest": {
@@ -2015,91 +2360,6 @@
 				},
 				"type": "object",
 				"title": "UpdateDreamerRequest"
-			},
-			"UserDataSummary": {
-				"properties": {
-					"dreamer_id": {
-						"type": "string",
-						"format": "uuid",
-						"title": "Dreamer Id"
-					},
-					"init_answers_count": {
-						"type": "integer",
-						"title": "Init Answers Count"
-					},
-					"good_jobs_count": {
-						"type": "integer",
-						"title": "Good Jobs Count"
-					},
-					"bad_jobs_count": {
-						"type": "integer",
-						"title": "Bad Jobs Count"
-					},
-					"saved_jobs_count": {
-						"type": "integer",
-						"title": "Saved Jobs Count"
-					},
-					"total_jobs_viewed": {
-						"type": "integer",
-						"title": "Total Jobs Viewed"
-					}
-				},
-				"type": "object",
-				"required": [
-					"dreamer_id",
-					"init_answers_count",
-					"good_jobs_count",
-					"bad_jobs_count",
-					"saved_jobs_count",
-					"total_jobs_viewed"
-				],
-				"title": "UserDataSummary"
-			},
-			"UserInitialAnswerHistoryResponse": {
-				"properties": {
-					"answer_id": {
-						"type": "string",
-						"format": "uuid",
-						"title": "Answer Id"
-					},
-					"question_id": {
-						"type": "string",
-						"format": "uuid",
-						"title": "Question Id"
-					},
-					"question_text": {
-						"type": "string",
-						"title": "Question Text"
-					},
-					"option_id": {
-						"type": "string",
-						"format": "uuid",
-						"title": "Option Id"
-					},
-					"option_text": {
-						"type": "string",
-						"title": "Option Text"
-					},
-					"question_version": {
-						"type": "integer",
-						"title": "Question Version"
-					},
-					"answered_at": {
-						"type": "string",
-						"title": "Answered At"
-					}
-				},
-				"type": "object",
-				"required": [
-					"answer_id",
-					"question_id",
-					"question_text",
-					"option_id",
-					"option_text",
-					"question_version",
-					"answered_at"
-				],
-				"title": "UserInitialAnswerHistoryResponse"
 			},
 			"ValidationError": {
 				"properties": {
