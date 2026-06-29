@@ -256,7 +256,9 @@ export const useJobMatch = () => {
 					history_id: currentJob.history_id,
 					card_index: cardIndexRef.current,
 					time_on_card_before_expand_ms:
-						cardShownAtRef.current !== null ? Date.now() - cardShownAtRef.current : null,
+						cardShownAtRef.current !== null
+							? Date.now() - cardShownAtRef.current
+							: null,
 				});
 			}
 			return next;
