@@ -42,7 +42,7 @@ export const SwipeCard = ({
 						opacity,
 						willChange: "transform, opacity",
 					}}
-					className="relative h-[62vh] min-h-[520px] w-full max-w-[720px] cursor-grab overflow-hidden rounded-(--radius-lg) border border-line bg-surface shadow-lift active:cursor-grabbing"
+					className="relative h-[62vh] min-h-[380px] w-full max-w-[720px] cursor-grab overflow-hidden rounded-(--radius-lg) border border-line bg-surface shadow-lift active:cursor-grabbing"
 					drag="x"
 					dragConstraints={{ left: 0, right: 0 }}
 					onDragEnd={onDragEnd}
