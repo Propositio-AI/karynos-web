@@ -38,10 +38,10 @@ export const WorkEnvironment = ({
 				<EnvironmentItem label="平均年齢" value={`${age}歳`} />
 				<EnvironmentItem label="平均勤続年数" value={`${tenureYears}年`} />
 				<EnvironmentItem label="平均結婚年齢" value={`${marriageAge}歳`} />
-				<EnvironmentItem label="男女比" value={`${(genderRatio * 100).toFixed(0)}%`} />
-				<EnvironmentItem label="社内恋愛率" value={`${(romanceRate * 100).toFixed(0)}%`} />
+				<EnvironmentItem label="男女比" value={`${genderRatio.toFixed(0)}%`} />
+				<EnvironmentItem label="社内恋愛率" value={`${romanceRate.toFixed(0)}%`} />
 				<EnvironmentItem label="ワークライフバランス" value={`${workLifeBalance}/10`} />
-				<EnvironmentItem label="レア度" value={`${(rarity * 100).toFixed(0)}%`} />
+				<EnvironmentItem label="レア度" value={`${rarity.toFixed(0)}%`} />
 			</div>
 		</Card>
 	);

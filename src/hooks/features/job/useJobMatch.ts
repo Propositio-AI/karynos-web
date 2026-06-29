@@ -53,6 +53,7 @@ export const useJobMatch = () => {
 	const cardIndexRef = useRef(0);
 	const lastSwipeAtRef = useRef<number | null>(null);
 	const shownJobKeysRef = useRef<Set<string>>(new Set());
+	const cardShownAtRef = useRef<number | null>(null);
 
 	const x = useMotionValue(0);
 	const rotate = useTransform(x, [-200, 200], [-20, 20]);
@@ -112,6 +113,7 @@ export const useJobMatch = () => {
 		}
 
 		shownJobKeysRef.current.add(key);
+		cardShownAtRef.current = Date.now();
 		captureAnalyticsEvent("job_card_shown", {
 			job_id: currentJob.job_id,
 			history_id: currentJob.history_id,
@@ -246,8 +248,20 @@ export const useJobMatch = () => {
 	}, [advanceCard, captureSwipe, currentJob, markAsBad]);
 
 	const toggleExpanded = useCallback(() => {
-		setExpanded((prev) => !prev);
-	}, []);
+		setExpanded((prev) => {
+			const next = !prev;
+			if (next && currentJob) {
+				captureAnalyticsEvent("job_detail_expanded", {
+					job_id: currentJob.job_id,
+					history_id: currentJob.history_id,
+					card_index: cardIndexRef.current,
+					time_on_card_before_expand_ms:
+						cardShownAtRef.current !== null ? Date.now() - cardShownAtRef.current : null,
+				});
+			}
+			return next;
+		});
+	}, [currentJob]);
 
 	const customDirection = swipeDirection === "right" ? 1 : -1;
 
