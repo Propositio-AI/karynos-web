@@ -12,7 +12,7 @@ import { JobDetailSection } from "@/components/features/job/match/JobDetailSecti
 import { SwipeResultMessage } from "@/components/features/job/match/SwipeResultMessage";
 
 const AppNameLabel = () => (
-	<p className="absolute left-10 top-4 z-40 text-3xl font-bold tracking-tight text-ink">
+	<p className="absolute left-4 top-4 z-40 text-xl font-bold tracking-tight text-ink sm:left-10 sm:text-3xl">
 		Dream Matching
 	</p>
 );
