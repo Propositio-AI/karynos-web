@@ -14,7 +14,15 @@ export const AppFrame = ({ children }: { children: React.ReactNode }) => {
 
 	return (
 		<AuthGate>
-			<div className={hideNavBar ? "min-h-screen" : "min-h-screen pb-[calc(5rem+env(safe-area-inset-bottom))]"}>{children}</div>
+			<div
+				className={
+					hideNavBar
+						? "min-h-screen"
+						: "min-h-screen pb-[calc(5rem+env(safe-area-inset-bottom))]"
+				}
+			>
+				{children}
+			</div>
 			{!hideNavBar && <NavBar />}
 		</AuthGate>
 	);
