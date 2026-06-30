@@ -47,7 +47,6 @@ const navItems: NavItem[] = [
 		type: "home",
 		label: "ホーム",
 		href: undefined,
-		dimWhenDisabled: false,
 		isActive: (pathname) => pathname === "/",
 		icon: faHouse,
 	},
