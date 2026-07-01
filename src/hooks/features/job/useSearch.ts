@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { api } from "@/lib/api/client";
 import type { JobSearchResult } from "@/lib/api/gen/schema";
 
@@ -8,7 +8,7 @@ const useSearch = () => {
 	const [error, setError] = useState<string | null>(null);
 	const [hasSearched, setHasSearched] = useState(false);
 
-	const search = async (query: string, limit: number = 20) => {
+	const search = useCallback(async (query: string, limit: number = 20) => {
 		if (!query.trim()) {
 			setResults([]);
 			setHasSearched(true);
@@ -28,13 +28,13 @@ const useSearch = () => {
 		} finally {
 			setIsLoading(false);
 		}
-	};
+	}, []);
 
-	const clearResults = () => {
+	const clearResults = useCallback(() => {
 		setResults([]);
 		setHasSearched(false);
 		setError(null);
-	};
+	}, []);
 
 	return { results, isLoading, error, hasSearched, search, clearResults };
 };
