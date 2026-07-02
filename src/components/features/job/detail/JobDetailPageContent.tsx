@@ -24,6 +24,7 @@ export default function JobDetailPageContent() {
 	const { jobData, isLoading, error } = useDetail(jobId);
 	const { startChatForJob, isCreating } = useJobChat();
 	const viewedEventKeyRef = useRef<string | null>(null);
+	const viewedAtRef = useRef<number | null>(null);
 
 	const handleBack = () => {
 		if (window.history.length > 1) {
@@ -52,11 +53,23 @@ export default function JobDetailPageContent() {
 		}
 
 		viewedEventKeyRef.current = eventKey;
+		viewedAtRef.current = Date.now();
 		captureAnalyticsEvent("job_detail_viewed", {
 			job_id: jobData.job_id,
 			history_id: historyId,
 			card_index: cardIndex,
 		});
+
+		return () => {
+			if (viewedAtRef.current === null) return;
+			captureAnalyticsEvent("job_detail_exited", {
+				job_id: jobData.job_id,
+				history_id: historyId,
+				card_index: cardIndex,
+				view_duration_ms: Date.now() - viewedAtRef.current,
+			});
+			viewedAtRef.current = null;
+		};
 	}, [jobData, searchParams]);
 
 	const handleChatClick = () => {
